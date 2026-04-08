@@ -5,17 +5,34 @@ import Link from "next/link"
 import { ArrowRight, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { OpportunityCard } from "@/components/opportunities/opportunity-card"
-import { opportunities } from "@/lib/data"
+import {
+  OpportunityCard,
+  type Opportunity,
+} from "@/components/opportunities/opportunity-card"
 
-const filterOptions = ["All", "Scholarships", "Fellowships", "Jobs", "Internships", "Grants"]
+const filterOptions = [
+  "All",
+  "Scholarships",
+  "Fellowships",
+  "Jobs",
+  "Internships",
+  "Grants",
+]
 
-export function LatestOpportunities() {
+export function LatestOpportunities({
+  opportunities,
+}: {
+  opportunities: Opportunity[]
+}) {
   const [activeFilter, setActiveFilter] = useState("All")
 
-  const filteredOpportunities = activeFilter === "All" 
-    ? opportunities 
-    : opportunities.filter(opp => opp.type === activeFilter.slice(0, -1) || opp.type === activeFilter)
+  const filteredOpportunities =
+    activeFilter === "All"
+      ? opportunities
+      : opportunities.filter(
+          (opp) =>
+            opp.type === activeFilter.slice(0, -1) || opp.type === activeFilter,
+        )
 
   return (
     <section className="py-12 md:py-16 bg-background">

@@ -9,18 +9,20 @@ import { CalendarSection } from "@/components/home/calendar-section"
 import { ResourcesSection } from "@/components/home/resources-section"
 import { BlogSection } from "@/components/home/blog-section"
 import { NewsletterSection } from "@/components/home/newsletter-section"
+import { getOpportunities } from "@/lib/opportunities"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const opportunities = await getOpportunities()
   return (
     <div className="min-h-screen flex flex-col">
       <TopBar />
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <LatestOpportunities />
-        <FeaturedOpportunities />
+        <LatestOpportunities opportunities={opportunities} />
+        <FeaturedOpportunities opportunities={opportunities} />
         <CategoriesSection />
-        <CalendarSection />
+        <CalendarSection opportunities={opportunities} />
         <ResourcesSection />
         <BlogSection />
         <NewsletterSection />

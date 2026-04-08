@@ -19,6 +19,8 @@ export interface Opportunity {
   description: string
   isFeatured?: boolean
   image?: string
+  /** ISO date — used for “newest first” when reading from JSON or DB */
+  publishedAt?: string
 }
 
 interface OpportunityCardProps {
@@ -41,17 +43,21 @@ const typeColors: Record<string, string> = {
   "Conference": "bg-orange-100 text-orange-800 hover:bg-orange-100",
 }
 
-// Generate a placeholder image URL based on opportunity type
+// Stable placeholder per type (Picsum); avoids broken Unsplash hotlinks
 function getOpportunityImage(opportunity: Opportunity): string {
-  const images: Record<string, string> = {
-    "Scholarship": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=400&fit=crop",
-    "Fellowship": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop",
-    "Job": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-    "Internship": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=400&fit=crop",
-    "Grant": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=400&fit=crop",
-    "Conference": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=400&fit=crop",
+  const seeds: Record<string, string> = {
+    Scholarship: "herkadam-scholarship",
+    Fellowship: "herkadam-fellowship",
+    Job: "herkadam-job",
+    Internship: "herkadam-internship",
+    Grant: "herkadam-grant",
+    Conference: "herkadam-conference",
   }
-  return opportunity.image || images[opportunity.type] || images["Scholarship"]
+  const seed = seeds[opportunity.type] ?? "herkadam-default"
+  return (
+    opportunity.image ||
+    `https://picsum.photos/seed/${encodeURIComponent(seed)}/400/400`
+  )
 }
 
 export function OpportunityCard({ opportunity, variant = "default" }: OpportunityCardProps) {

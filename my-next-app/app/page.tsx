@@ -1,1 +1,3 @@
-export { default } from "./page-v1"
+export { default } from "./Homepage"
+
+export const revalidate = 120

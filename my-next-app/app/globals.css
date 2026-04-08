@@ -143,6 +143,34 @@
   }
 }
 
+/* Hero cursor footsteps (logo-shaped, white) */
+@keyframes hero-footstep-life {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(0.8);
+  }
+  14% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(0.96);
+  }
+}
+
+.hero-footstep {
+  animation: hero-footstep-life 2.75s cubic-bezier(0.22, 0.82, 0.28, 1) forwards;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-footstep {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

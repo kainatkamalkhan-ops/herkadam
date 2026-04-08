@@ -21,7 +21,9 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { OpportunityCard } from "@/components/opportunities/opportunity-card"
-import { opportunities } from "@/lib/data"
+import { getOpportunities, getOpportunityById } from "@/lib/opportunities"
+
+export const revalidate = 120
 
 interface OpportunityDetailPageProps {
   params: Promise<{ id: string }>
@@ -29,7 +31,7 @@ interface OpportunityDetailPageProps {
 
 export default async function OpportunityDetailPage({ params }: OpportunityDetailPageProps) {
   const { id } = await params
-  const opportunity = opportunities.find((opp) => opp.id === id)
+  const opportunity = await getOpportunityById(id)
 
   if (!opportunity) {
     notFound()
@@ -40,7 +42,8 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
   )
   const isUrgent = daysUntilDeadline <= 7 && daysUntilDeadline > 0
 
-  const relatedOpportunities = opportunities
+  const all = await getOpportunities()
+  const relatedOpportunities = all
     .filter((opp) => opp.id !== id && (opp.type === opportunity.type || opp.region === opportunity.region))
     .slice(0, 3)
 

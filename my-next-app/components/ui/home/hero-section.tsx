@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,19 +11,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { HeroFootstepsTrail } from "@/components/ui/home/hero-footsteps-trail"
 
 export function HeroSection() {
+  const heroRef = useRef<HTMLElement>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedType, setSelectedType] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("")
 
   return (
-    <section className="relative overflow-hidden">
+    <section ref={heroRef} className="relative overflow-hidden">
       {/* Gradient Background with Arch Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-plum-light to-rose opacity-95" />
-      
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary via-plum-light to-rose opacity-95" />
+
+      <HeroFootstepsTrail containerRef={heroRef} />
+
       {/* Decorative Arch Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
         <div className="absolute -top-20 -right-20 w-80 h-80 border-[3px] border-primary-foreground/10 rounded-full" />
         <div className="absolute top-1/2 -left-32 w-64 h-64 border-[3px] border-primary-foreground/10 rounded-full" />
         <div className="absolute -bottom-10 right-1/4 w-48 h-48 border-[3px] border-primary-foreground/10 rounded-full" />
@@ -32,7 +36,7 @@ export function HeroSection() {
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] border-t-[3px] border-l-[3px] border-r-[3px] border-primary-foreground/15 rounded-t-full hidden lg:block" />
       </div>
 
-      <div className="relative container mx-auto px-4 py-20 md:py-28 lg:py-36">
+      <div className="relative z-10 container mx-auto px-4 py-20 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground mb-6 leading-tight text-balance">

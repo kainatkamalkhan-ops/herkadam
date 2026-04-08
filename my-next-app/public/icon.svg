@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Her Kadam">
+  <!-- White bg; plum mark matches site primary (hex, not OKLCH) -->
+  <rect width="48" height="48" rx="11" fill="#ffffff"/>
+  <g opacity="0.55" fill="#6e3a6c">
+    <path
+      d="M9 34.5c0-3.2 2.4-5.8 5.5-6.2 1.4-.2 2.8.1 4 .8 1.9 1.1 3 3.2 2.8 5.4-.2 2.5-2.2 4.5-4.7 4.7h-.6c-3.5 0-6.3-2.5-7-5.7z"
+    />
+    <circle cx="16.5" cy="27" r="2.1" />
+    <circle cx="19.8" cy="25.2" r="1.65" />
+    <circle cx="23.2" cy="24.2" r="1.45" />
+  </g>
+  <g fill="#6e3a6c">
+    <path
+      d="M22.5 22.2c.6-3.1 3.5-5.1 6.6-4.5 1.4.3 2.6 1.1 3.4 2.3 1.3 2 1.1 4.6-.6 6.3-1.5 1.5-3.8 2-5.9 1.2l-.5-.2c-3.2-1.2-4.8-4.5-3-7.1z"
+    />
+    <circle cx="30.5" cy="16.2" r="2.35" />
+    <circle cx="34.4" cy="15" r="1.85" />
+    <circle cx="38" cy="15.2" r="1.55" />
+  </g>
+  <path
+    d="M10 40c6-10 16-18 28-22"
+    fill="none"
+    stroke="#6e3a6c"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    opacity="0.35"
+  />
+</svg>

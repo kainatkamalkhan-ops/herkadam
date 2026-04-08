@@ -22,37 +22,34 @@ const brandDisplay = Cormorant_Garamond({
   display: 'swap',
 })
 
+const siteUrl = "https://www.herkadam.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Her Kadam",
   description: 'Your central hub for discovering global opportunities including scholarships, fellowships, jobs, grants, and leadership programs for women worldwide.',
   keywords: ['scholarships', 'fellowships', 'women opportunities', 'grants', 'leadership programs', 'global opportunities'],
   authors: [{ name: "Her Kadam" }],
-  openGraph: {
-    title: "Her Kadam",
-    description: 'Discover global opportunities for women - scholarships, fellowships, jobs, grants, and leadership programs.',
-    type: 'website',
-  },
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: "/favicon.ico?v=6",
+        sizes: "any",
+        type: "image/x-icon",
       },
     ],
-    apple: '/apple-icon.png',
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
+  openGraph: {
+    title: "Her Kadam",
+    description: 'Discover global opportunities for women - scholarships, fellowships, jobs, grants, and leadership programs.',
+    type: "website",
+    url: siteUrl,
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#6b3a5e',
+  themeColor: '#6e3a6c',
   width: 'device-width',
   initialScale: 1,
 }

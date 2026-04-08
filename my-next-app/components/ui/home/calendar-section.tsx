@@ -5,8 +5,10 @@ import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-reac
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { OpportunityCard } from "@/components/opportunities/opportunity-card"
-import { opportunities } from "@/lib/data"
+import {
+  OpportunityCard,
+  type Opportunity,
+} from "@/components/opportunities/opportunity-card"
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 const MONTHS = [
@@ -14,7 +16,11 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December"
 ]
 
-export function CalendarSection() {
+export function CalendarSection({
+  opportunities,
+}: {
+  opportunities: Opportunity[]
+}) {
   const today = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
@@ -27,8 +33,7 @@ export function CalendarSection() {
   const firstDayWeekday = firstDayOfMonth.getDay()
   const daysInMonth = lastDayOfMonth.getDate()
 
-  // Get deadlines for this month
-  const deadlinesThisMonth = opportunities.filter(opp => {
+  const deadlinesThisMonth = opportunities.filter((opp) => {
     const deadline = new Date(opp.deadline)
     return deadline.getMonth() === month && deadline.getFullYear() === year
   })

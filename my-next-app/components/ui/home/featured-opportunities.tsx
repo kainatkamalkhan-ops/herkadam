@@ -4,11 +4,19 @@ import Link from "next/link"
 import { Star, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { OpportunityCard } from "@/components/opportunities/opportunity-card"
-import { opportunities } from "@/lib/data"
+import {
+  OpportunityCard,
+  type Opportunity,
+} from "@/components/opportunities/opportunity-card"
 
-export function FeaturedOpportunities() {
-  const featured = opportunities.filter(opp => opp.isFeatured).slice(0, 3)
+export function FeaturedOpportunities({
+  opportunities,
+}: {
+  opportunities: Opportunity[]
+}) {
+  const featured = opportunities.filter((opp) => opp.isFeatured).slice(0, 3)
+  const displayFeatured =
+    featured.length > 0 ? featured : opportunities.slice(0, 3)
 
   return (
     <section className="py-16 md:py-24 bg-secondary/30">
@@ -31,7 +39,7 @@ export function FeaturedOpportunities() {
 
         {/* Featured Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {featured.map((opportunity) => (
+          {displayFeatured.map((opportunity) => (
             <OpportunityCard 
               key={opportunity.id} 
               opportunity={opportunity} 
