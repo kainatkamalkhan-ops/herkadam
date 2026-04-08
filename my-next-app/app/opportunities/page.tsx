@@ -135,11 +135,11 @@ export default function OpportunitiesPage() {
               <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-border">
                 <Filter className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Active filters:</span>
-                {activeFilters.map((filter) => (
-                  <Badge key={filter} variant="secondary" className="gap-1">
-                    {filter}
-                  </Badge>
-                ))}
+                {activeFilters.filter(Boolean).map((filter) => (
+  <Badge key={filter} variant="secondary" className="gap-1">
+    {filter}
+  </Badge>
+))}
                 <Button variant="ghost" size="sm" onClick={clearFilters} className="text-destructive hover:text-destructive">
                   <X className="h-4 w-4 mr-1" />
                   Clear all
