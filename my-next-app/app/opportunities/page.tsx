@@ -136,7 +136,7 @@ export default function OpportunitiesPage() {
                 <Filter className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Active filters:</span>
                 {activeFilters.filter(Boolean).map((filter) => (
-  <Badge key={filter} variant="secondary" className="gap-1">
+  <Badge key={String(filter)} variant="secondary" className="gap-1">
     {filter}
   </Badge>
 ))}
