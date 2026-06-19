@@ -49,13 +49,12 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-white">
+    <header className="nav-strip sticky top-0 z-50 border-b border-border bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20 py-0.5">
-          {/* Logo icon + wordmark — separated */}
+        <div className="flex h-16 items-center justify-between md:h-20">
           <Link
             href="/"
-            className="-my-0.5 inline-flex items-center"
+            className="nav-brand-link inline-flex items-center"
             aria-label="Her Kadam — home"
           >
             <HerKadamNavBrand />

@@ -187,6 +187,46 @@
   object-fit: contain;
 }
 
+/* White nav strip — brand lockup at 3/4 strip height */
+.nav-strip {
+  --nav-strip-h: 4rem;
+}
+
+@media (min-width: 768px) {
+  .nav-strip {
+    --nav-strip-h: 5rem;
+  }
+}
+
+.nav-brand-link {
+  display: inline-flex;
+  align-items: center;
+  height: calc(var(--nav-strip-h) * 0.75);
+  max-height: calc(var(--nav-strip-h) * 0.75);
+}
+
+.nav-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  max-height: 100%;
+}
+
+.nav-brand-item {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-height: 100%;
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+.hero-hidden-icon {
+  will-change: opacity;
+  pointer-events: none;
+}
+
 .hero-trail-icon {
   pointer-events: none;
   will-change: transform, opacity, width, height;

@@ -31,34 +31,19 @@ type HerKadamLogoProps = {
   variant?: "default" | "nav" | "nav-icon" | "hero-circle" | "on-dark"
 }
 
+/** 3/4 of white strip height — icon, HER, KADAM share one height */
+const NAV_BRAND_ITEM = "nav-brand-img nav-brand-item"
+
 /** White strip lockup: [icon] [HER] [KADAM] — plain img, no backgrounds */
 export function HerKadamNavBrand({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5 md:gap-3", className)}>
+    <span className={cn("nav-brand-lockup inline-flex items-center gap-2.5 md:gap-3.5", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={NAV_LOGO_ICON}
-        alt=""
-        className="nav-brand-img h-10 w-auto shrink-0 md:h-11"
-        draggable={false}
-        aria-hidden
-      />
+      <img src={NAV_LOGO_ICON} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={NAV_HER}
-        alt=""
-        className="nav-brand-img h-[1.35rem] w-auto shrink-0 md:h-[1.5rem]"
-        draggable={false}
-        aria-hidden
-      />
+      <img src={NAV_HER} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={NAV_KADAM}
-        alt=""
-        className="nav-brand-img h-[1.35rem] w-auto shrink-0 md:h-[1.5rem]"
-        draggable={false}
-        aria-hidden
-      />
+      <img src={NAV_KADAM} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
     </span>
   )
 }
@@ -103,7 +88,7 @@ export function HerKadamLogo({
       <img
         src={NAV_LOGO_ICON}
         alt=""
-        className={cn("nav-brand-img h-10 w-auto shrink-0 md:h-11", className)}
+        className={cn("nav-brand-img nav-brand-item", className)}
         draggable={false}
         aria-hidden
       />

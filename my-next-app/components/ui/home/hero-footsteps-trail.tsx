@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState, type RefObject } from "react"
+import { nudgePointFromClearZones } from "@/lib/hero-hidden-icons-layout"
 
 /** Icons in sequence: 1 → 2 → 3 → repeat */
 const TRAIL_ICONS = [
@@ -85,12 +86,18 @@ export function HeroFootstepsTrail({ containerRef, trailPointsRef }: HeroFootste
       lastSampleRef.current = now
 
       const tier = (tierSeq.current++ % 3) as 0 | 1 | 2
-      const { x, y } = cursorRef.current
+      const rect = header.getBoundingClientRect()
+      const nudged = nudgePointFromClearZones(
+        cursorRef.current.x,
+        cursorRef.current.y,
+        rect.width,
+        rect.height,
+      )
 
       setPoints((prev) => {
         const next: TrailPoint[] = [
           ...prev,
-          { id: ++idSeq.current, x, y, tier },
+          { id: ++idSeq.current, x: nudged.x, y: nudged.y, tier },
         ]
 
         const capped = next.slice(-MAX_TRAIL).filter((_, i, arr) => trailProgress(i, arr.length) >= MIN_OPACITY)
