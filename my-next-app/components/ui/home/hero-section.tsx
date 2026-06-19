@@ -43,7 +43,7 @@ export function HeroSection() {
             <div className="flex justify-center">
               <HerKadamLogo size="hero" priority variant="hero-circle" />
             </div>
-            <h1 className="relative z-10 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground mt-6 md:mt-8 leading-tight text-balance max-w-2xl">
+            <h1 className="relative z-10 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground mt-10 md:mt-12 lg:mt-14 leading-tight text-balance max-w-2xl">
               Every Step Builds Her Power
             </h1>
           </div>

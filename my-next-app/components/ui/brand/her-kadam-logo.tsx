@@ -2,9 +2,9 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const LOGO_WHITE = "/her-kadam-logo.png"
-const LOGO_NAV_ICON = "/her-kadam-logo-nav.png"
-const NAV_WORDMARK_HER = "/brand/nav-wordmark-her-kadam.png"
-const NAV_KADAM_ORNAMENT = "/brand/nav-kadam-ornament.png"
+const NAV_LOGO_ICON = "/brand/nav-logo-icon.png"
+const NAV_HER = "/brand/nav-her.png"
+const NAV_KADAM = "/brand/nav-kadam.png"
 
 type LogoSize = "xs" | "sm" | "md" | "nav" | "nav-icon" | "lg" | "xl" | "hero"
 
@@ -31,6 +31,39 @@ type HerKadamLogoProps = {
   variant?: "default" | "nav" | "nav-icon" | "hero-circle" | "on-dark"
 }
 
+/** White strip lockup: [icon] [HER] [KADAM] — plain img, no backgrounds */
+export function HerKadamNavBrand({ className }: { className?: string }) {
+  return (
+    <span className={cn("inline-flex items-center gap-2.5 md:gap-3", className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={NAV_LOGO_ICON}
+        alt=""
+        className="nav-brand-img h-10 w-auto shrink-0 md:h-11"
+        draggable={false}
+        aria-hidden
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={NAV_HER}
+        alt=""
+        className="nav-brand-img h-[1.35rem] w-auto shrink-0 md:h-[1.5rem]"
+        draggable={false}
+        aria-hidden
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={NAV_KADAM}
+        alt=""
+        className="nav-brand-img h-[1.35rem] w-auto shrink-0 md:h-[1.5rem]"
+        draggable={false}
+        aria-hidden
+      />
+    </span>
+  )
+}
+
+/** @deprecated Use HerKadamNavBrand for the white header strip */
 export function HerKadamWordmark({
   className,
   size = "md",
@@ -38,43 +71,19 @@ export function HerKadamWordmark({
   className?: string
   size?: "sm" | "md" | "lg"
 }) {
-  const herClip =
+  const textHeight =
     size === "sm"
-      ? "h-[1.3rem] md:h-[1.45rem] w-[2.4rem] md:w-[2.65rem]"
+      ? "h-[1.35rem] md:h-[1.5rem]"
       : size === "lg"
-        ? "h-[1.85rem] md:h-[2rem] w-[3.4rem] md:w-[3.75rem]"
-        : "h-[1.5rem] md:h-[1.65rem] w-[2.75rem] md:w-[3rem]"
-
-  const kadamHeight =
-    size === "sm"
-      ? "h-[1.15rem] md:h-[1.25rem]"
-      : size === "lg"
-        ? "h-[1.6rem] md:h-[1.75rem]"
-        : "h-[1.25rem] md:h-[1.35rem]"
+        ? "h-[1.75rem] md:h-[2rem]"
+        : "h-[1.45rem] md:h-[1.65rem]"
 
   return (
-    <span className={cn("inline-flex flex-col items-start gap-0.5 leading-none", className)}>
-      {/* "her" — serif mark from brand asset (top crop) */}
-      <span className={cn("relative shrink-0 overflow-hidden", herClip)}>
-        <Image
-          src={NAV_WORDMARK_HER}
-          alt=""
-          width={160}
-          height={72}
-          priority
-          className="absolute left-0 top-0 h-[4.25rem] w-auto max-w-none select-none"
-          aria-hidden
-        />
-      </span>
-      {/* "KADAM" + ornament from brand asset */}
-      <Image
-        src={NAV_KADAM_ORNAMENT}
-        alt="Kadam"
-        width={132}
-        height={44}
-        priority
-        className={cn("w-auto object-contain object-left", kadamHeight)}
-      />
+    <span className={cn("inline-flex items-center gap-2 md:gap-2.5", className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={NAV_HER} alt="" className={cn("nav-brand-img w-auto shrink-0", textHeight)} draggable={false} aria-hidden />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={NAV_KADAM} alt="" className={cn("nav-brand-img w-auto shrink-0", textHeight)} draggable={false} aria-hidden />
     </span>
   )
 }
@@ -90,17 +99,14 @@ export function HerKadamLogo({
 
   if (variant === "nav-icon") {
     return (
-      <span className={cn("inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full", sizeClass, className)}>
-        <Image
-          src={LOGO_NAV_ICON}
-          alt=""
-          width={px}
-          height={px}
-          priority={priority}
-          className="h-full w-full object-cover object-center scale-[1.12]"
-          aria-hidden
-        />
-      </span>
+      /* eslint-disable-next-line @next/next/no-img-element */
+      <img
+        src={NAV_LOGO_ICON}
+        alt=""
+        className={cn("nav-brand-img h-10 w-auto shrink-0 md:h-11", className)}
+        draggable={false}
+        aria-hidden
+      />
     )
   }
 

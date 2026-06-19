@@ -178,6 +178,15 @@
   pointer-events: none;
 }
 
+.nav-brand-img {
+  display: block;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  object-fit: contain;
+}
+
 .hero-trail-icon {
   pointer-events: none;
   will-change: transform, opacity, width, height;

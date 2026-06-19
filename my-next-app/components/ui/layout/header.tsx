@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { HerKadamLogo, HerKadamWordmark } from "@/components/ui/brand/her-kadam-logo"
+import { HerKadamNavBrand } from "@/components/ui/brand/her-kadam-logo"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -55,11 +55,10 @@ export function Header() {
           {/* Logo icon + wordmark — separated */}
           <Link
             href="/"
-            className="-my-0.5 inline-flex items-center gap-2.5 md:gap-3"
+            className="-my-0.5 inline-flex items-center"
             aria-label="Her Kadam — home"
           >
-            <HerKadamLogo size="nav-icon" priority variant="nav-icon" />
-            <HerKadamWordmark size="sm" />
+            <HerKadamNavBrand />
           </Link>
 
           {/* Desktop Navigation */}
