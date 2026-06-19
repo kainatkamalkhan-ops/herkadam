@@ -178,6 +178,11 @@
   pointer-events: none;
 }
 
+.hero-trail-step {
+  pointer-events: none;
+  will-change: transform, opacity, width, height;
+}
+
 .hero-hidden-word {
   text-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
 }

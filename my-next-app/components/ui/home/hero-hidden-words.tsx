@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { buildHeroWordCloudLayout, type WordCloudItem } from "@/lib/hero-word-cloud-layout"
 
 const REVEAL_RADIUS = 72
+const REVEAL_MS = 3200
 const TICK_MS = 40
 const FAINT_OPACITY = 0.07
 
@@ -29,7 +30,7 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
   const layoutRef = useRef<WordCloudItem[]>(layout)
   const sizeRef = useRef({ w: 0, h: 0 })
   const cursorRef = useRef<{ x: number; y: number } | null>(null)
-  const darkenedRef = useRef<Set<string>>(new Set())
+  const revealedUntilRef = useRef<Map<string, number>>(new Map())
   const rafRef = useRef(0)
   const lastTickRef = useRef(0)
   const wordElsRef = useRef<Map<string, HTMLSpanElement>>(new Map())
@@ -73,7 +74,12 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
     const applyVisuals = () => {
       const { w, h } = sizeRef.current
       const cursor = cursorRef.current
-      const darkened = darkenedRef.current
+      const revealed = revealedUntilRef.current
+      const now = Date.now()
+
+      for (const [id, until] of revealed) {
+        if (until <= now) revealed.delete(id)
+      }
 
       if (cursor && w && h) {
         let nearest: WordCloudItem | null = null
@@ -90,14 +96,14 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
         }
 
         if (nearest) {
-          darkened.add(nearest.id)
+          revealed.set(nearest.id, now + REVEAL_MS)
         }
       }
 
       for (const word of layoutRef.current) {
         const node = wordElsRef.current.get(word.id)
         if (!node) continue
-        const isDark = darkened.has(word.id)
+        const isDark = revealed.has(word.id)
         node.style.opacity = isDark ? "0.92" : String(FAINT_OPACITY)
         node.classList.toggle("hero-word-darkened", isDark)
       }
