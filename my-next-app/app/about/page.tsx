@@ -15,7 +15,7 @@ import {
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { HerKadamLogoMark, HerKadamWordmark } from "@/components/ui/brand/her-kadam-logo"
+import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -172,10 +172,9 @@ export default function AboutPage() {
                 />
               </div>
               {/* Front tile — brand, larger mark, overlapping */}
-              <div className="absolute bottom-4 right-0 z-20 w-[68%] max-w-[280px] origin-center rotate-[9deg] rounded-2xl bg-gradient-to-br from-primary/25 via-card to-accent/20 p-6 shadow-[0_24px_60px_-14px_rgba(0,0,0,0.3)] ring-2 ring-border/80 backdrop-blur-[2px] sm:bottom-8 sm:max-w-[300px] lg:bottom-10 lg:max-w-[320px]">
-                <div className="flex flex-col items-center gap-3 text-center">
-                  <HerKadamLogoMark size={200} className="text-primary drop-shadow-sm" />
-                  <HerKadamWordmark size="lg" className="scale-105" />
+              <div className="absolute bottom-4 right-0 z-20 w-[68%] max-w-[280px] origin-center rotate-[9deg] rounded-2xl bg-white p-4 shadow-[0_24px_60px_-14px_rgba(0,0,0,0.3)] ring-2 ring-border/80 sm:bottom-8 sm:max-w-[300px] lg:bottom-10 lg:max-w-[320px]">
+                <div className="flex items-center justify-center">
+                  <HerKadamLogo size="lg" />
                 </div>
               </div>
             </div>
