@@ -143,32 +143,166 @@
   }
 }
 
-/* Hero cursor footsteps (logo-shaped, white) */
-@keyframes hero-footstep-life {
+.hero-hidden-word,
+.hero-word-cloud-word {
+  will-change: opacity, transform, filter;
+  letter-spacing: 0.01em;
+}
+
+.hero-word-cloud-word {
+  letter-spacing: 0.01em;
+  will-change: opacity;
+  transition: opacity 0.7s ease-out, color 0.7s ease-out, font-weight 0.4s ease-out;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.hero-word-cloud-word.hero-word-darkened {
+  font-weight: 600;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.35);
+}
+
+.hero-word-darkened-tone-0.hero-word-darkened {
+  color: rgb(255 255 255 / 0.96);
+}
+
+.hero-word-darkened-tone-1.hero-word-darkened {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.hero-word-darkened-tone-2.hero-word-darkened {
+  color: color-mix(in oklch, var(--primary-foreground) 88%, white);
+}
+
+.hero-trail-follower {
+  transition: opacity 0.35s ease-out;
+  pointer-events: none;
+}
+
+.hero-hidden-word {
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+}
+.hero-cursor-footprint {
+  transition: opacity 0.75s ease-out;
+  pointer-events: none;
+}
+
+@keyframes hero-trail-step {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(0.8);
+    transform: translate(-50%, -50%) rotate(var(--trail-rotate, 0deg)) scale(0.78);
   }
   14% {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(1);
+    opacity: 0.92;
+    transform: translate(-50%, -50%) rotate(var(--trail-rotate, 0deg)) scale(1);
+  }
+  55% {
+    opacity: 0.75;
+    transform: translate(-50%, calc(-50% - 6px)) rotate(var(--trail-rotate, 0deg)) scale(0.98);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(var(--foot-rotate, 0deg)) scale(0.96);
+    transform: translate(-50%, calc(-50% - 12px)) rotate(var(--trail-rotate, 0deg)) scale(0.94);
   }
 }
 
-.hero-footstep {
-  animation: hero-footstep-life 2.75s cubic-bezier(0.22, 0.82, 0.28, 1) forwards;
+.hero-trail-step {
+  animation: hero-trail-step 2.6s cubic-bezier(0.22, 0.82, 0.28, 1) forwards;
   will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-footstep {
+  .hero-trail-step {
     animation: none;
     opacity: 0;
   }
+}
+
+/* Hero centre logo — white core fading into hero plum/rose gradient */
+.hero-logo-feather {
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.hero-logo-feather__white,
+.hero-logo-feather__purple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-logo-feather__white {
+  inset: -8%;
+  background: radial-gradient(
+    circle at 50% 46%,
+    #ffffff 0%,
+    #ffffff 24%,
+    rgb(255 255 255 / 0.95) 34%,
+    rgb(255 255 255 / 0.68) 46%,
+    rgb(255 255 255 / 0.28) 58%,
+    rgb(255 255 255 / 0.06) 68%,
+    transparent 78%
+  );
+}
+
+.hero-logo-feather__purple {
+  inset: -18%;
+  background: radial-gradient(
+    circle at 52% 44%,
+    transparent 0%,
+    transparent 40%,
+    color-mix(in oklch, var(--plum-light) 28%, transparent) 54%,
+    color-mix(in oklch, var(--primary) 42%, transparent) 66%,
+    color-mix(in oklch, var(--rose) 32%, transparent) 78%,
+    transparent 94%
+  );
+}
+
+.hero-logo-feather__image-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  aspect-ratio: 1;
+  width: 86%;
+  height: 86%;
+  overflow: hidden;
+  border-radius: 50%;
+  -webkit-mask-image: radial-gradient(circle, #000 54%, rgb(0 0 0 / 0.5) 68%, transparent 84%);
+  mask-image: radial-gradient(circle, #000 54%, rgb(0 0 0 / 0.5) 68%, transparent 84%);
+}
+
+/* Subtle running-bond brick grid over hero (opacity controlled inline) */
+.hero-brick-overlay {
+  background-color: transparent;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(15, 8, 20, 0.22) 0%,
+      rgba(15, 8, 20, 0.22) 2px,
+      transparent 2px,
+      transparent 48px
+    ),
+    linear-gradient(
+      0deg,
+      rgba(15, 8, 20, 0.18) 0%,
+      rgba(15, 8, 20, 0.18) 2px,
+      transparent 2px,
+      transparent 22px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(15, 8, 20, 0.16) 0%,
+      rgba(15, 8, 20, 0.16) 2px,
+      transparent 2px,
+      transparent 48px
+    );
+  background-size:
+    48px 22px,
+    48px 22px,
+    48px 22px;
+  background-position:
+    0 0,
+    0 0,
+    24px 11px;
 }
 
 /* Custom scrollbar */

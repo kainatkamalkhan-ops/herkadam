@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { HerKadamLogoMark, HerKadamWordmark } from "@/components/ui/brand/her-kadam-logo"
+import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import {
   FacebookIcon,
   InstagramIcon,
@@ -56,9 +56,8 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4" aria-label="Her Kadam — home">
-              <HerKadamLogoMark variant="on-dark" size={40} className="w-10 h-10" />
-              <HerKadamWordmark size="sm" variant="on-dark" />
+            <Link href="/" className="inline-flex mb-4" aria-label="Her Kadam — home">
+              <HerKadamLogo size="sm" variant="on-dark" />
             </Link>
             <p className="text-sm opacity-80 mb-6 max-w-xs">
               Every opportunity empowers her. Connecting women with life-changing opportunities in education, career, and leadership.
@@ -140,7 +139,7 @@ export function Footer() {
               &copy; {new Date().getFullYear()} Her Kadam. All rights reserved.
             </p>
             <p className="text-sm opacity-70">
-              Every step forward empowers her journey.
+              Every step forward empowers a young woman&apos;s journey.
             </p>
           </div>
         </div>

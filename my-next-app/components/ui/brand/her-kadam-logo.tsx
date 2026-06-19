@@ -1,85 +1,110 @@
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-type LogoProps = {
+const LOGO_WHITE = "/her-kadam-logo.png"
+
+type LogoSize = "xs" | "sm" | "md" | "nav" | "lg" | "xl" | "hero"
+
+const sizeMap: Record<LogoSize, { px: number; className: string }> = {
+  xs: { px: 40, className: "h-9 w-9" },
+  sm: { px: 52, className: "h-11 w-11" },
+  md: { px: 72, className: "h-14 w-14 md:h-[4.5rem] md:w-[4.5rem]" },
+  nav: { px: 128, className: "h-[3.875rem] w-[3.875rem] md:h-[4.875rem] md:w-[4.875rem]" },
+  lg: { px: 180, className: "h-36 w-36 sm:h-40 sm:w-40" },
+  xl: { px: 240, className: "h-44 w-44 sm:h-52 sm:w-52" },
+  hero: { px: 280, className: "h-[min(16rem,42vw)] w-[min(16rem,42vw)] sm:h-56 sm:w-56 lg:h-64 lg:w-64" },
+}
+
+type HerKadamLogoProps = {
   className?: string
-  size?: number
-  /** Light strokes on dark backgrounds (e.g. primary footer) */
-  variant?: "default" | "on-dark"
+  size?: LogoSize
+  priority?: boolean
+  /**
+   * nav — white-bg circular PNG, blends into white header strip
+   * hero-circle — white-bg PNG, tight circular crop on hero
+   * on-dark — footer plate
+   */
+  variant?: "default" | "nav" | "hero-circle" | "on-dark"
 }
 
-/**
- * Mark: two footsteps climbing forward — “her kadam” (her steps).
- * Uses currentColor for header (primary) and footer (on-dark).
- */
-export function HerKadamLogoMark({ className, size = 44, variant = "default" }: LogoProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 48 48"
-      className={cn(
-        "shrink-0 text-primary",
-        variant === "on-dark" && "text-primary-foreground",
-        className
-      )}
-      aria-hidden
-    >
-      {/* Rear foot — lower left, softer */}
-      <g opacity={0.55}>
-        <path
-          fill="currentColor"
-          d="M9 34.5c0-3.2 2.4-5.8 5.5-6.2 1.4-.2 2.8.1 4 .8 1.9 1.1 3 3.2 2.8 5.4-.2 2.5-2.2 4.5-4.7 4.7h-.6c-3.5 0-6.3-2.5-7-5.7z"
+export function HerKadamLogo({
+  className,
+  size = "md",
+  priority = false,
+  variant = "default",
+}: HerKadamLogoProps) {
+  const { px, className: sizeClass } = sizeMap[size]
+
+  if (variant === "nav") {
+    return (
+      <span className={cn("inline-flex shrink-0 items-center", className)}>
+        <Image
+          src={LOGO_WHITE}
+          alt="Her Kadam"
+          width={px}
+          height={px}
+          priority={priority}
+          className={cn("object-contain", sizeClass)}
         />
-        <circle cx="16.5" cy="27" r="2.1" fill="currentColor" />
-        <circle cx="19.8" cy="25.2" r="1.65" fill="currentColor" />
-        <circle cx="23.2" cy="24.2" r="1.45" fill="currentColor" />
-      </g>
-      {/* Front foot — upper right, leading step */}
-      <g>
-        <path
-          fill="currentColor"
-          d="M22.5 22.2c.6-3.1 3.5-5.1 6.6-4.5 1.4.3 2.6 1.1 3.4 2.3 1.3 2 1.1 4.6-.6 6.3-1.5 1.5-3.8 2-5.9 1.2l-.5-.2c-3.2-1.2-4.8-4.5-3-7.1z"
-        />
-        <circle cx="30.5" cy="16.2" r="2.35" fill="currentColor" />
-        <circle cx="34.4" cy="15" r="1.85" fill="currentColor" />
-        <circle cx="38" cy="15.2" r="1.55" fill="currentColor" />
-      </g>
-      {/* Subtle arc: path upward */}
-      <path
-        d="M10 40c6-10 16-18 28-22"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        opacity={0.28}
-      />
-    </svg>
-  )
-}
+      </span>
+    )
+  }
 
-type WordmarkProps = {
-  className?: string
-  size?: "sm" | "md" | "lg"
-  variant?: "default" | "on-dark"
-}
-
-export function HerKadamWordmark({ className, size = "md", variant = "default" }: WordmarkProps) {
-  const sizeClass =
-    size === "sm" ? "text-lg md:text-xl" : size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
+  if (variant === "hero-circle") {
+    return (
+      <span
+        className={cn(
+          "hero-logo-feather relative inline-flex shrink-0 items-center justify-center",
+          sizeClass,
+          className
+        )}
+      >
+        <span className="hero-logo-feather__white" aria-hidden />
+        <span className="hero-logo-feather__purple" aria-hidden />
+        <span className="hero-logo-feather__image-wrap">
+          <Image
+            src={LOGO_WHITE}
+            alt="Her Kadam"
+            width={px}
+            height={px}
+            priority={priority}
+            className="h-full w-full scale-[1.18] object-cover object-center"
+          />
+        </span>
+      </span>
+    )
+  }
 
   if (variant === "on-dark") {
     return (
-      <span className={cn("font-brand leading-none tracking-tight", sizeClass, className)}>
-        <span className="font-semibold text-black">Her</span>
-        <span className="font-semibold text-white"> Kadam</span>
+      <span
+        className={cn(
+          "inline-flex shrink-0 overflow-hidden rounded-full bg-white p-0 shadow-sm",
+          sizeClass,
+          className
+        )}
+      >
+        <Image
+          src={LOGO_WHITE}
+          alt="Her Kadam"
+          width={px}
+          height={px}
+          className="h-full w-full scale-[1.1] object-cover object-center"
+        />
       </span>
     )
   }
 
   return (
-    <span className={cn("font-brand leading-none tracking-tight", sizeClass, className)}>
-      <span className="font-semibold text-foreground">Her</span>
-      <span className="font-semibold text-primary"> Kadam</span>
+    <span className={className}>
+      <Image
+        src={LOGO_WHITE}
+        alt="Her Kadam"
+        width={px}
+        height={px}
+        priority={priority}
+        className={cn("shrink-0 object-contain", sizeClass)}
+      />
     </span>
   )
 }
