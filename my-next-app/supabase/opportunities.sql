@@ -13,8 +13,12 @@ create table if not exists public.opportunities (
   is_featured boolean default false,
   image text,
   published boolean not null default true,
-  published_at timestamptz not null default now()
+  published_at timestamptz not null default now(),
+  application_link text
 );
+
+-- If the table already exists, add optional application link column:
+alter table public.opportunities add column if not exists application_link text;
 
 alter table public.opportunities enable row level security;
 

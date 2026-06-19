@@ -56,6 +56,7 @@ function rowToOpportunity(row: Record<string, unknown>): Opportunity | null {
 
   const is_featured = pick<boolean>(row, "is_featured", "isFeatured")
   const image = pick<string>(row, "image", "image")
+  const application_link = pick<string>(row, "application_link", "applicationLink")
   const published_at = pick<string>(row, "published_at", "publishedAt")
 
   return {
@@ -70,6 +71,7 @@ function rowToOpportunity(row: Record<string, unknown>): Opportunity | null {
     description,
     isFeatured: is_featured ?? undefined,
     image: image ?? undefined,
+    applicationLink: application_link ?? undefined,
     publishedAt: published_at ?? undefined,
   }
 }

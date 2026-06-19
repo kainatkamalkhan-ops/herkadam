@@ -2,9 +2,8 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const LOGO_WHITE = "/her-kadam-logo.png"
+const NAV_FULL_LOGO = "/brand/nav-full-logo.png"
 const NAV_LOGO_ICON = "/brand/nav-logo-icon.png"
-const NAV_HER = "/brand/nav-her.png"
-const NAV_KADAM = "/brand/nav-kadam.png"
 
 type LogoSize = "xs" | "sm" | "md" | "nav" | "nav-icon" | "lg" | "xl" | "hero"
 
@@ -31,46 +30,24 @@ type HerKadamLogoProps = {
   variant?: "default" | "nav" | "nav-icon" | "hero-circle" | "on-dark"
 }
 
-/** 3/4 of white strip height — icon, HER, KADAM share one height */
-const NAV_BRAND_ITEM = "nav-brand-img nav-brand-item"
-
-/** White strip lockup: [icon] [HER] [KADAM] — plain img, no backgrounds */
+/** Full circular logo for the white nav strip */
 export function HerKadamNavBrand({ className }: { className?: string }) {
   return (
-    <span className={cn("nav-brand-lockup inline-flex items-center gap-2.5 md:gap-3.5", className)}>
+    <span className={cn("nav-brand-lockup inline-flex items-center", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={NAV_LOGO_ICON} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={NAV_HER} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={NAV_KADAM} alt="" className={NAV_BRAND_ITEM} draggable={false} aria-hidden />
+      <img
+        src={NAV_FULL_LOGO}
+        alt="Her Kadam"
+        className="nav-brand-img nav-brand-full"
+        draggable={false}
+      />
     </span>
   )
 }
 
 /** @deprecated Use HerKadamNavBrand for the white header strip */
-export function HerKadamWordmark({
-  className,
-  size = "md",
-}: {
-  className?: string
-  size?: "sm" | "md" | "lg"
-}) {
-  const textHeight =
-    size === "sm"
-      ? "h-[1.35rem] md:h-[1.5rem]"
-      : size === "lg"
-        ? "h-[1.75rem] md:h-[2rem]"
-        : "h-[1.45rem] md:h-[1.65rem]"
-
-  return (
-    <span className={cn("inline-flex items-center gap-2 md:gap-2.5", className)}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={NAV_HER} alt="" className={cn("nav-brand-img w-auto shrink-0", textHeight)} draggable={false} aria-hidden />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={NAV_KADAM} alt="" className={cn("nav-brand-img w-auto shrink-0", textHeight)} draggable={false} aria-hidden />
-    </span>
-  )
+export function HerKadamWordmark({ className }: { className?: string; size?: "sm" | "md" | "lg" }) {
+  return <HerKadamNavBrand className={className} />
 }
 
 export function HerKadamLogo({

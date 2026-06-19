@@ -201,10 +201,23 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                       </div>
                     </div>
 
-                    <Button className="w-full gap-2 mb-3" size="lg">
-                      Apply Now
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
+                    {opportunity.applicationLink ? (
+                      <Button className="w-full gap-2 mb-3" size="lg" asChild>
+                        <a
+                          href={opportunity.applicationLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Apply Now
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button className="w-full gap-2 mb-3" size="lg" disabled>
+                        Apply Now
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    )}
 
                     <div className="flex gap-2">
                       <Button variant="outline" className="flex-1 gap-2">

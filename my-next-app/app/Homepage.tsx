@@ -21,7 +21,7 @@ export default async function HomePage() {
         <HeroSection />
         <LatestOpportunities opportunities={opportunities} />
         <FeaturedOpportunities opportunities={opportunities} />
-        <CategoriesSection />
+        <CategoriesSection opportunities={opportunities} />
         <CalendarSection opportunities={opportunities} />
         <ResourcesSection />
         <BlogSection />

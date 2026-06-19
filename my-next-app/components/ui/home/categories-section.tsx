@@ -1,20 +1,28 @@
 "use client"
 
 import Link from "next/link"
-import { 
-  Globe, 
-  GraduationCap, 
-  Briefcase, 
-  Users, 
-  Lightbulb, 
+import {
+  Globe,
+  GraduationCap,
+  Briefcase,
+  Users,
+  Lightbulb,
   Calendar,
-  MapPin,
   DollarSign,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { regions, opportunityTypes } from "@/lib/data"
+import type { Opportunity } from "@/components/opportunities/opportunity-card"
+import {
+  countOpportunitiesByFunding,
+  countOpportunitiesByRegion,
+  countOpportunitiesByTypeCardLabel,
+  fundingSlug,
+  regionSlug,
+  typeSlugFromCardLabel,
+} from "@/lib/opportunity-stats"
 
 const typeIcons: Record<string, React.ElementType> = {
   Scholarships: GraduationCap,
@@ -26,12 +34,16 @@ const typeIcons: Record<string, React.ElementType> = {
 }
 
 const fundingTypes = [
-  { name: "Fully Funded", count: 245, description: "Complete financial coverage" },
-  { name: "Partially Funded", count: 178, description: "Partial financial support" },
-  { name: "Self-Funded", count: 89, description: "Personal investment required" },
+  { name: "Fully Funded", description: "Complete financial coverage" },
+  { name: "Partially Funded", description: "Partial financial support" },
+  { name: "Self-Funded", description: "Personal investment required" },
 ]
 
-export function CategoriesSection() {
+export function CategoriesSection({
+  opportunities = [],
+}: {
+  opportunities?: Opportunity[]
+}) {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -57,14 +69,16 @@ export function CategoriesSection() {
           <TabsContent value="region">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {regions.map((region) => (
-                <Link key={region.name} href={`/opportunities/region/${region.name.toLowerCase().replace(" ", "-")}`}>
+                <Link key={region.name} href={`/opportunities/region/${regionSlug(region.name)}`}>
                   <Card className="group hover:shadow-md hover:border-primary/30 transition-all h-full">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                           <Globe className="h-6 w-6 text-primary" />
                         </div>
-                        <span className="text-2xl font-serif font-bold text-primary">{region.count}</span>
+                        <span className="text-2xl font-serif font-bold text-primary">
+                          {countOpportunitiesByRegion(opportunities, region.name)}
+                        </span>
                       </div>
                       <h3 className="font-serif text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                         {region.name}
@@ -87,14 +101,16 @@ export function CategoriesSection() {
               {opportunityTypes.map((type) => {
                 const Icon = typeIcons[type.name] || GraduationCap
                 return (
-                  <Link key={type.name} href={`/opportunities/type/${type.name.toLowerCase()}`}>
+                  <Link key={type.name} href={`/opportunities/type/${typeSlugFromCardLabel(type.name)}`}>
                     <Card className="group hover:shadow-md hover:border-primary/30 transition-all h-full">
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
                             <Icon className="h-6 w-6 text-accent-foreground" />
                           </div>
-                          <span className="text-2xl font-serif font-bold text-primary">{type.count}</span>
+                          <span className="text-2xl font-serif font-bold text-primary">
+                            {countOpportunitiesByTypeCardLabel(opportunities, type.name)}
+                          </span>
                         </div>
                         <h3 className="font-serif text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                           {type.name}
@@ -116,13 +132,15 @@ export function CategoriesSection() {
           <TabsContent value="funding">
             <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
               {fundingTypes.map((funding) => (
-                <Link key={funding.name} href={`/opportunities/funding/${funding.name.toLowerCase().replace(" ", "-")}`}>
+                <Link key={funding.name} href={`/opportunities/funding/${fundingSlug(funding.name)}`}>
                   <Card className="group hover:shadow-md hover:border-primary/30 transition-all h-full">
                     <CardContent className="p-6 text-center">
                       <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                         <DollarSign className="h-8 w-8 text-primary" />
                       </div>
-                      <span className="text-3xl font-serif font-bold text-primary block mb-2">{funding.count}</span>
+                      <span className="text-3xl font-serif font-bold text-primary block mb-2">
+                        {countOpportunitiesByFunding(opportunities, funding.name)}
+                      </span>
                       <h3 className="font-serif text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                         {funding.name}
                       </h3>

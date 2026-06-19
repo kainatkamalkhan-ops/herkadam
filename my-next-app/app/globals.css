@@ -212,7 +212,8 @@
   max-height: 100%;
 }
 
-.nav-brand-item {
+.nav-brand-item,
+.nav-brand-full {
   display: block;
   height: 100%;
   width: auto;
@@ -222,6 +223,10 @@
   object-position: center;
 }
 
+.nav-brand-full {
+  aspect-ratio: 1;
+}
+
 .hero-hidden-icon {
   will-change: opacity;
   pointer-events: none;
@@ -229,12 +234,26 @@
 
 .hero-trail-icon {
   pointer-events: none;
-  will-change: transform, opacity, width, height;
-  transition:
-    transform 0.38s cubic-bezier(0.22, 0.84, 0.32, 1),
-    opacity 0.38s ease-out,
-    width 0.38s ease-out,
-    height 0.38s ease-out;
+}
+
+.hero-trail-icon--live {
+  opacity: 0.85;
+  animation: hero-trail-live-fade forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes hero-trail-live-fade {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.48;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.76);
+  }
 }
 
 .hero-hidden-word {

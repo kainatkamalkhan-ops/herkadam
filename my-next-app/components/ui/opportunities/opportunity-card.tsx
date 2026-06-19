@@ -19,6 +19,7 @@ export interface Opportunity {
   description: string
   isFeatured?: boolean
   image?: string
+  applicationLink?: string
   /** ISO date — used for “newest first” when reading from JSON or DB */
   publishedAt?: string
 }

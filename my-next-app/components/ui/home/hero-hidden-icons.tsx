@@ -3,9 +3,9 @@
 import { useMemo, useEffect, useRef, type RefObject } from "react"
 import { buildHeroHiddenIconLayout, ICON_SRC } from "@/lib/hero-hidden-icons-layout"
 
-const REVEAL_RADIUS = 64
+const REVEAL_RADIUS = 88
 const REVEAL_MS = 2800
-const FAINT_OPACITY = 0.04
+const FAINT_OPACITY = 0.06
 const TICK_MS = 40
 
 type HeroHiddenIconsProps = {
@@ -37,6 +37,8 @@ export function HeroHiddenIcons({ containerRef }: HeroHiddenIconsProps) {
     ro.observe(el)
 
     const onMouseMove = (e: MouseEvent) => {
+      const el = containerRef.current
+      if (!el) return
       const rect = el.getBoundingClientRect()
       const inBounds =
         e.clientX >= rect.left &&
@@ -52,7 +54,7 @@ export function HeroHiddenIcons({ containerRef }: HeroHiddenIconsProps) {
       cursorRef.current = null
     }
 
-    el.addEventListener("mousemove", onMouseMove, true)
+    window.addEventListener("mousemove", onMouseMove, { passive: true })
     el.addEventListener("mouseleave", onMouseLeave)
 
     const applyVisuals = () => {
@@ -79,7 +81,7 @@ export function HeroHiddenIcons({ containerRef }: HeroHiddenIconsProps) {
       for (const icon of layoutRef.current) {
         const node = iconElsRef.current.get(icon.id)
         if (!node) continue
-        node.style.opacity = revealed.has(icon.id) ? "0.88" : String(FAINT_OPACITY)
+        node.style.opacity = revealed.has(icon.id) ? "0.92" : String(FAINT_OPACITY)
       }
     }
 
@@ -94,7 +96,7 @@ export function HeroHiddenIcons({ containerRef }: HeroHiddenIconsProps) {
 
     return () => {
       ro.disconnect()
-      el.removeEventListener("mousemove", onMouseMove, true)
+      window.removeEventListener("mousemove", onMouseMove)
       el.removeEventListener("mouseleave", onMouseLeave)
       cancelAnimationFrame(rafRef.current)
     }

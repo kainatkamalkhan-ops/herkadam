@@ -1,19 +1,19 @@
 "use client"
 
-import { useEffect, useRef, useState, type RefObject } from "react"
-import { nudgePointFromClearZones } from "@/lib/hero-hidden-icons-layout"
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 
-/** Icons in sequence: 1 → 2 → 3 → repeat */
+/** Icons in sequence: 1 → 2 → 3 → repeat, each tier has its own size */
 const TRAIL_ICONS = [
   "/footprints/footprint-1.png",
   "/footprints/footprint-2.png",
   "/footprints/footprint-3.png",
 ] as const
 
-const MAX_TRAIL = 15
-const SAMPLE_MS = 42
-const BASE_SIZE = 50
-const MIN_OPACITY = 0.04
+const TIER_BASE_SIZE = [56, 72, 88] as const
+
+const MAX_TRAIL = 14
+const SAMPLE_MS = 58
+const TRAIL_LIFE_MS = 1600
 
 export type TrailPointRef = {
   points: { x: number; y: number }[]
@@ -31,9 +31,13 @@ type HeroFootstepsTrailProps = {
   trailPointsRef?: RefObject<TrailPointRef>
 }
 
-function trailProgress(index: number, total: number) {
-  if (total <= 1) return 1
-  return index / (total - 1)
+function isInsideRect(clientX: number, clientY: number, rect: DOMRect) {
+  return (
+    clientX >= rect.left &&
+    clientX <= rect.right &&
+    clientY >= rect.top &&
+    clientY <= rect.bottom
+  )
 }
 
 export function HeroFootstepsTrail({ containerRef, trailPointsRef }: HeroFootstepsTrailProps) {
@@ -41,12 +45,15 @@ export function HeroFootstepsTrail({ containerRef, trailPointsRef }: HeroFootste
   const [ready, setReady] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
-  const cursorRef = useRef({ x: 0, y: 0 })
-  const insideRef = useRef(false)
+  const cursorRef = useRef({ clientX: 0, clientY: 0 })
   const idSeq = useRef(0)
   const tierSeq = useRef(0)
   const lastSampleRef = useRef(0)
   const rafRef = useRef(0)
+
+  const removePoint = useCallback((id: number) => {
+    setPoints((prev) => prev.filter((p) => p.id !== id))
+  }, [])
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -60,53 +67,42 @@ export function HeroFootstepsTrail({ containerRef, trailPointsRef }: HeroFootste
   useEffect(() => {
     if (!ready || reduceMotion) return
 
-    const header = containerRef.current
-    if (!header) return
+    const hero = containerRef.current
+    if (!hero) return
 
     const onMouseMove = (e: MouseEvent) => {
-      const rect = header.getBoundingClientRect()
-      cursorRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      }
-      insideRef.current = true
+      cursorRef.current = { clientX: e.clientX, clientY: e.clientY }
     }
 
-    const onMouseLeave = () => {
-      insideRef.current = false
+    const onMouseLeaveHero = () => {
+      setPoints([])
       if (trailPointsRef?.current) trailPointsRef.current.points = []
     }
 
-    header.addEventListener("mousemove", onMouseMove, true)
-    header.addEventListener("mouseleave", onMouseLeave)
+    window.addEventListener("mousemove", onMouseMove, { passive: true })
+    hero.addEventListener("mouseleave", onMouseLeaveHero)
 
     const sampleTrail = (now: number) => {
-      if (!insideRef.current) return
       if (now - lastSampleRef.current < SAMPLE_MS) return
+
+      const rect = hero.getBoundingClientRect()
+      const { clientX, clientY } = cursorRef.current
+      if (!isInsideRect(clientX, clientY, rect)) return
+
       lastSampleRef.current = now
 
+      const x = clientX - rect.left
+      const y = clientY - rect.top
       const tier = (tierSeq.current++ % 3) as 0 | 1 | 2
-      const rect = header.getBoundingClientRect()
-      const nudged = nudgePointFromClearZones(
-        cursorRef.current.x,
-        cursorRef.current.y,
-        rect.width,
-        rect.height,
-      )
 
       setPoints((prev) => {
-        const next: TrailPoint[] = [
-          ...prev,
-          { id: ++idSeq.current, x: nudged.x, y: nudged.y, tier },
-        ]
-
-        const capped = next.slice(-MAX_TRAIL).filter((_, i, arr) => trailProgress(i, arr.length) >= MIN_OPACITY)
+        const next = [...prev, { id: ++idSeq.current, x, y, tier }].slice(-MAX_TRAIL)
 
         if (trailPointsRef?.current) {
-          trailPointsRef.current.points = capped.map((p) => ({ x: p.x, y: p.y }))
+          trailPointsRef.current.points = next.map((p) => ({ x: p.x, y: p.y }))
         }
 
-        return capped
+        return next
       })
     }
 
@@ -118,51 +114,44 @@ export function HeroFootstepsTrail({ containerRef, trailPointsRef }: HeroFootste
     rafRef.current = requestAnimationFrame(tick)
 
     return () => {
-      header.removeEventListener("mousemove", onMouseMove, true)
-      header.removeEventListener("mouseleave", onMouseLeave)
+      window.removeEventListener("mousemove", onMouseMove)
+      hero.removeEventListener("mouseleave", onMouseLeaveHero)
       cancelAnimationFrame(rafRef.current)
     }
   }, [containerRef, ready, reduceMotion, trailPointsRef])
 
-  // Keep trailPointsRef in sync whenever points change
-  useEffect(() => {
-    if (trailPointsRef?.current) {
-      trailPointsRef.current.points = points.map((p) => ({ x: p.x, y: p.y }))
-    }
-  }, [points, trailPointsRef])
-
   if (!ready || reduceMotion) return null
-
-  const total = points.length
 
   return (
     <div className="pointer-events-none absolute inset-0 z-[12] overflow-hidden" aria-hidden>
-      {points.map((point, index) => {
-        const t = trailProgress(index, total)
-        const scale = 0.32 + t * 0.68
-        const opacity = t
-        const size = BASE_SIZE * scale
-
-        if (opacity < MIN_OPACITY) return null
+      {points.map((point) => {
+        const size = TIER_BASE_SIZE[point.tier]
 
         return (
           <div
             key={point.id}
             className="hero-trail-icon absolute left-0 top-0"
             style={{
-              width: size,
-              height: size,
-              opacity,
               transform: `translate(${point.x}px, ${point.y}px) translate(-50%, -50%)`,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={TRAIL_ICONS[point.tier]}
-              alt=""
-              className="h-full w-full object-contain"
-              draggable={false}
-            />
+            <div
+              className="hero-trail-icon--live"
+              style={{
+                width: size,
+                height: size,
+                animationDuration: `${TRAIL_LIFE_MS}ms`,
+              }}
+              onAnimationEnd={() => removePoint(point.id)}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={TRAIL_ICONS[point.tier]}
+                alt=""
+                className="h-full w-full object-contain"
+                draggable={false}
+              />
+            </div>
           </div>
         )
       })}

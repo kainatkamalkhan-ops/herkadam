@@ -83,7 +83,7 @@ export function buildHeroHiddenIconLayout(): HiddenIconItem[] {
   for (let index = 0; index < ICON_COUNT; index++) {
     const slot = slots[index]
     const tier = (tierSeq++ % 3) as 0 | 1 | 2
-    const sizePx = Math.round(38 + seeded(index, 2) * 58 + seeded(index, 7) * 22)
+    const sizePx = Math.round(52 + seeded(index, 2) * 72 + seeded(index, 7) * 36)
     const rotate = Math.round((seeded(index, 5) * 40 - 20) * 10) / 10
     const base = slotCenter(slot.col, slot.row)
 
