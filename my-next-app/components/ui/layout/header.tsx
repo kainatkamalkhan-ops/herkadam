@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
+import { HerKadamLogo, HerKadamWordmark } from "@/components/ui/brand/her-kadam-logo"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -52,9 +52,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-white">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20 py-0.5">
-          {/* Logo — white PNG merges with strip; circle nearly fills bar height */}
-          <Link href="/" className="-my-0.5 inline-flex items-center" aria-label="Her Kadam — home">
-            <HerKadamLogo size="nav" priority variant="nav" />
+          {/* Logo icon + wordmark — separated */}
+          <Link
+            href="/"
+            className="-my-0.5 inline-flex items-center gap-2.5 md:gap-3"
+            aria-label="Her Kadam — home"
+          >
+            <HerKadamLogo size="nav-icon" priority variant="nav-icon" />
+            <HerKadamWordmark size="sm" />
           </Link>
 
           {/* Desktop Navigation */}

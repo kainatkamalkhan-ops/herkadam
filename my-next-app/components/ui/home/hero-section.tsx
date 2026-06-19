@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { Search } from "lucide-react"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { Button } from "@/components/ui/button"
@@ -12,75 +12,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { HeroFootstepsTrail } from "@/components/ui/home/hero-footsteps-trail"
+import { HeroFootstepsTrail, type TrailPointRef } from "@/components/ui/home/hero-footsteps-trail"
 import { HeroHiddenWords } from "@/components/ui/home/hero-hidden-words"
 
 export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null)
+  const trailPointsRef = useRef<TrailPointRef>({ points: [] })
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedType, setSelectedType] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("")
-  const [empowerLevel, setEmpowerLevel] = useState(0)
-  const [brickActivity, setBrickActivity] = useState(0)
-
-  const bumpEmpower = useCallback((amount = 0.035) => {
-    setEmpowerLevel((level) => Math.min(1, level + amount))
-    setBrickActivity((a) => Math.min(1, a + amount * 1.4))
-  }, [])
-
-  const onFootprint = useCallback(
-    (_x: number, _y: number) => {
-      bumpEmpower(0.045)
-    },
-    [bumpEmpower],
-  )
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setEmpowerLevel((level) => Math.max(0, level - 0.012))
-      setBrickActivity((a) => Math.max(0, a - 0.018))
-    }, 100)
-    return () => window.clearInterval(id)
-  }, [])
-
-  const brickOpacity = 0.04 + brickActivity * 0.38
-  const deepenOpacity = empowerLevel * 0.42
-  const colorWashOpacity = empowerLevel * 0.28
 
   return (
-    <section
-      ref={heroRef}
-      className="relative overflow-hidden"
-      onPointerMove={() => bumpEmpower(0.006)}
-    >
+    <section ref={heroRef} className="relative overflow-hidden">
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary via-plum-light to-rose opacity-95" />
 
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-black transition-opacity duration-500 ease-out"
-        style={{ opacity: deepenOpacity }}
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-plum via-primary to-rose mix-blend-multiply transition-opacity duration-700 ease-out"
-        style={{ opacity: colorWashOpacity }}
-        aria-hidden
-      />
+      <HeroHiddenWords containerRef={heroRef} trailPointsRef={trailPointsRef} />
 
-      <div
-        className="hero-brick-overlay pointer-events-none absolute inset-0 z-[2] mix-blend-multiply transition-opacity duration-300 ease-out"
-        style={{ opacity: brickOpacity }}
-        aria-hidden
-      />
-
-      <HeroHiddenWords containerRef={heroRef} />
-
-      <HeroFootstepsTrail containerRef={heroRef} onFootprint={onFootprint} />
+      <HeroFootstepsTrail containerRef={heroRef} trailPointsRef={trailPointsRef} />
 
       <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
         <div className="absolute -top-20 -right-20 w-80 h-80 border-[3px] border-primary-foreground/10 rounded-full" />
         <div className="absolute top-1/2 -left-32 w-64 h-64 border-[3px] border-primary-foreground/10 rounded-full" />
         <div className="absolute -bottom-10 right-1/4 w-48 h-48 border-[3px] border-primary-foreground/10 rounded-full" />
-
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] border-t-[3px] border-l-[3px] border-r-[3px] border-primary-foreground/15 rounded-t-full hidden lg:block" />
       </div>
 

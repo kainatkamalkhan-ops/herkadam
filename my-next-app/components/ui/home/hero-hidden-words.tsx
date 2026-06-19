@@ -3,11 +3,12 @@
 import { useMemo, useEffect, useRef, type RefObject } from "react"
 import { cn } from "@/lib/utils"
 import { buildHeroWordCloudLayout, type WordCloudItem } from "@/lib/hero-word-cloud-layout"
+import type { TrailPointRef } from "@/components/ui/home/hero-footsteps-trail"
 
-const REVEAL_RADIUS = 72
-const REVEAL_MS = 3200
+const REVEAL_RADIUS = 68
+const REVEAL_MS = 3000
 const TICK_MS = 40
-const FAINT_OPACITY = 0.07
+const FAINT_OPACITY = 0.05
 
 const TONE_CLASS: Record<0 | 1 | 2, string> = {
   0: "text-white/35",
@@ -23,13 +24,13 @@ const DARKENED_CLASS: Record<0 | 1 | 2, string> = {
 
 type HeroHiddenWordsProps = {
   containerRef: RefObject<HTMLElement | null>
+  trailPointsRef: RefObject<TrailPointRef>
 }
 
-export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
+export function HeroHiddenWords({ containerRef, trailPointsRef }: HeroHiddenWordsProps) {
   const layout = useMemo(() => buildHeroWordCloudLayout(), [])
   const layoutRef = useRef<WordCloudItem[]>(layout)
   const sizeRef = useRef({ w: 0, h: 0 })
-  const cursorRef = useRef<{ x: number; y: number } | null>(null)
   const revealedUntilRef = useRef<Map<string, number>>(new Map())
   const rafRef = useRef(0)
   const lastTickRef = useRef(0)
@@ -49,54 +50,28 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
     const ro = new ResizeObserver(syncSize)
     ro.observe(el)
 
-    const heroPoint = (clientX: number, clientY: number) => {
-      const rect = el.getBoundingClientRect()
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
-        inBounds:
-          clientX >= rect.left &&
-          clientX <= rect.right &&
-          clientY >= rect.top &&
-          clientY <= rect.bottom,
-      }
-    }
-
-    const onPointerMove = (e: PointerEvent) => {
-      const p = heroPoint(e.clientX, e.clientY)
-      cursorRef.current = p.inBounds ? { x: p.x, y: p.y } : null
-    }
-
-    const onPointerLeave = () => {
-      cursorRef.current = null
-    }
-
     const applyVisuals = () => {
       const { w, h } = sizeRef.current
-      const cursor = cursorRef.current
       const revealed = revealedUntilRef.current
       const now = Date.now()
+      const trailPoints = trailPointsRef.current?.points ?? []
 
       for (const [id, until] of revealed) {
         if (until <= now) revealed.delete(id)
       }
 
-      if (cursor && w && h) {
-        let nearest: WordCloudItem | null = null
-        let nearestDist = REVEAL_RADIUS
-
+      if (w && h && trailPoints.length > 0) {
         for (const word of layoutRef.current) {
           const wx = (word.xPct / 100) * w
           const wy = (word.yPct / 100) * h
-          const d = Math.hypot(cursor.x - wx, cursor.y - wy)
-          if (d <= REVEAL_RADIUS && d < nearestDist) {
-            nearest = word
-            nearestDist = d
-          }
-        }
 
-        if (nearest) {
-          revealed.set(nearest.id, now + REVEAL_MS)
+          for (const point of trailPoints) {
+            const d = Math.hypot(point.x - wx, point.y - wy)
+            if (d <= REVEAL_RADIUS) {
+              revealed.set(word.id, now + REVEAL_MS)
+              break
+            }
+          }
         }
       }
 
@@ -104,7 +79,7 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
         const node = wordElsRef.current.get(word.id)
         if (!node) continue
         const isDark = revealed.has(word.id)
-        node.style.opacity = isDark ? "0.92" : String(FAINT_OPACITY)
+        node.style.opacity = isDark ? "0.9" : String(FAINT_OPACITY)
         node.classList.toggle("hero-word-darkened", isDark)
       }
     }
@@ -116,17 +91,13 @@ export function HeroHiddenWords({ containerRef }: HeroHiddenWordsProps) {
       applyVisuals()
     }
 
-    window.addEventListener("pointermove", onPointerMove, { passive: true })
-    el.addEventListener("pointerleave", onPointerLeave)
     rafRef.current = requestAnimationFrame(tick)
 
     return () => {
       ro.disconnect()
-      window.removeEventListener("pointermove", onPointerMove)
-      el.removeEventListener("pointerleave", onPointerLeave)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [containerRef])
+  }, [containerRef, trailPointsRef])
 
   return (
     <div className="pointer-events-none absolute inset-0 z-[7] overflow-hidden" aria-hidden>
