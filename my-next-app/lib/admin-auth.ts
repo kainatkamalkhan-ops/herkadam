@@ -1,11 +1,12 @@
 import { cookies } from "next/headers"
 import type { NextRequest } from "next/server"
+import { getAdminPasswordFromEnv } from "@/lib/supabase/env"
 
 export const ADMIN_COOKIE = "herkadam_admin"
 
 /** Edge-safe session token derived from ADMIN_PASSWORD */
 export async function getAdminSessionToken(): Promise<string | null> {
-  const password = process.env.ADMIN_PASSWORD?.trim()
+  const password = getAdminPasswordFromEnv()
   if (!password) return null
 
   const data = new TextEncoder().encode(`herkadam-admin:${password}`)

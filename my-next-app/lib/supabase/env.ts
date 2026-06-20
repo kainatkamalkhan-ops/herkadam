@@ -22,6 +22,10 @@ function stripQuotes(s: string): string {
   return t
 }
 
+export function getAdminPasswordFromEnv(): string {
+  return sanitizeEnvValue(process.env.ADMIN_PASSWORD ?? "")
+}
+
 export function normalizeSupabaseUrl(raw: string | undefined): string | null {
   if (!raw) return null
   const s = sanitizeEnvValue(raw)
