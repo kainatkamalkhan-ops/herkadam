@@ -250,18 +250,22 @@ export default function ConnectPage() {
                   <CardTitle className="font-serif">Join Our Community</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+                  <div className="space-y-2">
                     {COMMUNITY_SOCIAL_LINKS.map((social) => (
                       <a
                         key={social.label}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={social.label}
-                        title={social.label}
-                        className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                        aria-label={`Follow Her Kadam on ${social.label}`}
+                        className="flex items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 transition-colors hover:border-primary/15 hover:bg-primary/5"
                       >
-                        <social.icon className="h-5 w-5" />
+                        <span className="min-w-[5.5rem] text-sm font-medium text-foreground sm:min-w-[6.5rem]">
+                          {social.label}
+                        </span>
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                          <social.icon className="h-4 w-4" />
+                        </span>
                       </a>
                     ))}
                   </div>
