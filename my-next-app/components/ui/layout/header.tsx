@@ -120,16 +120,8 @@ export function Header() {
             ))}
 
             {/* Subscribe Button */}
-            <Button asChild className="ml-2">
-              <Link
-                href="#subscribe"
-                onClick={(e) => {
-                  e.preventDefault()
-                  showMailerLitePopup()
-                }}
-              >
-                Subscribe
-              </Link>
+            <Button type="button" className="ml-2" onClick={showMailerLitePopup}>
+              Subscribe
             </Button>
           </nav>
 
@@ -206,17 +198,11 @@ export function Header() {
               ))}
 
               <div className="px-4 pt-2">
-                <Button asChild className="w-full">
-                  <Link
-                    href="#subscribe"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setMobileMenuOpen(false)
-                      showMailerLitePopup()
-                    }}
-                  >
-                    Subscribe
-                  </Link>
+                <Button type="button" className="w-full" onClick={() => {
+                  setMobileMenuOpen(false)
+                  showMailerLitePopup()
+                }}>
+                  Subscribe
                 </Button>
               </div>
             </nav>

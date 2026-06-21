@@ -27,17 +27,15 @@ export function Footer() {
             </span>
           </p>
 
-          <Button asChild variant="secondary" size="lg" className="mt-8 gap-2 px-8">
-            <Link
-              href="/#subscribe"
-              onClick={(e) => {
-                e.preventDefault()
-                showMailerLitePopup()
-              }}
-            >
-              Subscribe to Newsletter
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            className="mt-8 gap-2 px-8"
+            onClick={showMailerLitePopup}
+          >
+            Subscribe to Newsletter
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
 
