@@ -279,11 +279,11 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    color-mix(in oklch, var(--plum) 96%, black) 0%,
-    color-mix(in oklch, var(--primary) 92%, black) 28%,
-    color-mix(in oklch, var(--plum-light) 78%, var(--primary)) 55%,
-    color-mix(in oklch, var(--primary) 62%, var(--plum-light)) 78%,
-    color-mix(in oklch, var(--plum-light) 52%, var(--primary)) 100%
+    color-mix(in oklch, var(--plum) 82%, black) 0%,
+    color-mix(in oklch, var(--primary) 78%, var(--plum)) 32%,
+    color-mix(in oklch, var(--plum-light) 72%, var(--primary)) 58%,
+    color-mix(in oklch, var(--rose) 58%, var(--plum-light)) 82%,
+    color-mix(in oklch, var(--rose-light) 52%, white) 100%
   );
 }
 
@@ -299,64 +299,36 @@
   left: -10%;
   width: min(48vw, 480px);
   height: min(48vw, 480px);
-  background: color-mix(in oklch, var(--plum) 70%, black);
-  opacity: 0.62;
+  background: color-mix(in oklch, var(--plum) 50%, transparent);
+  opacity: 0.38;
 }
 
 .home-hero-blend__orb--rose {
-  top: 6%;
-  right: -4%;
-  width: min(46vw, 460px);
-  height: min(46vw, 460px);
-  background: color-mix(in oklch, var(--plum-light) 55%, var(--primary));
-  opacity: 0.32;
+  top: 0;
+  right: -6%;
+  width: min(50vw, 500px);
+  height: min(50vw, 500px);
+  background: color-mix(in oklch, var(--rose-light) 65%, white);
+  opacity: 0.42;
 }
 
 .home-hero-blend__orb--light {
-  bottom: -18%;
-  right: 8%;
+  bottom: -20%;
+  right: 10%;
   left: auto;
-  width: min(58vw, 540px);
-  height: min(36vw, 340px);
-  background: color-mix(in oklch, var(--plum-light) 40%, var(--primary));
-  opacity: 0.22;
+  width: min(55vw, 520px);
+  height: min(34vw, 320px);
+  background: color-mix(in oklch, white 45%, var(--rose-light));
+  opacity: 0.35;
 }
 
 .home-hero-blend__mesh {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 72% 65% at 14% 42%, rgb(0 0 0 / 0.18) 0%, transparent 62%),
-    radial-gradient(ellipse 68% 55% at 86% 40%, rgb(20 5 25 / 0.14) 0%, transparent 58%),
-    radial-gradient(ellipse 85% 42% at 72% 100%, rgb(20 5 25 / 0.1) 0%, transparent 55%);
-}
-
-/* Keeps tagline readable over lighter right-side gradient and footsteps */
-.home-hero-blend__text-shield {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  inset: 8% 0 8% 0;
-  background: linear-gradient(
-    105deg,
-    rgb(18 6 22 / 0.72) 0%,
-    rgb(32 12 38 / 0.52) 42%,
-    rgb(40 16 46 / 0.28) 68%,
-    transparent 88%
-  );
-}
-
-@media (max-width: 1023px) {
-  .home-hero-blend__text-shield {
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgb(18 6 22 / 0.78) 0%,
-      rgb(28 10 34 / 0.62) 45%,
-      rgb(36 14 42 / 0.48) 72%,
-      rgb(40 16 46 / 0.35) 100%
-    );
-  }
+    radial-gradient(ellipse 70% 60% at 12% 45%, rgb(255 255 255 / 0.08) 0%, transparent 58%),
+    radial-gradient(ellipse 72% 62% at 88% 42%, rgb(255 255 255 / 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgb(255 255 255 / 0.06) 0%, transparent 55%);
 }
 
 .home-hero-blend__steps-layer {
@@ -369,51 +341,51 @@
 .home-hero-blend__steps {
   position: absolute;
   object-fit: contain;
-  object-position: center;
-  mix-blend-mode: multiply;
-  filter: saturate(1.08) contrast(1.02);
-  -webkit-mask-image: radial-gradient(ellipse 72% 78% at 62% 46%, #000 28%, rgb(0 0 0 / 0.55) 52%, transparent 78%);
-  mask-image: radial-gradient(ellipse 72% 78% at 62% 46%, #000 28%, rgb(0 0 0 / 0.55) 52%, transparent 78%);
+  object-position: center right;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 10px 28px rgb(40 12 38 / 0.18)) saturate(1.12);
+  -webkit-mask-image: radial-gradient(ellipse 88% 88% at 58% 50%, #000 40%, rgb(0 0 0 / 0.7) 62%, transparent 94%);
+  mask-image: radial-gradient(ellipse 88% 88% at 58% 50%, #000 40%, rgb(0 0 0 / 0.7) 62%, transparent 94%);
 }
 
 .home-hero-blend__steps--primary {
   top: 50%;
   left: auto;
-  right: 8%;
-  width: min(46vw, 380px);
+  right: -2%;
+  width: min(62vw, 560px);
   height: auto;
-  transform: translate(6%, -50%) rotate(-5deg);
-  opacity: 0.92;
+  transform: translate(4%, -50%) rotate(-6deg);
+  opacity: 0.5;
 }
 
 .home-hero-blend__steps--ghost {
   top: 50%;
   left: auto;
-  right: 4%;
-  width: min(58vw, 480px);
+  right: -6%;
+  width: min(74vw, 680px);
   height: auto;
-  transform: translate(4%, -46%) rotate(-5deg);
-  opacity: 0.2;
-  filter: blur(2px) saturate(1.15);
+  transform: translate(2%, -48%) rotate(-6deg);
+  opacity: 0.22;
+  filter: blur(3px) saturate(1.15) drop-shadow(0 8px 20px rgb(40 12 38 / 0.12));
 }
 
 @media (max-width: 1023px) {
   .home-hero-blend__steps--primary {
     top: auto;
-    bottom: 0.75rem;
-    right: -6%;
-    width: min(42vw, 190px);
+    bottom: -0.5rem;
+    right: -12%;
+    width: min(78vw, 340px);
     transform: rotate(-8deg);
-    opacity: 0.32;
+    opacity: 0.44;
   }
 
   .home-hero-blend__steps--ghost {
     top: auto;
-    bottom: 0.25rem;
-    right: -10%;
-    width: min(50vw, 220px);
+    bottom: -1rem;
+    right: -16%;
+    width: min(88vw, 400px);
     transform: rotate(-8deg);
-    opacity: 0.1;
+    opacity: 0.16;
   }
 }
 
@@ -433,19 +405,20 @@
 @media (min-width: 1024px) {
   .home-hero-blend__layout--solo {
     max-width: 42rem;
-    min-height: clamp(14rem, 24vh, 20rem);
+    min-height: clamp(16rem, 28vh, 24rem);
   }
 
   .home-hero-blend__steps--primary {
-    right: clamp(2rem, 8vw, 6rem);
-    width: min(34vw, 440px);
-    transform: translate(8%, -50%) rotate(-6deg);
+    right: -4%;
+    width: min(48vw, 600px);
+    transform: translate(6%, -50%) rotate(-6deg);
+    opacity: 0.52;
   }
 
   .home-hero-blend__steps--ghost {
-    right: clamp(1rem, 6vw, 4rem);
-    width: min(42vw, 540px);
-    transform: translate(6%, -46%) rotate(-6deg);
+    right: -8%;
+    width: min(58vw, 720px);
+    transform: translate(4%, -48%) rotate(-6deg);
   }
 }
 
@@ -467,12 +440,44 @@
   margin-inline: auto;
 }
 
+.home-hero-blend__copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 1.25rem;
+  inset: -1rem -0.75rem;
+  background: linear-gradient(
+    125deg,
+    rgb(22 8 28 / 0.5) 0%,
+    rgb(36 14 42 / 0.32) 50%,
+    rgb(40 16 46 / 0.12) 78%,
+    transparent 100%
+  );
+}
+
 @media (min-width: 1024px) {
   .home-hero-blend__copy {
     text-align: left;
     margin-inline: 0;
     max-width: 36rem;
     padding-right: clamp(1rem, 3vw, 2rem);
+  }
+
+  .home-hero-blend__copy::before {
+    inset: -1.25rem -2rem -1.25rem -1.25rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .home-hero-blend__copy::before {
+    inset: -0.85rem -0.5rem;
+    background: linear-gradient(
+      180deg,
+      rgb(22 8 28 / 0.55) 0%,
+      rgb(32 12 38 / 0.38) 55%,
+      rgb(36 14 42 / 0.2) 100%
+    );
   }
 }
 

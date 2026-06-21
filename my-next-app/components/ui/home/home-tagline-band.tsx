@@ -13,8 +13,6 @@ export function HomeTaglineBand() {
         <div className="home-hero-blend__mesh" />
       </div>
 
-      <div className="home-hero-blend__text-shield" aria-hidden />
-
       <div className="home-hero-blend__steps-layer" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={STEP_TRAIL} alt="" className="home-hero-blend__steps home-hero-blend__steps--primary" draggable={false} />
