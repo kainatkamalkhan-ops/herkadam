@@ -4,6 +4,7 @@ import type {
   OpportunityRegion,
   OpportunityType,
 } from "@/lib/opportunity-constants"
+import { normalizeBulletText } from "@/lib/opportunity-text"
 import { getSupabaseAdmin } from "@/lib/supabase/admin"
 
 export type CreateOpportunityInput = {
@@ -14,7 +15,12 @@ export type CreateOpportunityInput = {
   region: OpportunityRegion
   fundingType: FundingType
   deadline: string
+  summary: string
   description: string
+  benefits: string
+  eligibility: string
+  requirements?: string
+  impactForWomen: string
   imageUrl?: string
   applicationLink?: string
   isFeatured: boolean
@@ -47,7 +53,12 @@ export async function createOpportunity(
     funding_type: input.fundingType,
     region: input.region,
     deadline: input.deadline,
+    summary: input.summary.trim(),
     description: input.description.trim(),
+    benefits: normalizeBulletText(input.benefits),
+    eligibility: normalizeBulletText(input.eligibility),
+    requirements: normalizeBulletText(input.requirements),
+    impact_for_women: input.impactForWomen.trim(),
     image: input.imageUrl?.trim() || null,
     application_link: input.applicationLink?.trim() || null,
     is_featured: input.isFeatured,

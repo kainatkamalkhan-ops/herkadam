@@ -1,17 +1,15 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { 
-  Calendar, 
-  MapPin, 
-  DollarSign, 
-  Building2, 
-  Globe, 
-  ArrowLeft, 
+import {
+  Calendar,
+  MapPin,
+  DollarSign,
+  Building2,
+  ArrowLeft,
   ExternalLink,
   Share2,
   Bookmark,
   Clock,
-  CheckCircle2
 } from "lucide-react"
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
@@ -21,7 +19,9 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { OpportunityCard } from "@/components/opportunities/opportunity-card"
+import { OpportunityDetailBody } from "@/components/opportunities/opportunity-detail-body"
 import { getOpportunities, getOpportunityById } from "@/lib/opportunities"
+import { formatOpportunityDate } from "@/lib/opportunity-text"
 
 export const revalidate = 120
 
@@ -38,7 +38,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
   }
 
   const daysUntilDeadline = Math.ceil(
-    (new Date(opportunity.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+    (new Date(opportunity.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
   )
   const isUrgent = daysUntilDeadline <= 7 && daysUntilDeadline > 0
 
@@ -52,7 +52,6 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
       <TopBar />
       <Header />
       <main className="flex-1 bg-background">
-        {/* Back Button */}
         <div className="container mx-auto px-4 py-6">
           <Button variant="ghost" asChild className="gap-2">
             <Link href="/opportunities">
@@ -64,106 +63,36 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
 
         <div className="container mx-auto px-4 pb-16">
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
             <div className="lg:col-span-2">
-              {/* Header */}
               <div className="mb-8">
                 <div className="flex flex-wrap gap-2 mb-4">
                   <Badge variant="secondary" className="bg-primary/10 text-primary">
                     {opportunity.type}
                   </Badge>
-                  <Badge variant="secondary" className={
-                    opportunity.fundingType === "Fully Funded" 
-                      ? "bg-emerald-100 text-emerald-800" 
-                      : opportunity.fundingType === "Partially Funded"
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-slate-100 text-slate-800"
-                  }>
+                  <Badge
+                    variant="secondary"
+                    className={
+                      opportunity.fundingType === "Fully Funded"
+                        ? "bg-emerald-100 text-emerald-800"
+                        : opportunity.fundingType === "Partially Funded"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-slate-100 text-slate-800"
+                    }
+                  >
                     {opportunity.fundingType}
                   </Badge>
-                  {isUrgent && (
-                    <Badge variant="destructive">Deadline Soon</Badge>
-                  )}
+                  {isUrgent && <Badge variant="destructive">Deadline Soon</Badge>}
                 </div>
 
-                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
                   {opportunity.title}
                 </h1>
-
-                <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
-                  <span className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4" />
-                    {opportunity.organization}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    {opportunity.location}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <Globe className="h-4 w-4" />
-                    {opportunity.region}
-                  </span>
-                </div>
               </div>
 
-              {/* Description */}
-              <Card className="mb-8">
-                <CardHeader>
-                  <CardTitle className="font-serif">About This Opportunity</CardTitle>
-                </CardHeader>
-                <CardContent className="prose prose-sm max-w-none">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {opportunity.description}
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed mt-4">
-                    This {opportunity.type.toLowerCase()} offers an incredible opportunity for women looking to advance their careers and make a meaningful impact. The program is designed to support talented individuals from diverse backgrounds and provide them with the resources, mentorship, and networks needed to succeed.
-                  </p>
-                  
-                  <h3 className="font-serif text-lg font-semibold text-foreground mt-6 mb-3">Eligibility</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>Open to women from all nationalities</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>Demonstrated leadership potential and commitment to making a difference</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>Strong academic background or relevant professional experience</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>Proficiency in English (written and spoken)</span>
-                    </li>
-                  </ul>
+              <OpportunityDetailBody opportunity={opportunity} />
 
-                  <h3 className="font-serif text-lg font-semibold text-foreground mt-6 mb-3">Benefits</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{opportunity.fundingType === "Fully Funded" ? "Full tuition coverage and living expenses" : "Partial financial support available"}</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>Access to exclusive networking events and mentorship programs</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>Professional development workshops and career guidance</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>Join a global community of accomplished women leaders</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Related Opportunities */}
               {relatedOpportunities.length > 0 && (
-                <div>
+                <div className="mt-12">
                   <h2 className="font-serif text-2xl font-bold text-foreground mb-6">
                     Related Opportunities
                   </h2>
@@ -176,22 +105,20 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
               )}
             </div>
 
-            {/* Sidebar */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-6">
-                {/* Apply Card */}
                 <Card>
                   <CardContent className="p-6">
-                    <div className={`flex items-center gap-3 mb-6 ${isUrgent ? "text-destructive" : "text-muted-foreground"}`}>
+                    <div
+                      className={`flex items-center gap-3 mb-6 ${isUrgent ? "text-destructive" : "text-muted-foreground"}`}
+                    >
                       <Clock className="h-5 w-5" />
                       <div>
                         <p className="text-sm">Application Deadline</p>
-                        <p className={`font-semibold text-foreground ${isUrgent ? "text-destructive" : ""}`}>
-                          {new Date(opportunity.deadline).toLocaleDateString("en-US", { 
-                            month: "long", 
-                            day: "numeric", 
-                            year: "numeric" 
-                          })}
+                        <p
+                          className={`font-semibold text-foreground ${isUrgent ? "text-destructive" : ""}`}
+                        >
+                          {formatOpportunityDate(opportunity.deadline)}
                         </p>
                         {daysUntilDeadline > 0 && (
                           <p className={`text-sm ${isUrgent ? "text-destructive font-medium" : ""}`}>
@@ -232,7 +159,6 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                   </CardContent>
                 </Card>
 
-                {/* Quick Info */}
                 <Card>
                   <CardHeader>
                     <CardTitle className="font-serif text-lg">Quick Information</CardTitle>
@@ -280,13 +206,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground">Deadline</p>
-                        <p className="font-medium">
-                          {new Date(opportunity.deadline).toLocaleDateString("en-US", { 
-                            month: "short", 
-                            day: "numeric", 
-                            year: "numeric" 
-                          })}
-                        </p>
+                        <p className="font-medium">{formatOpportunityDate(opportunity.deadline)}</p>
                       </div>
                     </div>
                   </CardContent>

@@ -8,6 +8,7 @@ import {
   type OpportunityRegion,
   type OpportunityType,
 } from "@/lib/opportunity-constants"
+import { linesToBulletList } from "@/lib/opportunity-text"
 import { createOpportunity } from "@/lib/opportunities-admin"
 
 type Body = {
@@ -18,7 +19,12 @@ type Body = {
   region?: string
   fundingType?: string
   deadline?: string
+  summary?: string
   description?: string
+  benefits?: string
+  eligibility?: string
+  requirements?: string
+  impactForWomen?: string
   imageUrl?: string
   applicationLink?: string
   isFeatured?: boolean
@@ -38,11 +44,40 @@ export async function POST(request: Request) {
   const region = body.region ?? ""
   const fundingType = body.fundingType ?? ""
   const deadline = body.deadline ?? ""
+  const summary = body.summary?.trim() ?? ""
   const description = body.description?.trim() ?? ""
+  const benefits = body.benefits ?? ""
+  const eligibility = body.eligibility ?? ""
+  const impactForWomen = body.impactForWomen?.trim() ?? ""
 
-  if (!title || !organization || !location || !deadline || !description) {
+  if (
+    !title ||
+    !organization ||
+    !location ||
+    !deadline ||
+    !summary ||
+    !description ||
+    !impactForWomen
+  ) {
     return NextResponse.json(
-      { error: "Title, organization, location, deadline, and description are required." },
+      {
+        error:
+          "Title, organization, location, deadline, summary, description, and Why This Matters for Her are required.",
+      },
+      { status: 400 },
+    )
+  }
+
+  if (!linesToBulletList(benefits).length) {
+    return NextResponse.json(
+      { error: "Add at least one benefit (one bullet per line)." },
+      { status: 400 },
+    )
+  }
+
+  if (!linesToBulletList(eligibility).length) {
+    return NextResponse.json(
+      { error: "Add at least one eligibility criterion (one bullet per line)." },
       { status: 400 },
     )
   }
@@ -65,7 +100,12 @@ export async function POST(request: Request) {
     region: region as OpportunityRegion,
     fundingType: fundingType as FundingType,
     deadline,
+    summary,
     description,
+    benefits,
+    eligibility,
+    requirements: body.requirements,
+    impactForWomen,
     imageUrl: body.imageUrl,
     applicationLink: body.applicationLink,
     isFeatured: Boolean(body.isFeatured),

@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/ui/checkbox"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import {
   Select,
   SelectContent,
@@ -21,6 +22,28 @@ import {
   OPPORTUNITY_REGIONS,
   OPPORTUNITY_TYPES,
 } from "@/lib/opportunity-constants"
+
+const bulletHint = "Enter one bullet point per line."
+
+function FormSection({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="font-serif text-lg font-semibold text-foreground">{title}</h3>
+        {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
+      </div>
+      {children}
+    </div>
+  )
+}
 
 export default function AddOpportunityPage() {
   const router = useRouter()
@@ -36,7 +59,12 @@ export default function AddOpportunityPage() {
   const [deadline, setDeadline] = useState("")
   const [imageUrl, setImageUrl] = useState("")
   const [applicationLink, setApplicationLink] = useState("")
+  const [summary, setSummary] = useState("")
   const [description, setDescription] = useState("")
+  const [benefits, setBenefits] = useState("")
+  const [eligibility, setEligibility] = useState("")
+  const [requirements, setRequirements] = useState("")
+  const [impactForWomen, setImpactForWomen] = useState("")
   const [isFeatured, setIsFeatured] = useState(false)
 
   async function onSubmit(e: React.FormEvent) {
@@ -63,7 +91,12 @@ export default function AddOpportunityPage() {
         deadline,
         imageUrl,
         applicationLink,
+        summary,
         description,
+        benefits,
+        eligibility,
+        requirements,
+        impactForWomen,
         isFeatured,
       }),
     })
@@ -81,128 +114,163 @@ export default function AddOpportunityPage() {
 
   return (
     <div className="min-h-screen bg-muted/30 py-10 px-4">
-      <div className="container mx-auto max-w-2xl">
+      <div className="container mx-auto max-w-3xl">
         <Card>
           <CardHeader>
             <CardTitle className="font-serif">Add Opportunity</CardTitle>
             <CardDescription>
-              New listings are saved to Supabase and appear across the site automatically.
+              Fields map directly to the live opportunity page sections. Bullet fields use one
+              line per bullet.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={onSubmit} className="space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
-                <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-              </div>
+            <form onSubmit={onSubmit} className="space-y-8">
+              <FormSection title="Basic information">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Title *</Label>
+                    <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                  </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="organization">Organization *</Label>
-                  <Input
-                    id="organization"
-                    value={organization}
-                    onChange={(e) => setOrganization(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="location">Location *</Label>
-                  <Input
-                    id="location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="e.g. Kenya, Remote"
-                    required
-                  />
-                </div>
-              </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="organization">Organization *</Label>
+                      <Input
+                        id="organization"
+                        value={organization}
+                        onChange={(e) => setOrganization(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="location">Location *</Label>
+                      <Input
+                        id="location"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="e.g. Kenya, Remote"
+                        required
+                      />
+                    </div>
+                  </div>
 
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label>Type *</Label>
-                  <Select value={type} onValueChange={setType} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {OPPORTUNITY_TYPES.map((item) => (
-                        <SelectItem key={item} value={item}>
-                          {item}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    <div className="space-y-2">
+                      <Label>Type *</Label>
+                      <Select value={type} onValueChange={setType} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {OPPORTUNITY_TYPES.map((item) => (
+                            <SelectItem key={item} value={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                <div className="space-y-2">
-                  <Label>Region *</Label>
-                  <Select value={region} onValueChange={setRegion} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select region" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {OPPORTUNITY_REGIONS.map((item) => (
-                        <SelectItem key={item} value={item}>
-                          {item}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                    <div className="space-y-2">
+                      <Label>Region *</Label>
+                      <Select value={region} onValueChange={setRegion} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select region" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {OPPORTUNITY_REGIONS.map((item) => (
+                            <SelectItem key={item} value={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                <div className="space-y-2">
-                  <Label>Funding status *</Label>
-                  <Select value={fundingType} onValueChange={setFundingType} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select funding" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {FUNDING_TYPES.map((item) => (
-                        <SelectItem key={item} value={item}>
-                          {item}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+                    <div className="space-y-2">
+                      <Label>Funding status *</Label>
+                      <Select value={fundingType} onValueChange={setFundingType} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select funding" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {FUNDING_TYPES.map((item) => (
+                            <SelectItem key={item} value={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="deadline">Deadline *</Label>
-                <Input
-                  id="deadline"
-                  type="date"
-                  value={deadline}
-                  onChange={(e) => setDeadline(e.target.value)}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="deadline">Application deadline *</Label>
+                      <Input
+                        id="deadline"
+                        type="date"
+                        value={deadline}
+                        onChange={(e) => setDeadline(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="imageUrl">Image URL</Label>
+                      <Input
+                        id="imageUrl"
+                        type="url"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        placeholder="https://…"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="applicationLink">Application link</Label>
+                    <Input
+                      id="applicationLink"
+                      type="url"
+                      value={applicationLink}
+                      onChange={(e) => setApplicationLink(e.target.value)}
+                      placeholder="https://…"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="featured"
+                      checked={isFeatured}
+                      onCheckedChange={(checked) => setIsFeatured(checked === true)}
+                    />
+                    <Label htmlFor="featured">Featured on homepage</Label>
+                  </div>
+                </div>
+              </FormSection>
+
+              <Separator />
+
+              <FormSection
+                title="Summary"
+                description="Short 2–3 sentence intro shown in bold under the title on the detail page."
+              >
+                <Textarea
+                  id="summary"
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  rows={3}
+                  placeholder="A compelling overview in 2–3 sentences…"
                   required
                 />
-              </div>
+              </FormSection>
 
-              <div className="space-y-2">
-                <Label htmlFor="imageUrl">Image URL</Label>
-                <Input
-                  id="imageUrl"
-                  type="url"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="https://…"
-                />
-              </div>
+              <Separator />
 
-              <div className="space-y-2">
-                <Label htmlFor="applicationLink">Application link</Label>
-                <Input
-                  id="applicationLink"
-                  type="url"
-                  value={applicationLink}
-                  onChange={(e) => setApplicationLink(e.target.value)}
-                  placeholder="https://…"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description">Description *</Label>
+              <FormSection
+                title="About the Program"
+                description="Full program description for the main body section."
+              >
                 <Textarea
                   id="description"
                   value={description}
@@ -210,16 +278,64 @@ export default function AddOpportunityPage() {
                   rows={6}
                   required
                 />
-              </div>
+              </FormSection>
 
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="featured"
-                  checked={isFeatured}
-                  onCheckedChange={(checked) => setIsFeatured(checked === true)}
+              <Separator />
+
+              <FormSection title="Benefits" description={bulletHint}>
+                <Textarea
+                  id="benefits"
+                  value={benefits}
+                  onChange={(e) => setBenefits(e.target.value)}
+                  rows={5}
+                  placeholder={"Full tuition coverage\nMonthly stipend\nMentorship program"}
+                  required
                 />
-                <Label htmlFor="featured">Featured</Label>
-              </div>
+              </FormSection>
+
+              <Separator />
+
+              <FormSection title="Eligibility criteria" description={bulletHint}>
+                <Textarea
+                  id="eligibility"
+                  value={eligibility}
+                  onChange={(e) => setEligibility(e.target.value)}
+                  rows={5}
+                  placeholder={"Women aged 18–30\nStrong academic record\nEnglish proficiency"}
+                  required
+                />
+              </FormSection>
+
+              <Separator />
+
+              <FormSection
+                title="Requirements"
+                description={`Optional. ${bulletHint} Leave blank if not applicable.`}
+              >
+                <Textarea
+                  id="requirements"
+                  value={requirements}
+                  onChange={(e) => setRequirements(e.target.value)}
+                  rows={4}
+                  placeholder={"CV and cover letter\nTwo reference letters"}
+                />
+              </FormSection>
+
+              <Separator />
+
+              <FormSection
+                title="Why This Matters for Her"
+                description="2–4 sentences on the impact for young women. Shown in a highlighted box before How to Apply."
+              >
+                <Textarea
+                  id="impactForWomen"
+                  value={impactForWomen}
+                  onChange={(e) => setImpactForWomen(e.target.value)}
+                  rows={4}
+                  placeholder="Explain why this opportunity is meaningful for Her Kadam's community…"
+                  required
+                />
+              </FormSection>
 
               {error && <p className="text-sm text-destructive">{error}</p>}
 

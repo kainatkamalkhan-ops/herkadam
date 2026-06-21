@@ -10,6 +10,11 @@ create table if not exists public.opportunities (
   funding_type text not null,
   region text not null,
   description text not null,
+  summary text,
+  benefits text,
+  eligibility text,
+  requirements text,
+  impact_for_women text,
   is_featured boolean default false,
   image text,
   published boolean not null default true,
@@ -17,8 +22,13 @@ create table if not exists public.opportunities (
   application_link text
 );
 
--- If the table already exists, add optional application link column:
+-- Migrations for existing tables:
 alter table public.opportunities add column if not exists application_link text;
+alter table public.opportunities add column if not exists summary text;
+alter table public.opportunities add column if not exists benefits text;
+alter table public.opportunities add column if not exists eligibility text;
+alter table public.opportunities add column if not exists requirements text;
+alter table public.opportunities add column if not exists impact_for_women text;
 
 alter table public.opportunities enable row level security;
 

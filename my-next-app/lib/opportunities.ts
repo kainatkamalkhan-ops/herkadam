@@ -34,6 +34,11 @@ function rowToOpportunity(row: Record<string, unknown>): Opportunity | null {
     pick<string>(row, "funding_type", "fundingType") ?? ""
   const region = pick<string>(row, "region", "region")
   const description = pick<string>(row, "description", "description")
+  const summary = pick<string>(row, "summary", "summary")
+  const benefits = pick<string>(row, "benefits", "benefits")
+  const eligibility = pick<string>(row, "eligibility", "eligibility")
+  const requirements = pick<string>(row, "requirements", "requirements")
+  const impact_for_women = pick<string>(row, "impact_for_women", "impactForWomen")
 
   if (
     !title ||
@@ -69,6 +74,11 @@ function rowToOpportunity(row: Record<string, unknown>): Opportunity | null {
     fundingType: funding_type,
     region,
     description,
+    summary: summary ?? undefined,
+    benefits: benefits ?? undefined,
+    eligibility: eligibility ?? undefined,
+    requirements: requirements ?? undefined,
+    impactForWomen: impact_for_women ?? undefined,
     isFeatured: is_featured ?? undefined,
     image: image ?? undefined,
     applicationLink: application_link ?? undefined,

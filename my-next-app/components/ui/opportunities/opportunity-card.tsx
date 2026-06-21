@@ -17,6 +17,11 @@ export interface Opportunity {
   fundingType: string
   region: string
   description: string
+  summary?: string
+  benefits?: string
+  eligibility?: string
+  requirements?: string
+  impactForWomen?: string
   isFeatured?: boolean
   image?: string
   applicationLink?: string
