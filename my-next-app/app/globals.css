@@ -553,6 +553,12 @@
   pointer-events: none;
 }
 
+@media (min-width: 1024px) {
+  .home-hero-blend__bottom-fade {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-hero-blend__steps--ghost {
     display: none;
