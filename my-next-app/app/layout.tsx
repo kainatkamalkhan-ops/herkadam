@@ -33,22 +33,22 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.png?v=10",
+        url: "/favicon.png?v=11",
         sizes: "32x32",
         type: "image/png",
       },
       {
-        url: "/favicon.ico?v=10",
+        url: "/favicon.ico?v=11",
         sizes: "any",
         type: "image/x-icon",
       },
       {
-        url: "/icon.png?v=10",
+        url: "/icon.png?v=11",
         sizes: "32x32",
         type: "image/png",
       },
     ],
-    apple: [{ url: "/apple-touch-icon.png?v=10", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=11", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     title: "Her Kadam",

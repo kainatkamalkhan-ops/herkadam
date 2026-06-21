@@ -15,7 +15,7 @@ export function Footer() {
           <h2 className="font-serif text-2xl font-bold mb-4">Her Kadam</h2>
 
           <p className="text-sm leading-relaxed opacity-90 md:text-base">
-            Her Kadam, meaning every step, is a global gateway connecting young women everywhere to
+            Her Kadam is a global gateway connecting young women everywhere to
             scholarships, fellowships, jobs, and leadership opportunities, because access, once visible,
             becomes transformative.
           </p>
