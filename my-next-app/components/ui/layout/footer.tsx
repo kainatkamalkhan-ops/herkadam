@@ -1,10 +1,8 @@
-"use client"
-
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { Button } from "@/components/ui/button"
-import { showMailerLitePopup } from "@/lib/mailerlite"
+import { SUBSCRIBE_PAGE_PATH } from "@/lib/mailerlite"
 
 export function Footer() {
   return (
@@ -27,15 +25,11 @@ export function Footer() {
             </span>
           </p>
 
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="mt-8 gap-2 px-8 ml-onclick-form"
-            onClick={showMailerLitePopup}
-          >
-            Subscribe to Newsletter
-            <ArrowRight className="h-4 w-4" />
+          <Button asChild variant="secondary" size="lg" className="mt-8 gap-2 px-8">
+            <Link href={SUBSCRIBE_PAGE_PATH}>
+              Subscribe to Newsletter
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
 

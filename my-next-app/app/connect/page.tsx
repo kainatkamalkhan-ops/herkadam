@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Send, CheckCircle2, Loader2, ArrowRight } from "lucide-react"
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
@@ -11,7 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { COMMUNITY_SOCIAL_LINKS } from "@/lib/community-social-links"
-import { showMailerLitePopup } from "@/lib/mailerlite"
+import { SUBSCRIBE_PAGE_PATH } from "@/lib/mailerlite"
 
 export default function ConnectPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -192,9 +193,11 @@ export default function ConnectPage() {
                     <p className="text-sm font-medium text-foreground">
                       Get new opportunities delivered to your inbox.
                     </p>
-                    <Button type="button" className="gap-2 ml-onclick-form" onClick={showMailerLitePopup}>
-                      Subscribe
-                      <ArrowRight className="h-4 w-4" />
+                    <Button asChild className="gap-2">
+                      <Link href={SUBSCRIBE_PAGE_PATH}>
+                        Subscribe
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>

@@ -1,8 +1,7 @@
-"use client"
-
+import Link from "next/link"
 import { Mail, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { showMailerLitePopup } from "@/lib/mailerlite"
+import { SUBSCRIBE_PAGE_PATH } from "@/lib/mailerlite"
 
 export function NewsletterSection() {
   return (
@@ -29,15 +28,11 @@ export function NewsletterSection() {
                 Get the latest scholarships, fellowships, and career opportunities delivered straight to your inbox every week.
               </p>
 
-              <Button
-                type="button"
-                size="lg"
-                variant="secondary"
-                className="h-12 px-8 gap-2 shrink-0 ml-onclick-form"
-                onClick={showMailerLitePopup}
-              >
-                Subscribe
-                <ArrowRight className="h-4 w-4" />
+              <Button asChild size="lg" variant="secondary" className="h-12 px-8 gap-2 shrink-0">
+                <Link href={SUBSCRIBE_PAGE_PATH}>
+                  Subscribe
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>

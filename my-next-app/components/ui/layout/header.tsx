@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { showMailerLitePopup } from "@/lib/mailerlite"
+import { SUBSCRIBE_PAGE_PATH } from "@/lib/mailerlite"
 
 const opportunitiesDropdown = {
   byType: [
@@ -120,8 +120,8 @@ export function Header() {
             ))}
 
             {/* Subscribe Button */}
-            <Button type="button" className="ml-2 ml-onclick-form" onClick={showMailerLitePopup}>
-              Subscribe
+            <Button asChild className="ml-2">
+              <Link href={SUBSCRIBE_PAGE_PATH}>Subscribe</Link>
             </Button>
           </nav>
 
@@ -198,11 +198,10 @@ export function Header() {
               ))}
 
               <div className="px-4 pt-2">
-                <Button type="button" className="w-full ml-onclick-form" onClick={() => {
-                  setMobileMenuOpen(false)
-                  showMailerLitePopup()
-                }}>
-                  Subscribe
+                <Button asChild className="w-full">
+                  <Link href={SUBSCRIBE_PAGE_PATH} onClick={() => setMobileMenuOpen(false)}>
+                    Subscribe
+                  </Link>
                 </Button>
               </div>
             </nav>
