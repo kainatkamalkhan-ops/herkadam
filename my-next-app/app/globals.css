@@ -262,8 +262,18 @@
 }
 
 /* Full-height step icons between tagline and quiz (desktop) */
+.home-step-icons-divider {
+  min-height: 100%;
+}
+
 .home-step-icons-divider__img {
-  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.12));
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: top center;
+  filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.14));
 }
 
 .hero-hidden-word {

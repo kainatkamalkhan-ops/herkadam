@@ -2,15 +2,15 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import {
-  Sparkles,
-  Plane,
-  HeartHandshake,
-  Footprints,
-  Users,
-  Award,
-  Lightbulb,
   ArrowRight,
   CheckCircle2,
+  Compass,
+  Eye,
+  FileCheck,
+  Globe2,
+  ListChecks,
+  Search,
+  Users,
 } from "lucide-react"
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
@@ -23,78 +23,54 @@ import { Badge } from "@/components/ui/badge"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Her Kadam — every step toward scholarships, fellowships, jobs, and leadership for women worldwide.",
+    "Learn about Her Kadam — closing the information gap so young women everywhere can find scholarships, fellowships, jobs, and leadership opportunities.",
 }
 
 const values = [
   {
-    icon: Sparkles,
-    title: "Empowerment",
-    description: "We believe every woman deserves access to opportunities that can transform her life and community.",
+    icon: Eye,
+    title: "Access Over Ambition",
+    description:
+      "Talent is not the barrier. Visibility is. We believe every young woman deserves a clear path to opportunities that can change the direction of her life, not just the ones who already know where to look.",
   },
   {
-    icon: Plane,
-    title: "Global Reach",
-    description: "We connect women from all corners of the world with international opportunities.",
+    icon: Globe2,
+    title: "Borderless Opportunity",
+    description:
+      "A young woman's location should never decide her future. We connect women everywhere, regardless of geography, to opportunities the rest of the world already has easy access to.",
   },
   {
-    icon: HeartHandshake,
-    title: "Community",
-    description: "We foster a supportive community where women uplift and inspire each other.",
+    icon: Users,
+    title: "Strength in Numbers",
+    description:
+      "Progress feels lighter when it isn't carried alone. We're building a community where women share what they know, lift each other up, and move forward together.",
   },
   {
-    icon: Footprints,
-    title: "Accessibility",
-    description: "We make information accessible, organized, and easy to navigate for all users.",
+    icon: ListChecks,
+    title: "Clarity, Not Clutter",
+    description:
+      "Opportunities should be easy to find and easy to understand. We organize information so no one is left guessing, searching, or giving up before they've even started.",
   },
 ]
 
 const whatWeDo = [
   {
-    icon: Lightbulb,
-    title: "Curate Opportunities",
+    icon: Search,
+    title: "We Find What's Worth Finding",
     description:
-      "We research and verify hundreds of scholarships, fellowships, jobs, and programs specifically for women.",
+      "We research and verify hundreds of scholarships, fellowships, jobs, and leadership programs, so you're not the one digging through scattered listings and outdated links.",
   },
   {
-    icon: Award,
-    title: "Provide Resources",
+    icon: FileCheck,
+    title: "We Help You Show Up Ready",
     description:
-      "Our guides, templates, and tips help women craft winning applications and prepare for success.",
+      "Our guides, templates, and application resources are built to help you put your best self forward, because a strong opportunity deserves a strong application behind it.",
   },
   {
-    icon: Users,
-    title: "Build Community",
+    icon: Compass,
+    title: "We Strengthen Your Application",
     description:
-      "We connect women with mentors, peers, and networks that support their growth and development.",
-  },
-]
-
-const team = [
-  {
-    name: "Kainat Kamal",
-    role: "Founder & CEO",
-    bio: "PhD Scholar at NUST and Visiting Research Fellow at ANU. Her work sits at the intersection of peacebuilding, gender justice, and creative advocacy, with a focus on making women’s empowerment a lived reality rather than an abstract ideal.",
-  },
-  {
-    name: "Alishba Irfan",
-    role: "Content & Editorial Curator",
-    bio: "A high-achieving high school student with exceptional analytical and creative abilities. She brings a fresh, intuitive perspective to shaping content that is both accessible and impactful for a global audience.",
-  },
-  {
-    name: "Barira Ahmad",
-    role: "Research Lead",
-    bio: "Master’s student at NUST with a strong grounding in academic research and analysis. She is responsible for identifying, verifying, and structuring opportunities with clarity and depth.",
-  },
-  {
-    name: "Tehreem Tariq",
-    role: "Communications & Outreach Strategist",
-    bio: "Independent researcher focused on dialogue, visibility, and external engagement. She works on building meaningful connections and ensuring Her Kadam reaches the right communities and partners.",
-  },
-  {
-    name: "Faruzan Anwar Butt",
-    role: "Mentorship & Application Guidance Advisor",
-    bio: "PhD Scholar at Beijing University with expertise in academic excellence and professional development. She supports applicants through mentorship, feedback, and strategic guidance to strengthen their applications and success pathways.",
+      "Beyond resources, we offer direct feedback on your applications, from your statement of purpose to your CV, helping you understand what makes an application stand out and giving you the guidance to make yours the best version of itself.",
   },
 ]
 
@@ -104,7 +80,6 @@ export default function AboutPage() {
       <TopBar />
       <Header />
       <main className="flex-1 bg-background">
-        {/* Hero Section */}
         <div className="relative bg-gradient-to-br from-primary via-plum-light to-rose py-10 md:py-14">
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute -top-20 -right-20 w-80 h-80 border-[3px] border-primary-foreground/10 rounded-full" />
@@ -118,103 +93,105 @@ export default function AboutPage() {
               About
             </Badge>
             <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4 max-w-4xl mx-auto text-balance">
-              Her Kadam: Every Step Builds Her Power
+              About Her Kadam
             </h1>
           </div>
         </div>
 
-        {/* Story Section */}
         <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-5 tracking-tight lg:whitespace-nowrap">
-                Born from a Vision Where Women Lead Peace
+          <article className="mx-auto max-w-3xl">
+            <section className="mb-14 md:mb-20">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight">
+                The Problem We&apos;re Solving
               </h2>
-              <div className="space-y-4 text-justify text-muted-foreground hyphens-auto">
+              <div className="space-y-4 text-justify text-muted-foreground leading-relaxed hyphens-auto">
                 <p>
-                  Her Kadam takes its name from the Urdu phrase “ہر قدم” (Har Kadam), meaning “every step.” It carries a quiet
-                  but powerful idea: that progress is not a single leap, but a series of steps, each one opening a new
-                  possibility. At its heart, the platform serves as a global gateway for women seeking scholarships,
-                  fellowships, jobs, internships, and leadership opportunities that can reshape the course of their lives. It is
-                  built on the understanding that access, when made visible and reachable, can be transformative.
+                  Every year, thousands of life-changing opportunities open up for young women: scholarships,
+                  fellowships, leadership programs, jobs that could shift the entire course of a life. But for most,
+                  these opportunities remain invisible. They are buried in newsletters they never receive, on websites
+                  that assume a network they were never given, shared in circles they were never invited into. The
+                  opportunity exists. The access does not.
                 </p>
                 <p>
-                  Her Kadam is more than an opportunity board. It is a space that offers clarity, direction, and support in
-                  navigating paths that are often scattered or difficult to access. By bringing together scholarships,
-                  fellowships, jobs, and leadership programs in one place, it helps make opportunities more visible and easier
-                  to reach. At its core, the platform is built on dignity and informed choice. Each opportunity shared is part
-                  of a wider commitment to making access more equitable and intentional. Every step a woman takes toward her
-                  goals is seen as meaningful progress that strengthens not only her own journey, but also contributes to more
-                  inclusive and peaceful societies.
+                  This is not a talent gap. It is an information gap, and it is one of the quietest forms of exclusion
+                  that exists today. Two equally capable young women, anywhere in the world, do not always have the same
+                  starting point, not because one lacks ability, but because no one made sure the door was visible to
+                  her.
+                </p>
+                <p className="font-medium text-foreground">Her Kadam exists to close that gap.</p>
+              </div>
+            </section>
+
+            <section className="mb-14 md:mb-20">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight">
+                Our Philosophy
+              </h2>
+              <div className="space-y-4 text-justify text-muted-foreground leading-relaxed hyphens-auto">
+                <p>
+                  Her Kadam takes its name from the Urdu phrase &ldquo;ہر قدم&rdquo; (Har Kadam), meaning &ldquo;every
+                  step.&rdquo; It carries a quiet but powerful idea: that progress is not a single leap, but a series of
+                  steps, each one opening a new possibility.
                 </p>
                 <p>
-                  Her Kadam exists within the broader vision of Kainat Kamal, a peace activist and researcher whose work brings
-                  together peacebuilding, gender justice, academia, arts, and advocacy. Grounded in the belief that “Peace
-                  Needs Women,” her work repositions women as central to shaping systems and futures. Through Her Kadam and her
-                  wider initiatives, she creates pathways that connect access with agency, ensuring that women are not only
-                  present, but empowered to lead, influence, and transform the spaces they enter.
+                  We believe access, once made visible and reachable, can be transformative. A young woman does not need
+                  someone to hand her a future, she needs the door to be findable, the information to be clear, and the
+                  path to be navigable without unnecessary barriers in her way.
+                </p>
+                <p>
+                  At its heart, Her Kadam is a global gateway connecting young women to scholarships, fellowships, jobs,
+                  internships, and leadership opportunities, all in one place. It removes the burden of searching
+                  scattered, hard-to-find listings and replaces it with clarity. But it is built on more than
+                  convenience, it is built on dignity and informed choice. Every opportunity shared here reflects a
+                  commitment to making access more equitable and more intentional, and every step a young woman takes
+                  toward her goals is meaningful progress, both for her own journey and for the world she is helping
+                  shape.
+                </p>
+                <p>
+                  We are not just a list of links. We are a space built specifically for the young women too often left
+                  out of the rooms where these opportunities first get shared.
                 </p>
               </div>
-            </div>
-            <div className="relative mx-auto flex min-h-[420px] w-full max-w-md items-center justify-center sm:min-h-[480px] lg:max-w-lg lg:min-h-[520px]">
-              {/* Back tile — founder photo, tilted */}
-              <div
-                className="absolute left-0 top-6 z-10 w-[58%] max-w-[220px] origin-center rotate-[-7deg] overflow-hidden rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35)] ring-2 ring-background sm:left-2 sm:top-10 sm:max-w-[260px] lg:max-w-[280px]"
-                style={{ aspectRatio: "3 / 4" }}
-              >
-                <Image
-                  src="/about-founder.png"
-                  alt="Kainat Kamal with passport and luggage in an airport terminal, representing global movement and Her Kadam’s gateway for women."
-                  fill
-                  className="object-cover object-[center_22%]"
-                  sizes="(max-width: 1024px) 40vw, 280px"
-                  priority
-                />
-              </div>
-              {/* Front tile — brand, larger mark, overlapping */}
-              <div className="absolute bottom-4 right-0 z-20 w-[68%] max-w-[280px] origin-center rotate-[9deg] rounded-2xl bg-white p-4 shadow-[0_24px_60px_-14px_rgba(0,0,0,0.3)] ring-2 ring-border/80 sm:bottom-8 sm:max-w-[300px] lg:bottom-10 lg:max-w-[320px]">
-                <div className="flex items-center justify-center">
-                  <HerKadamLogo size="lg" />
-                </div>
-              </div>
-            </div>
-          </div>
+            </section>
+          </article>
         </div>
 
         {/* Values */}
-        <div className="bg-secondary/30 py-16 md:py-24">
+        <section className="bg-secondary/30 py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-5xl mx-auto mb-12">
-              <Badge variant="secondary" className="mb-4">Our Values</Badge>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <header className="mx-auto mb-12 max-w-2xl text-center">
+              <Badge variant="secondary" className="mb-3">
+                Our Values
+              </Badge>
+              <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl">
                 What Drives Us
               </h2>
-              <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <p className="text-muted-foreground whitespace-nowrap text-center w-max max-w-none mx-auto">
-                  Our core values guide everything we do, from curating opportunities to building our community.
-                </p>
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <p className="mt-4 text-muted-foreground leading-relaxed">
+                Everything we build, from the opportunities we curate to the community we&apos;re growing, comes back to
+                a few simple beliefs.
+              </p>
+            </header>
+            <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2">
               {values.map((value) => (
-                <Card key={value.title} className="text-center hover:shadow-md transition-all">
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <value.icon className="h-8 w-8 text-primary" />
+                <Card key={value.title} className="border-border/80 shadow-sm transition-shadow hover:shadow-md">
+                  <CardContent className="flex h-full flex-col gap-4 p-6 md:p-8">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/15">
+                      <value.icon className="h-6 w-6" aria-hidden />
                     </div>
-                    <h3 className="font-serif text-lg font-semibold mb-2">{value.title}</h3>
-                    <p className="text-sm text-muted-foreground">{value.description}</p>
+                    <div className="space-y-2">
+                      <h3 className="font-serif text-xl font-semibold text-foreground">{value.title}</h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{value.description}</p>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* What We Do — stacked editorial rows (not 3-up cards) */}
-        <section className="border-y border-border bg-muted/25 py-16 md:py-24">
+        {/* What We Do */}
+        <section className="border-y border-border bg-muted/20 py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <header className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
+            <header className="mx-auto mb-12 max-w-2xl text-center">
               <Badge variant="secondary" className="mb-3">
                 What We Do
               </Badge>
@@ -222,73 +199,83 @@ export default function AboutPage() {
                 How We Help Women Succeed
               </h2>
             </header>
-
-            <div className="mx-auto max-w-3xl">
-              <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                {whatWeDo.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className="flex flex-col gap-5 border-b border-border px-6 py-8 last:border-b-0 md:flex-row md:items-stretch md:gap-0 md:px-0 md:py-0"
-                  >
-                    <div className="flex flex-1 flex-col gap-3 md:max-w-[42%] md:border-r md:border-border md:bg-muted/30 md:p-8 lg:max-w-[40%]">
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/15">
-                          <item.icon className="h-5 w-5" aria-hidden />
-                        </span>
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
+            <div className="mx-auto flex max-w-3xl flex-col gap-5">
+              {whatWeDo.map((item, index) => (
+                <Card key={item.title} className="overflow-hidden border-border/80 shadow-sm">
+                  <CardContent className="flex flex-col gap-5 p-6 md:flex-row md:items-start md:gap-6 md:p-8">
+                    <div className="flex shrink-0 items-center gap-4 md:flex-col md:items-start md:gap-3">
+                      <span className="font-serif text-2xl font-bold tabular-nums text-primary/30 md:text-3xl">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+                        <item.icon className="h-5 w-5" aria-hidden />
                       </div>
+                    </div>
+                    <div className="space-y-2">
                       <h3 className="font-serif text-xl font-semibold leading-snug text-foreground md:text-[1.35rem]">
                         {item.title}
                       </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                        {item.description}
+                      </p>
                     </div>
-                    <p className="flex-1 text-[15px] leading-relaxed text-muted-foreground md:flex md:items-center md:p-8 md:pl-10">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Team */}
-        <div className="bg-secondary/30 py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
-              <Badge variant="secondary" className="mb-3 text-xs">Our Team</Badge>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-2">
-                The People Behind Her Kadam
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                A passionate team dedicated to opening doors for women worldwide.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
-              {team.map((member) => (
-                <Card key={member.name} className="text-center shadow-sm transition-shadow hover:shadow-md">
-                  <CardContent className="flex flex-col items-center p-3 sm:p-4">
-                    <div
-                      className="mx-auto mb-3 h-14 w-14 shrink-0 rounded-full border-2 border-dashed border-primary/25 bg-muted/50 sm:h-16 sm:w-16"
-                      aria-hidden
-                    />
-                    <h3 className="font-serif text-sm font-semibold leading-tight text-foreground sm:text-base">
-                      {member.name}
-                    </h3>
-                    <p className="mb-2 text-[11px] font-medium leading-snug text-primary sm:text-xs">{member.role}</p>
-                    <p className="hyphens-auto text-justify text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
-                      {member.bio}
-                    </p>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
+        </section>
+
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <article className="mx-auto max-w-3xl">
+            <section>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8 tracking-tight">
+                About Me
+              </h2>
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-12">
+                <div className="space-y-4 text-justify text-muted-foreground leading-relaxed hyphens-auto">
+                  <p>
+                    I&apos;m Kainat Kamal, the founder of Her Kadam. I&apos;m a researcher and PhD candidate whose work
+                    sits at the intersection of academia, peacebuilding, and advocacy, and over the years I&apos;ve seen
+                    firsthand how often talent and ambition are not the limiting factor for young women, access is. I
+                    built Her Kadam because I wanted that gap to close, one opportunity, one application, one step at a
+                    time.
+                  </p>
+                  <p>
+                    My work spans peacebuilding research and advocacy, from speaking at CEDAW GR40 in Bangkok to
+                    representing Pakistan at the UN Women Generation Equality Forum, alongside ongoing PhD research and
+                    a Visiting Research Fellowship at ANU. Along the way, I&apos;ve been fortunate to receive multiple
+                    scholarships and fellowships myself, experiences that taught me firsthand how much a strong
+                    application, and the right guidance behind it, can change. But every accomplishment traces back to
+                    the same starting point many of the young women on this platform share: searching for the right
+                    opportunity with no one to point the way. That&apos;s the gap Her Kadam exists to close.
+                  </p>
+                </div>
+                <div className="relative mx-auto flex min-h-[320px] w-full max-w-xs items-center justify-center sm:min-h-[360px] lg:mx-0 lg:max-w-sm">
+                  <div
+                    className="absolute left-0 top-4 z-10 w-[58%] max-w-[200px] origin-center rotate-[-7deg] overflow-hidden rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35)] ring-2 ring-background sm:max-w-[220px]"
+                    style={{ aspectRatio: "3 / 4" }}
+                  >
+                    <Image
+                      src="/about-founder.png"
+                      alt="Kainat Kamal, founder of Her Kadam"
+                      fill
+                      className="object-cover object-[center_22%]"
+                      sizes="(max-width: 1024px) 40vw, 220px"
+                    />
+                  </div>
+                  <div className="absolute bottom-2 right-0 z-20 w-[65%] max-w-[240px] origin-center rotate-[9deg] rounded-2xl bg-white p-3 shadow-[0_24px_60px_-14px_rgba(0,0,0,0.3)] ring-2 ring-border/80 sm:bottom-4">
+                    <div className="flex items-center justify-center">
+                      <HerKadamLogo size="md" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </article>
         </div>
 
-        {/* CTA */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="container mx-auto px-4 pb-16 md:pb-24">
           <Card className="bg-gradient-to-br from-primary to-plum-light text-primary-foreground overflow-hidden">
             <CardContent className="p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -303,7 +290,12 @@ export default function AboutPage() {
                         <ArrowRight className="h-4 w-4 ml-2" />
                       </Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                      asChild
+                    >
                       <Link href="/connect">Connect With Us</Link>
                     </Button>
                   </div>

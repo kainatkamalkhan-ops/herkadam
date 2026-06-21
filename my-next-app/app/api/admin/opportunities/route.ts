@@ -10,6 +10,7 @@ import {
 } from "@/lib/opportunity-constants"
 import { linesToBulletList } from "@/lib/opportunity-text"
 import { createOpportunity } from "@/lib/opportunities-admin"
+import { parseYoutubeVideoId } from "@/lib/youtube"
 
 type Body = {
   title?: string
@@ -27,6 +28,7 @@ type Body = {
   impactForWomen?: string
   imageUrl?: string
   applicationLink?: string
+  videoLink?: string
   isFeatured?: boolean
 }
 
@@ -92,6 +94,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid funding status." }, { status: 400 })
   }
 
+  const videoLink = body.videoLink?.trim() ?? ""
+  if (videoLink && !parseYoutubeVideoId(videoLink)) {
+    return NextResponse.json(
+      { error: "Video link must be a valid YouTube URL (watch, youtu.be, embed, or shorts)." },
+      { status: 400 },
+    )
+  }
+
   const result = await createOpportunity({
     title,
     organization,
@@ -108,6 +118,7 @@ export async function POST(request: Request) {
     impactForWomen,
     imageUrl: body.imageUrl,
     applicationLink: body.applicationLink,
+    videoLink: videoLink || undefined,
     isFeatured: Boolean(body.isFeatured),
   })
 

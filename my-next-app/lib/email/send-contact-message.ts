@@ -1,19 +1,9 @@
 const CONTACT_INBOX =
   process.env.CONTACT_INBOX_EMAIL?.trim() || "herkadamofficial@gmail.com"
 
-const SUBJECT_LABELS: Record<string, string> = {
-  general: "General Inquiry",
-  opportunity: "Submit an Opportunity",
-  partnership: "Partnership Request",
-  feedback: "Feedback",
-  support: "Technical Support",
-  other: "Other",
-}
-
 export type ContactMessageInput = {
   name: string
   email: string
-  subject: string
   message: string
 }
 
@@ -36,7 +26,6 @@ export async function sendContactMessage(input: ContactMessageInput): Promise<Se
     return { ok: false, error: "Contact form is temporarily unavailable. Please email us directly." }
   }
 
-  const subjectLabel = SUBJECT_LABELS[input.subject] ?? input.subject
   const safeName = escapeHtml(input.name.trim())
   const safeEmail = escapeHtml(input.email.trim())
   const safeMessage = escapeHtml(input.message.trim()).replaceAll("\n", "<br />")
@@ -52,7 +41,7 @@ export async function sendContactMessage(input: ContactMessageInput): Promise<Se
         from,
         to: CONTACT_INBOX,
         reply_to: input.email.trim(),
-        subject: `[Her Kadam Connect] ${subjectLabel} — ${input.name.trim()}`,
+        subject: `[Her Kadam Connect] Message from ${input.name.trim()}`,
         html: `
 <!DOCTYPE html>
 <html>
@@ -60,7 +49,6 @@ export async function sendContactMessage(input: ContactMessageInput): Promise<Se
     <h1 style="font-size: 20px; margin-bottom: 16px;">New message from herkadam.com/connect</h1>
     <p><strong>Name:</strong> ${safeName}</p>
     <p><strong>Email:</strong> ${safeEmail}</p>
-    <p><strong>Subject:</strong> ${escapeHtml(subjectLabel)}</p>
     <p><strong>Message:</strong></p>
     <p style="white-space: pre-wrap;">${safeMessage}</p>
   </body>

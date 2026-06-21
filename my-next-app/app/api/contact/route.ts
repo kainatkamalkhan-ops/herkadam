@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server"
 import { sendContactMessage } from "@/lib/email/send-contact-message"
 
-const VALID_SUBJECTS = new Set([
-  "general",
-  "opportunity",
-  "partnership",
-  "feedback",
-  "support",
-  "other",
-])
-
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
 }
@@ -26,7 +17,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 })
   }
 
-  const { name, email, subject, message } = body as Record<string, unknown>
+  const { name, email, message } = body as Record<string, unknown>
 
   if (typeof name !== "string" || !name.trim()) {
     return NextResponse.json({ error: "Please enter your name." }, { status: 400 })
@@ -36,10 +27,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 })
   }
 
-  if (typeof subject !== "string" || !VALID_SUBJECTS.has(subject)) {
-    return NextResponse.json({ error: "Please select a subject." }, { status: 400 })
-  }
-
   if (typeof message !== "string" || !message.trim()) {
     return NextResponse.json({ error: "Please enter a message." }, { status: 400 })
   }
@@ -47,7 +34,6 @@ export async function POST(request: Request) {
   const result = await sendContactMessage({
     name: name.trim(),
     email: email.trim(),
-    subject,
     message: message.trim(),
   })
 

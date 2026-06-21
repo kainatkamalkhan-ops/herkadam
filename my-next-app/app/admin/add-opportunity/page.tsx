@@ -59,6 +59,7 @@ export default function AddOpportunityPage() {
   const [deadline, setDeadline] = useState("")
   const [imageUrl, setImageUrl] = useState("")
   const [applicationLink, setApplicationLink] = useState("")
+  const [videoLink, setVideoLink] = useState("")
   const [summary, setSummary] = useState("")
   const [description, setDescription] = useState("")
   const [benefits, setBenefits] = useState("")
@@ -91,6 +92,7 @@ export default function AddOpportunityPage() {
         deadline,
         imageUrl,
         applicationLink,
+        videoLink,
         summary,
         description,
         benefits,
@@ -236,6 +238,21 @@ export default function AddOpportunityPage() {
                       onChange={(e) => setApplicationLink(e.target.value)}
                       placeholder="https://…"
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="videoLink">YouTube video link</Label>
+                    <Input
+                      id="videoLink"
+                      type="url"
+                      value={videoLink}
+                      onChange={(e) => setVideoLink(e.target.value)}
+                      placeholder="https://www.youtube.com/watch?v=…"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Optional. Shows a clickable thumbnail on the opportunity page when you publish
+                      a walkthrough video.
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-2">

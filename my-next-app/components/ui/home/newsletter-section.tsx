@@ -115,11 +115,6 @@ export function NewsletterSection() {
               {error && !isSubscribed && (
                 <p className="text-sm text-primary-foreground/90 mt-3">{error}</p>
               )}
-
-              {/* Trust Indicators */}
-              <p className="text-sm text-primary-foreground/60 mt-6">
-                Join 10,000+ women receiving weekly opportunities. Unsubscribe anytime.
-              </p>
             </div>
           </div>
         </div>

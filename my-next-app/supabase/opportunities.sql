@@ -19,7 +19,8 @@ create table if not exists public.opportunities (
   image text,
   published boolean not null default true,
   published_at timestamptz not null default now(),
-  application_link text
+  application_link text,
+  video_link text
 );
 
 -- Migrations for existing tables:
@@ -29,6 +30,7 @@ alter table public.opportunities add column if not exists benefits text;
 alter table public.opportunities add column if not exists eligibility text;
 alter table public.opportunities add column if not exists requirements text;
 alter table public.opportunities add column if not exists impact_for_women text;
+alter table public.opportunities add column if not exists video_link text;
 
 alter table public.opportunities enable row level security;
 

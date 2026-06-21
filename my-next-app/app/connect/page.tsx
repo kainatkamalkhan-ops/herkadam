@@ -10,13 +10,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { COMMUNITY_SOCIAL_LINKS } from "@/lib/community-social-links"
 
 export default function ConnectPage() {
@@ -26,7 +19,6 @@ export default function ConnectPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
     message: "",
   })
 
@@ -148,29 +140,6 @@ export default function ConnectPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <label htmlFor="subject" className="text-sm font-medium">
-                          Subject
-                        </label>
-                        <Select
-                          value={formData.subject}
-                          onValueChange={(value) => setFormData({ ...formData, subject: value })}
-                          disabled={formLoading}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a subject" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="general">General Inquiry</SelectItem>
-                            <SelectItem value="opportunity">Submit an Opportunity</SelectItem>
-                            <SelectItem value="partnership">Partnership Request</SelectItem>
-                            <SelectItem value="feedback">Feedback</SelectItem>
-                            <SelectItem value="support">Technical Support</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="space-y-2">
                         <label htmlFor="message" className="text-sm font-medium">
                           Message
                         </label>
@@ -214,7 +183,7 @@ export default function ConnectPage() {
                         variant="outline"
                         onClick={() => {
                           setIsSubmitted(false)
-                          setFormData({ name: "", email: "", subject: "", message: "" })
+                          setFormData({ name: "", email: "", message: "" })
                         }}
                       >
                         Send Another Message

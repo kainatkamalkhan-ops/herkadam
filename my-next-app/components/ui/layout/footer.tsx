@@ -28,9 +28,13 @@ export function Footer() {
           </Button>
         </div>
 
-        <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center">
+        <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center space-y-3">
           <p className="text-sm opacity-70">
             &copy; {new Date().getFullYear()} Her Kadam. All rights reserved.
+          </p>
+          <p className="mx-auto max-w-2xl text-xs leading-relaxed opacity-50 md:text-sm">
+            Her Kadam shares opportunities posted by external institutions and organizations. We do not
+            guarantee selection, admission, or funding outcomes.
           </p>
         </div>
       </div>

@@ -25,6 +25,8 @@ export interface Opportunity {
   isFeatured?: boolean
   image?: string
   applicationLink?: string
+  /** Optional YouTube URL for an opportunity walkthrough video */
+  videoLink?: string
   /** ISO date — used for “newest first” when reading from JSON or DB */
   publishedAt?: string
 }

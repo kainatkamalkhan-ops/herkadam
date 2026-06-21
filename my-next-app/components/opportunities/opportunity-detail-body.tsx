@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react"
 import type { Opportunity } from "@/components/opportunities/opportunity-card"
+import { OpportunityYoutubeVideo } from "@/components/opportunities/opportunity-youtube-video"
 import { Button } from "@/components/ui/button"
 import {
   benefitsSectionTitle,
@@ -127,6 +128,10 @@ export function OpportunityDetailBody({ opportunity }: { opportunity: Opportunit
         <Section title="Requirements">
           <BulletList items={requirements} />
         </Section>
+      )}
+
+      {opportunity.videoLink?.trim() && (
+        <OpportunityYoutubeVideo videoLink={opportunity.videoLink.trim()} />
       )}
 
       {opportunity.impactForWomen?.trim() && (

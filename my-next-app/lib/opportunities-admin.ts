@@ -23,6 +23,7 @@ export type CreateOpportunityInput = {
   impactForWomen: string
   imageUrl?: string
   applicationLink?: string
+  videoLink?: string
   isFeatured: boolean
 }
 
@@ -61,6 +62,7 @@ export async function createOpportunity(
     impact_for_women: input.impactForWomen.trim(),
     image: input.imageUrl?.trim() || null,
     application_link: input.applicationLink?.trim() || null,
+    video_link: input.videoLink?.trim() || null,
     is_featured: input.isFeatured,
     published: true,
     published_at: new Date().toISOString(),

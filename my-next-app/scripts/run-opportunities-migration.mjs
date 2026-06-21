@@ -44,6 +44,7 @@ alter table public.opportunities add column if not exists benefits text;
 alter table public.opportunities add column if not exists eligibility text;
 alter table public.opportunities add column if not exists requirements text;
 alter table public.opportunities add column if not exists impact_for_women text;
+alter table public.opportunities add column if not exists video_link text;
 `.trim()
 
 function projectRef() {
@@ -115,7 +116,7 @@ async function verifyViaSupabase() {
   })
   const { error } = await sb
     .from("opportunities")
-    .select("summary, benefits, eligibility, requirements, impact_for_women")
+    .select("summary, benefits, eligibility, requirements, impact_for_women, video_link")
     .limit(1)
 
   if (error) {
