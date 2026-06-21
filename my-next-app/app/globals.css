@@ -758,36 +758,6 @@
   overflow-wrap: normal;
 }
 
-.about-values-bento {
-  display: grid;
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .about-values-bento {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, auto));
-    gap: 1.25rem;
-  }
-
-  .about-values-bento__item--hero {
-    grid-column: span 5;
-    grid-row: span 2;
-  }
-
-  .about-values-bento__item--wide {
-    grid-column: span 7;
-  }
-
-  .about-values-bento__item--mid {
-    grid-column: span 4;
-  }
-
-  .about-values-bento__item--narrow {
-    grid-column: span 3;
-  }
-}
-
 .about-journey-path {
   position: relative;
 }

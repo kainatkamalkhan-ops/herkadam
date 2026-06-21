@@ -1,7 +1,10 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { Button } from "@/components/ui/button"
+import { showMailerLitePopup } from "@/lib/mailerlite"
 
 export function Footer() {
   return (
@@ -15,13 +18,23 @@ export function Footer() {
           <h2 className="font-serif text-2xl font-bold mb-4">Her Kadam</h2>
 
           <p className="text-sm leading-relaxed opacity-90 md:text-base">
-            Her Kadam is a global gateway connecting young women everywhere to
-            scholarships, fellowships, jobs, and leadership opportunities, because access, once visible,
-            becomes transformative.
+            <span className="block">
+              Her Kadam is a global gateway connecting young women everywhere to scholarships, fellowships,
+              jobs, and leadership opportunities,
+            </span>
+            <span className="block">
+              because access, once visible, becomes transformative.
+            </span>
           </p>
 
           <Button asChild variant="secondary" size="lg" className="mt-8 gap-2 px-8">
-            <Link href="/#subscribe">
+            <Link
+              href="/#subscribe"
+              onClick={(e) => {
+                e.preventDefault()
+                showMailerLitePopup()
+              }}
+            >
               Subscribe to Newsletter
               <ArrowRight className="h-4 w-4" />
             </Link>

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { COMMUNITY_SOCIAL_LINKS } from "@/lib/community-social-links"
+import { showMailerLitePopup } from "@/lib/mailerlite"
 
 export default function ConnectPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -21,12 +22,6 @@ export default function ConnectPage() {
     email: "",
     message: "",
   })
-
-  const [subscribeEmail, setSubscribeEmail] = useState("")
-  const [subscribeLoading, setSubscribeLoading] = useState(false)
-  const [subscribeError, setSubscribeError] = useState<string | null>(null)
-  const [isSubscribed, setIsSubscribed] = useState(false)
-  const [welcomeEmailSent, setWelcomeEmailSent] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -49,33 +44,6 @@ export default function ConnectPage() {
       setFormError("Network error. Please try again.")
     } finally {
       setFormLoading(false)
-    }
-  }
-
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault()
-    if (!subscribeEmail.trim()) return
-
-    setSubscribeLoading(true)
-    setSubscribeError(null)
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: subscribeEmail.trim() }),
-      })
-      const data = (await res.json()) as { error?: string; welcomeEmailSent?: boolean }
-      if (!res.ok) {
-        setSubscribeError(data.error ?? "Something went wrong. Please try again.")
-        return
-      }
-      setWelcomeEmailSent(Boolean(data.welcomeEmailSent))
-      setIsSubscribed(true)
-      setSubscribeEmail("")
-    } catch {
-      setSubscribeError("Network error. Please try again.")
-    } finally {
-      setSubscribeLoading(false)
     }
   }
 
@@ -224,40 +192,10 @@ export default function ConnectPage() {
                     <p className="text-sm font-medium text-foreground">
                       Get new opportunities delivered to your inbox.
                     </p>
-                    {!isSubscribed ? (
-                      <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
-                        <Input
-                          type="email"
-                          placeholder="Enter your email"
-                          value={subscribeEmail}
-                          onChange={(e) => setSubscribeEmail(e.target.value)}
-                          required
-                          disabled={subscribeLoading}
-                        />
-                        <Button type="submit" className="gap-2" disabled={subscribeLoading}>
-                          {subscribeLoading ? (
-                            <>
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                              Subscribing…
-                            </>
-                          ) : (
-                            <>
-                              Subscribe
-                              <ArrowRight className="h-4 w-4" />
-                            </>
-                          )}
-                        </Button>
-                      </form>
-                    ) : (
-                      <p className="text-sm text-emerald-700">
-                        {welcomeEmailSent
-                          ? "You're subscribed! Check your inbox for a welcome email from Her Kadam."
-                          : "You're subscribed to Her Kadam weekly updates."}
-                      </p>
-                    )}
-                    {subscribeError && !isSubscribed && (
-                      <p className="text-sm text-destructive">{subscribeError}</p>
-                    )}
+                    <Button type="button" className="gap-2" onClick={showMailerLitePopup}>
+                      Subscribe
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

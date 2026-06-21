@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { showMailerLitePopup } from "@/lib/mailerlite"
 
 const opportunitiesDropdown = {
   byType: [
@@ -120,7 +121,15 @@ export function Header() {
 
             {/* Subscribe Button */}
             <Button asChild className="ml-2">
-              <Link href="#subscribe">Subscribe</Link>
+              <Link
+                href="#subscribe"
+                onClick={(e) => {
+                  e.preventDefault()
+                  showMailerLitePopup()
+                }}
+              >
+                Subscribe
+              </Link>
             </Button>
           </nav>
 
@@ -198,7 +207,16 @@ export function Header() {
 
               <div className="px-4 pt-2">
                 <Button asChild className="w-full">
-                  <Link href="#subscribe" onClick={() => setMobileMenuOpen(false)}>Subscribe</Link>
+                  <Link
+                    href="#subscribe"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setMobileMenuOpen(false)
+                      showMailerLitePopup()
+                    }}
+                  >
+                    Subscribe
+                  </Link>
                 </Button>
               </div>
             </nav>

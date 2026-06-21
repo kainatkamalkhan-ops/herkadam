@@ -33,37 +33,26 @@ const values = [
     title: "Access Over Ambition",
     description:
       "Talent is not the barrier. Visibility is. We believe every young woman deserves a clear path to opportunities that can change the direction of her life, not just the ones who already know where to look.",
-    layout: "hero" as const,
   },
   {
     icon: Globe2,
     title: "Borderless Opportunity",
     description:
       "A young woman's location should never decide her future. We connect women everywhere, regardless of geography, to opportunities the rest of the world already has easy access to.",
-    layout: "wide" as const,
   },
   {
     icon: Users,
     title: "Strength in Numbers",
     description:
       "Progress feels lighter when it isn't carried alone. We're building a community where women share what they know, lift each other up, and move forward together.",
-    layout: "mid" as const,
   },
   {
     icon: ListChecks,
     title: "Clarity, Not Clutter",
     description:
       "Opportunities should be easy to find and easy to understand. We organize information so no one is left guessing, searching, or giving up before they've even started.",
-    layout: "narrow" as const,
   },
 ]
-
-const valueLayoutClass: Record<(typeof values)[number]["layout"], string> = {
-  hero: "about-values-bento__item--hero",
-  wide: "about-values-bento__item--wide",
-  mid: "about-values-bento__item--mid",
-  narrow: "about-values-bento__item--narrow",
-}
 
 const whatWeDo = [
   {
@@ -98,14 +87,8 @@ export default function AboutPage() {
             <div className="absolute bottom-10 -left-20 w-60 h-60 border-[3px] border-primary-foreground/10 rounded-full" />
           </div>
           <div className="relative container mx-auto px-4 text-center">
-            <Badge
-              variant="secondary"
-              className="mb-4 border-0 bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/20"
-            >
-              About
-            </Badge>
             <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4 max-w-4xl mx-auto text-balance">
-              About Her Kadam
+              About
             </h1>
           </div>
         </div>
@@ -167,7 +150,7 @@ export default function AboutPage() {
           </article>
         </div>
 
-        {/* Values — bento mosaic */}
+        {/* Values — list */}
         <section className="relative overflow-hidden bg-secondary/30 py-16 md:py-24">
           <div
             className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl"
@@ -190,61 +173,28 @@ export default function AboutPage() {
                 young women make.
               </p>
             </header>
-            <div className="about-values-bento mx-auto max-w-6xl">
-              {values.map((value, index) => {
-                const isHero = value.layout === "hero"
-                return (
-                  <Card
-                    key={value.title}
-                    className={cn(
-                      "group overflow-hidden border-border/80 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg",
-                      valueLayoutClass[value.layout],
-                      isHero &&
-                        "bg-gradient-to-br from-primary/[0.08] via-card to-rose/[0.12] md:min-h-[320px]",
-                    )}
-                  >
-                    <CardContent
-                      className={cn(
-                        "flex h-full flex-col gap-4 p-6 md:p-8",
-                        isHero && "md:justify-between md:gap-6",
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div
-                          className={cn(
-                            "flex items-center justify-center rounded-2xl text-primary ring-1 ring-primary/15",
-                            isHero ? "h-14 w-14 bg-primary/15" : "h-12 w-12 bg-primary/10",
-                          )}
-                        >
-                          <value.icon className={cn("shrink-0", isHero ? "h-7 w-7" : "h-6 w-6")} aria-hidden />
-                        </div>
-                        <span className="font-serif text-4xl font-bold tabular-nums text-primary/15 md:text-5xl">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        <h3
-                          className={cn(
-                            "font-serif font-semibold text-foreground",
-                            isHero ? "text-2xl md:text-[1.65rem]" : "text-xl",
-                          )}
-                        >
-                          {value.title}
-                        </h3>
-                        <p
-                          className={cn(
-                            "leading-relaxed text-muted-foreground",
-                            isHero ? "text-base md:text-[17px]" : "text-sm md:text-[15px]",
-                          )}
-                        >
-                          {value.description}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              })}
-            </div>
+            <ul className="mx-auto max-w-3xl divide-y divide-border/70">
+              {values.map((value, index) => (
+                <li key={value.title} className="flex gap-5 py-8 first:pt-0 last:pb-0 md:gap-6 md:py-10">
+                  <div className="flex shrink-0 flex-col items-center gap-3">
+                    <span className="font-serif text-sm font-bold tabular-nums text-primary/40">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/15 md:h-12 md:w-12">
+                      <value.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden />
+                    </div>
+                  </div>
+                  <div className="min-w-0 space-y-2 pt-1">
+                    <h3 className="font-serif text-xl font-semibold text-foreground md:text-[1.35rem]">
+                      {value.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                      {value.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
