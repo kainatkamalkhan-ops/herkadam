@@ -21,7 +21,13 @@ import { cn } from "@/lib/utils"
 const STEPS = ["types", "education", "region", "field", "email", "results"] as const
 type Step = (typeof STEPS)[number]
 
-export function OpportunityQuiz({ variant = "default" }: { variant?: "default" | "blend" }) {
+export function OpportunityQuiz({
+  variant = "default",
+  showTitle = true,
+}: {
+  variant?: "default" | "blend"
+  showTitle?: boolean
+}) {
   const [step, setStep] = useState<Step>("types")
   const [types, setTypes] = useState<string[]>([])
   const [educationLevel, setEducationLevel] = useState("")
@@ -138,12 +144,14 @@ export function OpportunityQuiz({ variant = "default" }: { variant?: "default" |
             : "border-primary-foreground/15 bg-white/95",
         )}
       >
-        <div className="mb-4 flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" aria-hidden />
-          <h2 className="font-serif text-base font-semibold text-foreground sm:text-lg">
-            Find your match
-          </h2>
-        </div>
+        {showTitle && (
+          <div className="mb-4 flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-primary" aria-hidden />
+            <h2 className="font-serif text-base font-semibold text-foreground sm:text-lg">
+              Find your match
+            </h2>
+          </div>
+        )}
 
         {step !== "results" && (
           <p className="mb-3 text-xs text-muted-foreground">

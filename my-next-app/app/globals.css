@@ -400,22 +400,32 @@
 }
 
 @media (min-width: 1024px) {
-  .home-hero-blend__layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 400px);
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    min-height: clamp(22rem, 38vh, 28rem);
+  .home-hero-blend__layout--solo {
+    max-width: 42rem;
+    min-height: clamp(14rem, 24vh, 20rem);
   }
 
   .home-hero-blend__steps--primary {
-    right: clamp(14rem, 28vw, 22rem);
-    width: min(32vw, 420px);
-    transform: translate(12%, -50%) rotate(-6deg);
+    right: clamp(2rem, 8vw, 6rem);
+    width: min(34vw, 440px);
+    transform: translate(8%, -50%) rotate(-6deg);
   }
 
   .home-hero-blend__steps--ghost {
-    right: clamp(12rem, 26vw, 20rem);
-    width: min(40vw, 520px);
-    transform: translate(10%, -46%) rotate(-6deg);
+    right: clamp(1rem, 6vw, 4rem);
+    width: min(42vw, 540px);
+    transform: translate(6%, -46%) rotate(-6deg);
+  }
+}
+
+.home-hero-blend__layout--solo {
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-blend__layout--solo {
+    margin-inline: 0;
   }
 }
 

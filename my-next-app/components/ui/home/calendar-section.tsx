@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,6 +9,7 @@ import {
   OpportunityCard,
   type Opportunity,
 } from "@/components/opportunities/opportunity-card"
+import { OpportunityQuiz } from "@/components/ui/home/opportunity-quiz"
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 const MONTHS = [
@@ -95,16 +96,17 @@ export function CalendarSection({
             <Badge variant="secondary">Never Miss a Deadline</Badge>
           </div>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Deadline Calendar
+            Calendar & Your Match
           </h2>
           <p className="text-muted-foreground">
-            Track application deadlines and plan your submissions. Click on a date to see opportunities due.
+            Track application deadlines on the calendar, or take the quiz to discover opportunities tailored to you.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Calendar */}
-          <Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 max-w-6xl mx-auto items-start">
+          {/* Calendar — left half */}
+          <div className="min-w-0 space-y-6">
+          <Card className="h-full">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <Button variant="ghost" size="icon" onClick={previousMonth}>
@@ -183,44 +185,53 @@ export function CalendarSection({
             </CardContent>
           </Card>
 
-          {/* Selected Day Opportunities */}
+          {/* Selected day deadlines — below calendar, same column */}
           <div>
-            <div className="sticky top-24">
-              <h3 className="font-serif text-xl font-semibold mb-4">
-                {selectedDate 
-                  ? `Deadlines on ${MONTHS[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`
-                  : "Select a date to see deadlines"
-                }
-              </h3>
+            <h3 className="font-serif text-xl font-semibold mb-4">
+              {selectedDate
+                ? `Deadlines on ${MONTHS[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`
+                : "Select a date to see deadlines"}
+            </h3>
 
-              {selectedDate ? (
-                selectedOpportunities.length > 0 ? (
-                  <div className="space-y-4">
-                    {selectedOpportunities.map((opp) => (
-                      <OpportunityCard key={opp.id} opportunity={opp} variant="compact" />
-                    ))}
-                  </div>
-                ) : (
-                  <Card>
-                    <CardContent className="p-8 text-center">
-                      <CalendarIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No deadlines on this date.</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Select another date or browse all opportunities.
-                      </p>
-                    </CardContent>
-                  </Card>
-                )
+            {selectedDate ? (
+              selectedOpportunities.length > 0 ? (
+                <div className="space-y-4">
+                  {selectedOpportunities.map((opp) => (
+                    <OpportunityCard key={opp.id} opportunity={opp} variant="compact" />
+                  ))}
+                </div>
               ) : (
                 <Card>
                   <CardContent className="p-8 text-center">
                     <CalendarIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">
-                      Click on a date in the calendar to view opportunities with deadlines on that day.
+                    <p className="text-muted-foreground">No deadlines on this date.</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Select another date or browse all opportunities.
                     </p>
                   </CardContent>
                 </Card>
-              )}
+              )
+            ) : (
+              <Card>
+                <CardContent className="p-8 text-center">
+                  <CalendarIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">
+                    Click on a date in the calendar to view opportunities with deadlines on that day.
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+          </div>
+
+          {/* Quiz — right half */}
+          <div className="min-w-0 flex flex-col">
+            <div className="mb-4 flex items-center gap-2 lg:mb-5">
+              <Sparkles className="h-5 w-5 text-primary" aria-hidden />
+              <h3 className="font-serif text-xl font-semibold text-foreground">Find your match</h3>
+            </div>
+            <div className="lg:sticky lg:top-24">
+              <OpportunityQuiz showTitle={false} />
             </div>
           </div>
         </div>

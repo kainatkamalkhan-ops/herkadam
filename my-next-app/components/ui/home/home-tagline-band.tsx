@@ -1,12 +1,10 @@
 "use client"
 
-import { OpportunityQuiz } from "@/components/ui/home/opportunity-quiz"
-
 const STEP_TRAIL = "/brand/home-step-trail.png"
 
 export function HomeTaglineBand() {
   return (
-    <section className="home-hero-blend" aria-label="Her Kadam introduction and opportunity quiz">
+    <section className="home-hero-blend" aria-label="Her Kadam introduction">
       <div className="home-hero-blend__atmosphere" aria-hidden>
         <div className="home-hero-blend__gradient-base" />
         <div className="home-hero-blend__orb home-hero-blend__orb--plum" />
@@ -23,7 +21,7 @@ export function HomeTaglineBand() {
       </div>
 
       <div className="home-hero-blend__content container mx-auto px-4">
-        <div className="home-hero-blend__layout">
+        <div className="home-hero-blend__layout home-hero-blend__layout--solo">
           <div className="home-hero-blend__copy">
             <p className="home-hero-blend__eyebrow">Your journey starts here</p>
             <h1 className="home-hero-blend__headline">Every Step Builds Her Power</h1>
@@ -32,10 +30,6 @@ export function HomeTaglineBand() {
               scholarships, fellowships, jobs, grants, and leadership programs. Every step forward empowers a young
               woman&apos;s journey.
             </p>
-          </div>
-
-          <div className="home-hero-blend__quiz-wrap">
-            <OpportunityQuiz variant="blend" />
           </div>
         </div>
       </div>
