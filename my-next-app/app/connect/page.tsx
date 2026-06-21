@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Send, CheckCircle2, Loader2, ArrowRight } from "lucide-react"
-import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -108,7 +107,6 @@ export default function ConnectPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <TopBar />
       <Header />
       <main className="flex-1 bg-background">
         <div className="bg-gradient-to-br from-primary/10 to-accent/10 py-12 md:py-16">
