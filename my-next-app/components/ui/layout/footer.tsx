@@ -1,44 +1,9 @@
-"use client"
-
 import Link from "next/link"
-import { useState } from "react"
-import { ArrowRight, Loader2 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 export function Footer() {
-  const [email, setEmail] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [subscribed, setSubscribed] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email.trim()) return
-
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
-      })
-      const data = (await res.json()) as { error?: string }
-      if (!res.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.")
-        return
-      }
-      setSubscribed(true)
-      setEmail("")
-    } catch {
-      setError("Network error. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -55,46 +20,12 @@ export function Footer() {
             becomes transformative.
           </p>
 
-          <div className="mt-8 w-full max-w-md">
-            {subscribed ? (
-              <p className="text-sm font-medium opacity-95">
-                Thank you for subscribing to our newsletter.
-              </p>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col gap-2 sm:flex-row">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={loading}
-                  className="h-11 border-0 bg-primary-foreground/95 text-foreground placeholder:text-muted-foreground"
-                />
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  className="h-11 shrink-0 gap-2 px-6"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Subscribing…
-                    </>
-                  ) : (
-                    <>
-                      Subscribe to Newsletter
-                      <ArrowRight className="h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-              </form>
-            )}
-            {error && !subscribed && (
-              <p className="mt-2 text-sm text-primary-foreground/90">{error}</p>
-            )}
-          </div>
+          <Button asChild variant="secondary" size="lg" className="mt-8 gap-2 px-8">
+            <Link href="/#subscribe">
+              Subscribe to Newsletter
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center">
