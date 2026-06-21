@@ -24,16 +24,16 @@ import {
   filtersFromSearchParams,
   opportunitiesQueryFromFilters,
 } from "@/lib/opportunity-search-params"
+import { OPPORTUNITY_TYPES } from "@/lib/opportunity-constants"
+import {
+  OPPORTUNITIES_PAGE_SIZE,
+  parsePageParam,
+  slicePage,
+  totalPages,
+} from "@/lib/opportunity-pagination"
+import { OpportunitiesPagination } from "@/components/opportunities/opportunities-pagination"
 
-const types = [
-  "All Types",
-  "Scholarship",
-  "Fellowship",
-  "Job",
-  "Internship",
-  "Grant",
-  "Conference",
-]
+const types = ["All Types", ...OPPORTUNITY_TYPES]
 const regions = [
   "All Regions",
   "Global",
@@ -77,22 +77,32 @@ export function OpportunitiesClient({
     setFeaturedOnly(f.featuredOnly)
   }, [searchParams.toString()])
 
-  function pushFilters(partial: {
-    selectedType?: string
-    selectedRegion?: string
-    selectedFunding?: string
-    searchQuery?: string
-    featuredOnly?: boolean
-  }) {
+  function pushFilters(
+    partial: {
+      selectedType?: string
+      selectedRegion?: string
+      selectedFunding?: string
+      searchQuery?: string
+      featuredOnly?: boolean
+      page?: number
+    },
+    resetPage = true,
+  ) {
     const next = {
       selectedType: partial.selectedType ?? selectedType,
       selectedRegion: partial.selectedRegion ?? selectedRegion,
       selectedFunding: partial.selectedFunding ?? selectedFunding,
       searchQuery: partial.searchQuery ?? searchQuery,
       featuredOnly: partial.featuredOnly ?? featuredOnly,
+      page: resetPage ? 1 : (partial.page ?? parsePageParam(searchParams.get("page"))),
     }
     const qs = opportunitiesQueryFromFilters(next)
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  }
+
+  function goToPage(page: number) {
+    pushFilters({ page }, false)
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const filteredOpportunities = opportunities.filter((opp) => {
@@ -125,6 +135,11 @@ export function OpportunitiesClient({
     }
     return a.title.localeCompare(b.title)
   })
+
+  const currentPage = parsePageParam(searchParams.get("page"))
+  const pageCount = totalPages(sortedOpportunities.length, OPPORTUNITIES_PAGE_SIZE)
+  const safePage = Math.min(currentPage, pageCount)
+  const pagedOpportunities = slicePage(sortedOpportunities, safePage, OPPORTUNITIES_PAGE_SIZE)
 
   const activeFilters = [
     selectedType !== "All Types" && selectedType,
@@ -257,9 +272,19 @@ export function OpportunitiesClient({
             <p className="text-muted-foreground">
               Showing{" "}
               <span className="font-semibold text-foreground">
+                {pagedOpportunities.length}
+              </span>{" "}
+              of{" "}
+              <span className="font-semibold text-foreground">
                 {sortedOpportunities.length}
               </span>{" "}
               opportunities
+              {pageCount > 1 && (
+                <>
+                  {" "}
+                  · page {safePage} of {pageCount}
+                </>
+              )}
             </p>
             <div className="flex items-center gap-4">
               <Select value={sortBy} onValueChange={setSortBy}>
@@ -295,21 +320,28 @@ export function OpportunitiesClient({
           </div>
 
           {sortedOpportunities.length > 0 ? (
-            <div
-              className={
-                viewMode === "grid"
-                  ? "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                  : "space-y-4"
-              }
-            >
-              {sortedOpportunities.map((opportunity) => (
-                <OpportunityCard
-                  key={opportunity.id}
-                  opportunity={opportunity}
-                  variant={viewMode === "list" ? "compact" : "default"}
-                />
-              ))}
-            </div>
+            <>
+              <div
+                className={
+                  viewMode === "grid"
+                    ? "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    : "space-y-4"
+                }
+              >
+                {pagedOpportunities.map((opportunity) => (
+                  <OpportunityCard
+                    key={opportunity.id}
+                    opportunity={opportunity}
+                    variant={viewMode === "list" ? "compact" : "default"}
+                  />
+                ))}
+              </div>
+              <OpportunitiesPagination
+                currentPage={safePage}
+                totalPages={pageCount}
+                onPageChange={goToPage}
+              />
+            </>
           ) : (
             <div className="text-center py-16">
               <Search className="h-16 w-16 text-muted-foreground mx-auto mb-4" />

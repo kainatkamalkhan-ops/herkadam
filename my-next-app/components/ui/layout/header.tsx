@@ -21,6 +21,7 @@ const opportunitiesDropdown = {
     { label: "Internships", href: "/opportunities?type=internships" },
     { label: "Grants", href: "/opportunities?type=grants" },
     { label: "Conferences", href: "/opportunities?type=conferences" },
+    { label: "Others", href: "/opportunities?type=other" },
   ],
   byRegion: [
     { label: "Africa", href: "/opportunities?region=africa" },
@@ -42,7 +43,7 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Resources", href: "/resources" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Connect", href: "/connect" },
 ]
 
 export function Header() {

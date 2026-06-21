@@ -65,19 +65,17 @@ export function LatestOpportunities({
           ))}
         </div>
 
-        {/* Opportunities Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredOpportunities.slice(0, 6).map((opportunity) => (
-            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="dense" />
+        {/* Opportunities Grid — 12 compact cards visible together */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-2.5 lg:grid-cols-4 lg:gap-2.5">
+          {filteredOpportunities.slice(0, 12).map((opportunity) => (
+            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="micro" />
           ))}
         </div>
 
-        {/* Load More */}
-        <div className="flex justify-center mt-7">
+        {/* More opportunities → paginated listing */}
+        <div className="flex justify-center mt-6">
           <Button variant="outline" size="default" className="text-sm" asChild>
-            <Link href="/opportunities">
-              Load More Opportunities
-            </Link>
+            <Link href="/opportunities">More Opportunities</Link>
           </Button>
         </div>
       </div>

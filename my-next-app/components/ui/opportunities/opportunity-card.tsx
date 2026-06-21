@@ -31,7 +31,7 @@ export interface Opportunity {
 
 interface OpportunityCardProps {
   opportunity: Opportunity
-  variant?: "default" | "featured" | "compact" | "dense"
+  variant?: "default" | "featured" | "compact" | "dense" | "mini" | "micro"
 }
 
 const fundingColors: Record<string, string> = {
@@ -47,6 +47,7 @@ const typeColors: Record<string, string> = {
   "Internship": "bg-purple-100 text-purple-800 hover:bg-purple-100",
   "Grant": "bg-rose-100 text-rose-800 hover:bg-rose-100",
   "Conference": "bg-orange-100 text-orange-800 hover:bg-orange-100",
+  "Other": "bg-slate-100 text-slate-700 hover:bg-slate-100",
 }
 
 // Stable placeholder per type (Picsum); avoids broken Unsplash hotlinks
@@ -58,6 +59,7 @@ function getOpportunityImage(opportunity: Opportunity): string {
     Internship: "herkadam-internship",
     Grant: "herkadam-grant",
     Conference: "herkadam-conference",
+    Other: "herkadam-other",
   }
   const seed = seeds[opportunity.type] ?? "herkadam-default"
   return (
@@ -103,6 +105,95 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
           </div>
         </div>
       </Link>
+    )
+  }
+
+  if (variant === "micro") {
+    return (
+      <Link href={`/opportunities/${opportunity.id}`} className="group block h-full">
+        <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-md">
+          <div className="flex items-stretch gap-2 p-2">
+            <div className="h-11 w-11 shrink-0 overflow-hidden rounded-md">
+              <Image
+                src={getOpportunityImage(opportunity)}
+                alt={opportunity.title}
+                width={44}
+                height={44}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
+              <Badge
+                className={`${typeColors[opportunity.type] || "bg-muted"} h-3.5 w-fit px-1 py-0 text-[8px] leading-none`}
+                variant="secondary"
+              >
+                {opportunity.type}
+              </Badge>
+              <h3 className="line-clamp-2 font-serif text-[11px] font-semibold leading-tight text-foreground group-hover:text-primary">
+                {opportunity.title}
+              </h3>
+              <p className="line-clamp-1 text-[9px] text-muted-foreground">{opportunity.organization}</p>
+            </div>
+          </div>
+        </Card>
+      </Link>
+    )
+  }
+
+  if (variant === "mini") {
+    return (
+      <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-md">
+        <div className="aspect-[5/3] max-h-24 w-full overflow-hidden">
+          <Image
+            src={getOpportunityImage(opportunity)}
+            alt={opportunity.title}
+            width={240}
+            height={144}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+
+        <CardContent className="space-y-1.5 p-2.5">
+          <div className="flex flex-wrap gap-1">
+            <Badge
+              className={`${typeColors[opportunity.type] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
+              variant="secondary"
+            >
+              {opportunity.type}
+            </Badge>
+          </div>
+
+          <h3 className="line-clamp-2 font-serif text-xs font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+            {opportunity.title}
+          </h3>
+          <p className="line-clamp-1 text-[10px] text-muted-foreground">{opportunity.organization}</p>
+
+          <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+            <MapPin className="h-2.5 w-2.5 shrink-0" />
+            <span className="line-clamp-1">{opportunity.location}</span>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex items-center justify-between gap-1 bg-muted/30 px-2.5 py-1.5">
+          <span
+            className={`flex min-w-0 items-center gap-1 text-[10px] ${isUrgent ? "font-medium text-destructive" : "text-muted-foreground"}`}
+          >
+            <Calendar className="h-2.5 w-2.5 shrink-0" />
+            <span className="truncate">
+              {new Date(opportunity.deadline).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
+          </span>
+          <Button variant="ghost" size="sm" className="h-6 shrink-0 px-1.5 text-[10px]" asChild>
+            <Link href={`/opportunities/${opportunity.id}`}>
+              View
+              <ArrowRight className="h-2.5 w-2.5" />
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     )
   }
 

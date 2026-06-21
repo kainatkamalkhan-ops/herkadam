@@ -32,6 +32,7 @@ export function OpportunityQuiz() {
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Opportunity[]>([])
   const [totalMatches, setTotalMatches] = useState(0)
+  const [welcomeEmailSent, setWelcomeEmailSent] = useState(false)
   const resultsRef = useRef<HTMLDivElement>(null)
 
   const stepIndex = STEPS.indexOf(step)
@@ -94,6 +95,7 @@ export function OpportunityQuiz() {
         error?: string
         opportunities?: Opportunity[]
         total?: number
+        welcomeEmailSent?: boolean
       }
       if (!res.ok) {
         setError(data.error ?? "Something went wrong. Please try again.")
@@ -101,6 +103,7 @@ export function OpportunityQuiz() {
       }
       setResults(data.opportunities ?? [])
       setTotalMatches(data.total ?? data.opportunities?.length ?? 0)
+      setWelcomeEmailSent(Boolean(data.welcomeEmailSent))
       setStep("results")
       setTimeout(() => {
         resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
@@ -122,6 +125,7 @@ export function OpportunityQuiz() {
     setError(null)
     setResults([])
     setTotalMatches(0)
+    setWelcomeEmailSent(false)
   }
 
   return (
@@ -236,7 +240,7 @@ export function OpportunityQuiz() {
         {step === "email" && (
           <div className="space-y-3">
             <p className="text-sm text-foreground">
-              Enter your email to see your personalized opportunities.
+              Enter your email to see your personalized opportunities. You&apos;ll also be subscribed to Her Kadam weekly updates.
             </p>
             <div className="space-y-2">
               <Label htmlFor="quiz-email">Email address</Label>
@@ -255,6 +259,11 @@ export function OpportunityQuiz() {
 
         {step === "results" && (
           <div ref={resultsRef} className="space-y-4">
+            <p className="rounded-lg bg-primary/5 px-3 py-2 text-sm text-foreground">
+              {welcomeEmailSent
+                ? "Check your inbox — we've sent a welcome email from Her Kadam with your subscription."
+                : "You're subscribed to Her Kadam weekly updates."}
+            </p>
             <p className="text-sm text-foreground">
               {totalMatches > 0
                 ? `We found ${totalMatches} opportunit${totalMatches === 1 ? "y" : "ies"} matching your preferences.`

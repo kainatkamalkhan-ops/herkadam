@@ -14,14 +14,13 @@ export function FeaturedOpportunities({
 }: {
   opportunities: Opportunity[]
 }) {
-  const featured = opportunities.filter((opp) => opp.isFeatured).slice(0, 3)
-  const displayFeatured =
-    featured.length > 0 ? featured : opportunities.slice(0, 3)
+  const featured = opportunities.filter((opp) => opp.isFeatured).slice(0, 4)
+
+  if (featured.length === 0) return null
 
   return (
     <section className="py-16 md:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
             <Star className="h-5 w-5 text-gold fill-gold" />
@@ -37,18 +36,12 @@ export function FeaturedOpportunities({
           </p>
         </div>
 
-        {/* Featured Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {displayFeatured.map((opportunity) => (
-            <OpportunityCard 
-              key={opportunity.id} 
-              opportunity={opportunity} 
-              variant="featured"
-            />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+          {featured.map((opportunity) => (
+            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="featured" />
           ))}
         </div>
 
-        {/* CTA */}
         <div className="text-center">
           <Button className="gap-2" asChild>
             <Link href="/opportunities?featured=true">

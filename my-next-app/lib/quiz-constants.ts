@@ -7,6 +7,7 @@ export const QUIZ_OPPORTUNITY_TYPE_OPTIONS = [
   "Jobs",
   "Internships",
   "Grants",
+  "Others",
 ] as const
 
 export const QUIZ_EDUCATION_LEVELS = [

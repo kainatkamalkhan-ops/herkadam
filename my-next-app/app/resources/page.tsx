@@ -165,7 +165,7 @@ export default function ResourcesPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" asChild>
-                  <Link href="/contact">Request a Mentor</Link>
+                  <Link href="/connect">Request a Mentor</Link>
                 </Button>
                 <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
                   <Link href="/about">Learn About Us</Link>

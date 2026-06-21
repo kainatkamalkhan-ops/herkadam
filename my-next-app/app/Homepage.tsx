@@ -1,6 +1,7 @@
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
+import { HomepageMainShell } from "@/components/home/homepage-main-shell"
 import { HomeTaglineBand } from "@/components/home/home-tagline-band"
 import { LatestOpportunities } from "@/components/home/latest-opportunities"
 import { FeaturedOpportunities } from "@/components/home/featured-opportunities"
@@ -17,7 +18,7 @@ export default async function HomePage() {
     <div className="min-h-screen flex flex-col">
       <TopBar />
       <Header />
-      <main className="flex-1">
+      <HomepageMainShell>
         <HomeTaglineBand />
         <LatestOpportunities opportunities={opportunities} />
         <FeaturedOpportunities opportunities={opportunities} />
@@ -26,7 +27,7 @@ export default async function HomePage() {
         <ResourcesSection />
         <BlogSection />
         <NewsletterSection />
-      </main>
+      </HomepageMainShell>
       <Footer />
     </div>
   )

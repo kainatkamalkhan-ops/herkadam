@@ -9,6 +9,7 @@ const TYPE_CARD_TO_VALUE: Record<string, string> = {
   Internships: "Internship",
   Grants: "Grant",
   Conferences: "Conference",
+  Others: "Other",
 }
 
 export function countOpportunitiesByRegion(
@@ -48,6 +49,7 @@ export function typeSlugFromCardLabel(cardLabel: string): string {
     Internship: "internships",
     Grant: "grants",
     Conference: "conferences",
+    Other: "other",
   }
   return slugMap[entry] ?? entry.toLowerCase()
 }

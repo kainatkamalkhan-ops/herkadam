@@ -236,24 +236,24 @@
   pointer-events: none;
 }
 
-.hero-trail-icon--live,
-.home-trail-icon--live {
-  opacity: 0.42;
+.hero-trail-icon--live {
+  opacity: 0.88;
   animation: hero-trail-live-fade forwards;
   animation-timing-function: ease-out;
+  will-change: opacity, transform;
 }
 
 @keyframes hero-trail-live-fade {
   0% {
-    opacity: 0.42;
+    opacity: 0.88;
     transform: scale(1);
   }
-  70% {
-    opacity: 0.22;
+  65% {
+    opacity: 0.55;
   }
   100% {
     opacity: 0;
-    transform: scale(0.76);
+    transform: scale(0.78);
   }
 }
 
@@ -261,8 +261,9 @@
   min-height: var(--nav-strip-h);
 }
 
-.home-trail-icon {
-  pointer-events: none;
+/* Full-height step icons between tagline and quiz (desktop) */
+.home-step-icons-divider__img {
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.12));
 }
 
 .hero-hidden-word {

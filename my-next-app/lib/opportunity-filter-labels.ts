@@ -8,6 +8,7 @@ export const HOMEPAGE_TYPE_FILTERS = [
   "Jobs",
   "Internships",
   "Grants",
+  "Others",
 ] as const
 
 export type HomepageTypeFilter = (typeof HOMEPAGE_TYPE_FILTERS)[number]
@@ -19,6 +20,7 @@ const PLURAL_TO_SINGULAR: Record<string, string> = {
   Internships: "Internship",
   Grants: "Grant",
   Conferences: "Conference",
+  Others: "Other",
 }
 
 const SINGULAR_TO_PLURAL = Object.fromEntries(

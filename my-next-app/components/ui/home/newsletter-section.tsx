@@ -1,19 +1,41 @@
 "use client"
 
 import { useState } from "react"
-import { Mail, ArrowRight, Check } from "lucide-react"
+import { Mail, ArrowRight, Check, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("")
   const [isSubscribed, setIsSubscribed] = useState(false)
+  const [welcomeEmailSent, setWelcomeEmailSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (email) {
+    if (!email.trim()) return
+
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = (await res.json()) as { error?: string; welcomeEmailSent?: boolean }
+      if (!res.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.")
+        return
+      }
+      setWelcomeEmailSent(Boolean(data.welcomeEmailSent))
       setIsSubscribed(true)
       setEmail("")
+    } catch {
+      setError("Network error. Please try again.")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -54,11 +76,27 @@ export function NewsletterSection() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={loading}
                     className="h-12 bg-primary-foreground/95 border-0 text-foreground placeholder:text-muted-foreground"
                   />
-                  <Button type="submit" size="lg" variant="secondary" className="h-12 px-8 gap-2 shrink-0">
-                    Subscribe
-                    <ArrowRight className="h-4 w-4" />
+                  <Button
+                    type="submit"
+                    size="lg"
+                    variant="secondary"
+                    className="h-12 px-8 gap-2 shrink-0"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Subscribing…
+                      </>
+                    ) : (
+                      <>
+                        Subscribe
+                        <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </form>
               ) : (
@@ -67,9 +105,15 @@ export function NewsletterSection() {
                     <Check className="h-5 w-5 text-white" />
                   </div>
                   <p className="text-primary-foreground font-medium">
-                    Thank you for subscribing! Check your inbox to confirm.
+                    {welcomeEmailSent
+                      ? "Thank you for subscribing! Check your inbox for a welcome email from Her Kadam."
+                      : "Thank you for subscribing! You're on our weekly updates list."}
                   </p>
                 </div>
+              )}
+
+              {error && !isSubscribed && (
+                <p className="text-sm text-primary-foreground/90 mt-3">{error}</p>
               )}
 
               {/* Trust Indicators */}

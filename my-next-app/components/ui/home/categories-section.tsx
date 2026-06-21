@@ -31,6 +31,7 @@ const typeIcons: Record<string, React.ElementType> = {
   Internships: Lightbulb,
   Grants: DollarSign,
   Conferences: Calendar,
+  Others: Lightbulb,
 }
 
 const fundingTypes = [

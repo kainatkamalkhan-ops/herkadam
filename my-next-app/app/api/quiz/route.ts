@@ -8,6 +8,7 @@ import {
   QUIZ_REGION_OPTIONS,
 } from "@/lib/quiz-constants"
 import { saveQuizLead } from "@/lib/quiz-leads"
+import { subscribeUser } from "@/lib/subscribe-user"
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0
@@ -85,6 +86,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: lead.error }, { status: 500 })
   }
 
+  const subscription = await subscribeUser(email.trim(), "quiz")
+  if (!subscription.ok) {
+    return NextResponse.json({ error: subscription.error }, { status: 500 })
+  }
+
   const all = await getOpportunities()
   const matches = filterOpportunitiesByQuiz(all, {
     opportunityTypes: normalizedTypes,
@@ -94,5 +100,7 @@ export async function POST(request: Request) {
   return NextResponse.json({
     opportunities: matches.slice(0, 6),
     total: matches.length,
+    subscribed: true,
+    welcomeEmailSent: subscription.welcomeEmailSent,
   })
 }

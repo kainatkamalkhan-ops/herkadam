@@ -7,6 +7,8 @@ export const TYPE_FROM_SLUG: Record<string, string> = {
   internships: "Internship",
   grants: "Grant",
   conferences: "Conference",
+  other: "Other",
+  others: "Other",
 }
 
 export const REGION_FROM_SLUG: Record<string, string> = {
@@ -43,6 +45,7 @@ export function opportunitiesQueryFromFilters(input: {
   selectedFunding: string
   searchQuery: string
   featuredOnly: boolean
+  page?: number
 }): string {
   const params = new URLSearchParams()
   if (input.selectedType !== "All Types") {
@@ -62,6 +65,9 @@ export function opportunitiesQueryFromFilters(input: {
   }
   if (input.featuredOnly) {
     params.set("featured", "true")
+  }
+  if (input.page && input.page > 1) {
+    params.set("page", String(input.page))
   }
   return params.toString()
 }

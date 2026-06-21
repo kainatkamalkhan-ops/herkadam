@@ -304,7 +304,7 @@ export default function AboutPage() {
                       </Link>
                     </Button>
                     <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                      <Link href="/contact">Contact Us</Link>
+                      <Link href="/connect">Connect With Us</Link>
                     </Button>
                   </div>
                 </div>

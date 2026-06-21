@@ -17,6 +17,7 @@ const footerLinks = {
     { label: "Jobs", href: "/opportunities/type/jobs" },
     { label: "Internships", href: "/opportunities/type/internships" },
     { label: "Grants", href: "/opportunities/type/grants" },
+    { label: "Others", href: "/opportunities/type/other" },
   ],
   regions: [
     { label: "Africa", href: "/opportunities/region/africa" },
@@ -34,7 +35,7 @@ const footerLinks = {
   ],
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Connect", href: "/connect" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
   ],

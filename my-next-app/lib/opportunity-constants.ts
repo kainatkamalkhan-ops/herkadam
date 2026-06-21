@@ -7,6 +7,7 @@ export const OPPORTUNITY_TYPES = [
   "Internship",
   "Grant",
   "Conference",
+  "Other",
 ] as const
 
 export const OPPORTUNITY_REGIONS = [
