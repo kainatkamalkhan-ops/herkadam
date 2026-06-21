@@ -33,7 +33,7 @@ export function NewsletterSection() {
                 type="button"
                 size="lg"
                 variant="secondary"
-                className="h-12 px-8 gap-2"
+                className="h-12 px-8 gap-2 shrink-0 ml-onclick-form"
                 onClick={showMailerLitePopup}
               >
                 Subscribe

@@ -120,7 +120,7 @@ export function Header() {
             ))}
 
             {/* Subscribe Button */}
-            <Button type="button" className="ml-2" onClick={showMailerLitePopup}>
+            <Button type="button" className="ml-2 ml-onclick-form" onClick={showMailerLitePopup}>
               Subscribe
             </Button>
           </nav>
@@ -198,7 +198,7 @@ export function Header() {
               ))}
 
               <div className="px-4 pt-2">
-                <Button type="button" className="w-full" onClick={() => {
+                <Button type="button" className="w-full ml-onclick-form" onClick={() => {
                   setMobileMenuOpen(false)
                   showMailerLitePopup()
                 }}>

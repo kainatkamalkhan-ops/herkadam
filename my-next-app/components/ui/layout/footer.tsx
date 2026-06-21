@@ -31,7 +31,7 @@ export function Footer() {
             type="button"
             variant="secondary"
             size="lg"
-            className="mt-8 gap-2 px-8"
+            className="mt-8 gap-2 px-8 ml-onclick-form"
             onClick={showMailerLitePopup}
           >
             Subscribe to Newsletter

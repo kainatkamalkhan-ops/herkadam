@@ -192,7 +192,7 @@ export default function ConnectPage() {
                     <p className="text-sm font-medium text-foreground">
                       Get new opportunities delivered to your inbox.
                     </p>
-                    <Button type="button" className="gap-2" onClick={showMailerLitePopup}>
+                    <Button type="button" className="gap-2 ml-onclick-form" onClick={showMailerLitePopup}>
                       Subscribe
                       <ArrowRight className="h-4 w-4" />
                     </Button>
