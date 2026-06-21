@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Sparkles } from "lucide-react"
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -225,14 +225,8 @@ export function CalendarSection({
           </div>
 
           {/* Quiz — right half */}
-          <div className="min-w-0 flex flex-col">
-            <div className="mb-4 flex items-center gap-2 lg:mb-5">
-              <Sparkles className="h-5 w-5 text-primary" aria-hidden />
-              <h3 className="font-serif text-xl font-semibold text-foreground">Find your match</h3>
-            </div>
-            <div className="lg:sticky lg:top-24">
-              <OpportunityQuiz showTitle={false} />
-            </div>
+          <div className="min-w-0 lg:sticky lg:top-24">
+            <OpportunityQuiz />
           </div>
         </div>
       </div>

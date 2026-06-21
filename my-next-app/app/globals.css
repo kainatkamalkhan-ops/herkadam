@@ -507,10 +507,6 @@
   pointer-events: none;
 }
 
-.home-quiz-blend__panel {
-  backdrop-filter: blur(16px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .home-hero-blend__steps--ghost {
     display: none;

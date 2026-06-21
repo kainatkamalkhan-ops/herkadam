@@ -8,6 +8,7 @@ import {
   type Opportunity,
 } from "@/components/opportunities/opportunity-card"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -21,13 +22,7 @@ import { cn } from "@/lib/utils"
 const STEPS = ["types", "education", "region", "field", "email", "results"] as const
 type Step = (typeof STEPS)[number]
 
-export function OpportunityQuiz({
-  variant = "default",
-  showTitle = true,
-}: {
-  variant?: "default" | "blend"
-  showTitle?: boolean
-}) {
+export function OpportunityQuiz({ showTitle = true }: { showTitle?: boolean }) {
   const [step, setStep] = useState<Step>("types")
   const [types, setTypes] = useState<string[]>([])
   const [educationLevel, setEducationLevel] = useState("")
@@ -135,24 +130,17 @@ export function OpportunityQuiz({
   }
 
   return (
-    <div className={cn("w-full max-w-md lg:max-w-none", variant === "blend" && "home-quiz-blend")}>
-      <div
-        className={cn(
-          "rounded-2xl border p-4 shadow-lg backdrop-blur-sm sm:p-5",
-          variant === "blend"
-            ? "home-quiz-blend__panel border-white/25 bg-white/[0.88] shadow-[0_20px_50px_-12px_rgba(40,12,38,0.35)]"
-            : "border-primary-foreground/15 bg-white/95",
-        )}
-      >
-        {showTitle && (
-          <div className="mb-4 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-primary" aria-hidden />
-            <h2 className="font-serif text-base font-semibold text-foreground sm:text-lg">
-              Find your match
-            </h2>
-          </div>
-        )}
+    <Card className="h-full">
+      {showTitle && (
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-2 font-serif text-xl">
+            <Sparkles className="h-5 w-5 text-primary" aria-hidden />
+            Find your match
+          </CardTitle>
+        </CardHeader>
+      )}
 
+      <CardContent className={cn(!showTitle && "pt-6")}>
         {step !== "results" && (
           <p className="mb-3 text-xs text-muted-foreground">
             Step {Math.min(stepIndex + 1, 4)} of 4
@@ -352,7 +340,7 @@ export function OpportunityQuiz({
             )}
           </div>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
