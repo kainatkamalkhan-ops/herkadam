@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Inter, Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
-import { MAILERLITE_ACCOUNT_ID } from '@/lib/mailerlite'
+import { MailerLiteLoader } from '@/components/mailerlite-loader'
+import { MAILERLITE_BOOTSTRAP_SRC } from '@/lib/mailerlite'
 import './globals.css'
 
 const inter = Inter({ 
@@ -72,14 +74,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${brandDisplay.variable}`}>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');ml('account', '${MAILERLITE_ACCOUNT_ID}');`,
-          }}
-        />
-      </head>
       <body className="font-sans antialiased">
+        <Script
+          id="mailerlite-bootstrap"
+          src={MAILERLITE_BOOTSTRAP_SRC}
+          strategy="beforeInteractive"
+        />
+        <MailerLiteLoader />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
