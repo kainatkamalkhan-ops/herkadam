@@ -24,11 +24,10 @@ export function HomeTaglineBand() {
         <div className="home-hero-blend__layout home-hero-blend__layout--solo">
           <div className="home-hero-blend__copy">
             <p className="home-hero-blend__eyebrow">Your journey starts here</p>
-            <h1 className="home-hero-blend__headline">Every Step Builds Her Power</h1>
+            <h1 className="home-hero-blend__headline">Every Step Builds &apos;Her&apos; Power</h1>
             <p className="home-hero-blend__tagline">
               From the first search to the final submission, you are never navigating alone. Your central hub for
-              scholarships, fellowships, jobs, grants, and leadership programs. Every step forward empowers a young
-              woman&apos;s journey.
+              scholarships, fellowships, jobs, grants, and leadership programs.
             </p>
           </div>
         </div>
