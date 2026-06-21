@@ -9,7 +9,6 @@ import {
   OpportunityCard,
   type Opportunity,
 } from "@/components/opportunities/opportunity-card"
-import { OpportunityQuiz } from "@/components/ui/home/opportunity-quiz"
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 const MONTHS = [
@@ -77,7 +76,6 @@ export function CalendarSection({
            selectedDate?.getFullYear() === year
   }
 
-  // Generate calendar days
   const calendarDays = []
   for (let i = 0; i < firstDayWeekday; i++) {
     calendarDays.push(null)
@@ -87,25 +85,22 @@ export function CalendarSection({
   }
 
   return (
-    <section className="py-16 md:py-24 bg-secondary/30">
+    <section className="py-10 md:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
             <CalendarIcon className="h-5 w-5 text-primary" />
             <Badge variant="secondary">Never Miss a Deadline</Badge>
           </div>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Calendar & Your Match
+            Deadline Calendar
           </h2>
           <p className="text-muted-foreground">
-            Track application deadlines on the calendar, or take the quiz to discover opportunities tailored to you.
+            Track application deadlines and plan your submissions. Click on a date to see opportunities due.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 max-w-6xl mx-auto items-start">
-          {/* Calendar — left half */}
-          <div className="min-w-0 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto items-start">
           <Card className="h-full">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
@@ -121,7 +116,6 @@ export function CalendarSection({
               </div>
             </CardHeader>
             <CardContent>
-              {/* Day Headers */}
               <div className="grid grid-cols-7 gap-1 mb-2">
                 {DAYS.map((day) => (
                   <div key={day} className="text-center text-sm font-medium text-muted-foreground py-2">
@@ -130,7 +124,6 @@ export function CalendarSection({
                 ))}
               </div>
 
-              {/* Calendar Grid */}
               <div className="grid grid-cols-7 gap-1">
                 {calendarDays.map((day, index) => {
                   if (day === null) {
@@ -168,7 +161,6 @@ export function CalendarSection({
                 })}
               </div>
 
-              {/* Legend */}
               <div className="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <div className="w-3 h-3 rounded-full bg-primary" />
@@ -185,7 +177,6 @@ export function CalendarSection({
             </CardContent>
           </Card>
 
-          {/* Selected day deadlines — below calendar, same column */}
           <div>
             <h3 className="font-serif text-xl font-semibold mb-4">
               {selectedDate
@@ -221,12 +212,6 @@ export function CalendarSection({
                 </CardContent>
               </Card>
             )}
-          </div>
-          </div>
-
-          {/* Quiz — right half */}
-          <div className="min-w-0 lg:sticky lg:top-24">
-            <OpportunityQuiz />
           </div>
         </div>
       </div>

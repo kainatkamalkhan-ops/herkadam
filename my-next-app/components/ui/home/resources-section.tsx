@@ -39,23 +39,22 @@ const resources = [
 
 export function ResourcesSection() {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-10 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="mb-6 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end md:gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 mb-4">
+            <div className="mb-3 inline-flex items-center gap-2 md:mb-4">
               <BookOpen className="h-5 w-5 text-primary" />
               <Badge variant="secondary">Free Resources</Badge>
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
+            <h2 className="mb-2 font-serif text-2xl font-bold text-foreground md:text-4xl">
               Application Resources
             </h2>
-            <p className="text-muted-foreground max-w-xl">
+            <p className="max-w-xl text-sm text-muted-foreground md:text-base">
               Expert guides and tools to help you craft winning applications and advance your career.
             </p>
           </div>
-          <Button variant="outline" className="gap-2 shrink-0" asChild>
+          <Button variant="outline" className="w-fit shrink-0 gap-2" asChild>
             <Link href="/resources">
               View All Resources
               <ArrowRight className="h-4 w-4" />
@@ -63,24 +62,40 @@ export function ResourcesSection() {
           </Button>
         </div>
 
-        {/* Resources Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="space-y-2 md:hidden">
+          {resources.map((resource) => (
+            <Link
+              key={resource.id}
+              href={`/resources/${resource.id}`}
+              className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5 transition-colors hover:border-primary/30 hover:bg-muted/40"
+            >
+              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${resource.color}`}>
+                <resource.icon className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-foreground">{resource.title}</p>
+                <p className="line-clamp-1 text-xs text-muted-foreground">{resource.description}</p>
+              </div>
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden gap-6 md:grid sm:grid-cols-2 lg:grid-cols-4">
           {resources.map((resource) => (
             <Link key={resource.id} href={`/resources/${resource.id}`}>
-              <Card className="group hover:shadow-lg hover:border-primary/30 transition-all h-full">
+              <Card className="group h-full transition-all hover:border-primary/30 hover:shadow-lg">
                 <CardContent className="p-6">
-                  <div className={`w-14 h-14 rounded-xl ${resource.color} flex items-center justify-center mb-5`}>
+                  <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl ${resource.color}`}>
                     <resource.icon className="h-7 w-7" />
                   </div>
-                  <h3 className="font-serif text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="mb-2 font-serif text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
                     {resource.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {resource.description}
-                  </p>
+                  <p className="mb-4 text-sm text-muted-foreground">{resource.description}</p>
                   <div className="flex items-center gap-1 text-sm font-medium text-primary">
                     <span>Read Guide</span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </CardContent>
               </Card>
