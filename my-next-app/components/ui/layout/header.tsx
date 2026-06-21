@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { HerKadamNavBrand } from "@/components/ui/brand/her-kadam-logo"
 import { Menu, X, ChevronDown } from "lucide-react"
@@ -49,11 +49,39 @@ const navLinks = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [menuTop, setMenuTop] = useState(0)
+  const headerBarRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      document.body.style.overflow = ""
+      return
+    }
+
+    document.body.style.overflow = "hidden"
+
+    const updateMenuTop = () => {
+      if (headerBarRef.current) {
+        setMenuTop(headerBarRef.current.getBoundingClientRect().bottom)
+      }
+    }
+
+    updateMenuTop()
+    window.addEventListener("resize", updateMenuTop)
+
+    return () => {
+      document.body.style.overflow = ""
+      window.removeEventListener("resize", updateMenuTop)
+    }
+  }, [mobileMenuOpen])
 
   return (
     <header className="nav-strip sticky top-0 z-50 border-b border-border bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex min-h-[var(--nav-strip-h)] items-center justify-between">
+        <div
+          ref={headerBarRef}
+          className="flex min-h-[var(--nav-strip-h)] items-center justify-between"
+        >
           <Link
             href="/"
             className="nav-brand-link inline-flex items-center"
@@ -137,10 +165,21 @@ export function Header() {
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation — fixed panel so it stays with the header and scrolls inside */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
-            <nav className="flex flex-col gap-2">
+          <>
+            <button
+              type="button"
+              className="fixed inset-x-0 bottom-0 z-40 bg-black/30 lg:hidden"
+              style={{ top: menuTop }}
+              aria-label="Close menu"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div
+              className="fixed inset-x-0 bottom-0 z-50 overflow-y-auto overscroll-contain border-t border-border bg-white lg:hidden"
+              style={{ top: menuTop }}
+            >
+              <nav className="flex flex-col gap-2 py-4">
               <Link
                 href="/about"
                 className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary"
@@ -205,7 +244,8 @@ export function Header() {
                 </Button>
               </div>
             </nav>
-          </div>
+            </div>
+          </>
         )}
       </div>
     </header>
