@@ -187,22 +187,22 @@
   object-fit: contain;
 }
 
-/* White nav strip — brand lockup at 3/4 strip height */
+/* White nav strip — thicker bar, ~2× logo vs previous layout */
 .nav-strip {
-  --nav-strip-h: 4rem;
+  --nav-strip-h: 6rem;
 }
 
 @media (min-width: 768px) {
   .nav-strip {
-    --nav-strip-h: 5rem;
+    --nav-strip-h: 7.5rem;
   }
 }
 
 .nav-brand-link {
   display: inline-flex;
   align-items: center;
-  height: calc(var(--nav-strip-h) * 0.75);
-  max-height: calc(var(--nav-strip-h) * 0.75);
+  height: calc(var(--nav-strip-h) * 0.88);
+  max-height: calc(var(--nav-strip-h) * 0.88);
 }
 
 .nav-brand-lockup {
@@ -236,24 +236,33 @@
   pointer-events: none;
 }
 
-.hero-trail-icon--live {
-  opacity: 0.85;
+.hero-trail-icon--live,
+.home-trail-icon--live {
+  opacity: 0.42;
   animation: hero-trail-live-fade forwards;
   animation-timing-function: ease-out;
 }
 
 @keyframes hero-trail-live-fade {
   0% {
-    opacity: 0.85;
+    opacity: 0.42;
     transform: scale(1);
   }
   70% {
-    opacity: 0.48;
+    opacity: 0.22;
   }
   100% {
     opacity: 0;
     transform: scale(0.76);
   }
+}
+
+.home-tagline-band {
+  min-height: var(--nav-strip-h);
+}
+
+.home-trail-icon {
+  pointer-events: none;
 }
 
 .hero-hidden-word {

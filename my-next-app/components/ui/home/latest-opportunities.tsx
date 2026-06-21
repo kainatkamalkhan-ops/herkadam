@@ -9,30 +9,23 @@ import {
   OpportunityCard,
   type Opportunity,
 } from "@/components/opportunities/opportunity-card"
-
-const filterOptions = [
-  "All",
-  "Scholarships",
-  "Fellowships",
-  "Jobs",
-  "Internships",
-  "Grants",
-]
+import {
+  HOMEPAGE_TYPE_FILTERS,
+  matchesTypeFilter,
+  type HomepageTypeFilter,
+} from "@/lib/opportunity-filter-labels"
 
 export function LatestOpportunities({
   opportunities,
 }: {
   opportunities: Opportunity[]
 }) {
-  const [activeFilter, setActiveFilter] = useState("All")
+  const [activeFilter, setActiveFilter] = useState<HomepageTypeFilter>("All")
 
   const filteredOpportunities =
     activeFilter === "All"
       ? opportunities
-      : opportunities.filter(
-          (opp) =>
-            opp.type === activeFilter.slice(0, -1) || opp.type === activeFilter,
-        )
+      : opportunities.filter((opp) => matchesTypeFilter(opp.type, activeFilter))
 
   return (
     <section className="py-12 md:py-16 bg-background">
@@ -59,7 +52,7 @@ export function LatestOpportunities({
         {/* Filters */}
         <div className="flex items-center gap-1.5 mb-5 overflow-x-auto pb-1.5">
           <Filter className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-          {filterOptions.map((filter) => (
+          {HOMEPAGE_TYPE_FILTERS.map((filter) => (
             <Button
               key={filter}
               variant={activeFilter === filter ? "default" : "secondary"}

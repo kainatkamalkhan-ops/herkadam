@@ -51,7 +51,7 @@ export function Header() {
   return (
     <header className="nav-strip sticky top-0 z-50 border-b border-border bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between md:h-20">
+        <div className="flex min-h-[var(--nav-strip-h)] items-center justify-between">
           <Link
             href="/"
             className="nav-brand-link inline-flex items-center"

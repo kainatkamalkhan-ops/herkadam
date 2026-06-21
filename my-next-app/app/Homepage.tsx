@@ -1,7 +1,7 @@
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { HeroSection } from "@/components/home/hero-section"
+import { HomeTaglineBand } from "@/components/home/home-tagline-band"
 import { LatestOpportunities } from "@/components/home/latest-opportunities"
 import { FeaturedOpportunities } from "@/components/home/featured-opportunities"
 import { CategoriesSection } from "@/components/home/categories-section"
@@ -18,7 +18,7 @@ export default async function HomePage() {
       <TopBar />
       <Header />
       <main className="flex-1">
-        <HeroSection />
+        <HomeTaglineBand />
         <LatestOpportunities opportunities={opportunities} />
         <FeaturedOpportunities opportunities={opportunities} />
         <CategoriesSection opportunities={opportunities} />
