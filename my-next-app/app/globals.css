@@ -557,6 +557,42 @@
   .home-hero-blend__bottom-fade {
     display: none;
   }
+
+  /* Hard bottom edge on laptop — remove soft glows that feather the cut */
+  .home-hero-blend__mesh {
+    background:
+      radial-gradient(ellipse 70% 60% at 12% 45%, rgb(255 255 255 / 0.08) 0%, transparent 58%),
+      radial-gradient(ellipse 72% 62% at 88% 42%, rgb(255 255 255 / 0.14) 0%, transparent 60%);
+  }
+
+  .home-hero-blend__orb--light {
+    opacity: 0;
+  }
+
+  .home-hero-blend__orb--rose {
+    bottom: 10%;
+    opacity: 0.28;
+  }
+
+  .home-hero-blend__steps {
+    -webkit-mask-image: radial-gradient(ellipse 92% 72% at 58% 42%, #000 46%, rgb(0 0 0 / 0.82) 72%, transparent 96%);
+    mask-image: radial-gradient(ellipse 92% 72% at 58% 42%, #000 46%, rgb(0 0 0 / 0.82) 72%, transparent 96%);
+  }
+
+  .home-hero-blend__content {
+    padding-bottom: clamp(2.25rem, 4vw, 3rem);
+  }
+
+  .home-hero-blend::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 4;
+    height: 1px;
+    background: color-mix(in oklch, var(--plum) 55%, var(--primary));
+    pointer-events: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

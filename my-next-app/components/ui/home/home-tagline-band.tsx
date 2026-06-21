@@ -33,7 +33,7 @@ export function HomeTaglineBand() {
         </div>
       </div>
 
-      <div className="home-hero-blend__bottom-fade" aria-hidden />
+      <div className="home-hero-blend__bottom-fade max-lg:block lg:hidden" aria-hidden />
     </section>
   )
 }
