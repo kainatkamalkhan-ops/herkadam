@@ -1,5 +1,5 @@
 export const MAILERLITE_ACCOUNT_ID = "2460657"
-export const MAILERLITE_FORM_ID = "s96V4y"
+export const MAILERLITE_FORM_ID = "iCfJuP"
 export const MAILERLITE_BOOTSTRAP_SRC = "/scripts/subscribe-popup.js"
 export const SUBSCRIBE_PAGE_PATH = "/subscribe"
 
