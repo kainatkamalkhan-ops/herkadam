@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Send, CheckCircle2, Loader2, ArrowRight } from "lucide-react"
+import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,25 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { COMMUNITY_SOCIAL_LINKS } from "@/lib/community-social-links"
-
-const faqs = [
-  {
-    question: "How do I apply for opportunities?",
-    answer: "Click on any opportunity to view its details, then follow the Apply Now button to be directed to the official application page.",
-  },
-  {
-    question: "Are all opportunities verified?",
-    answer: "Yes, our team verifies each opportunity before listing it to ensure legitimacy and accuracy of information.",
-  },
-  {
-    question: "How can I submit an opportunity?",
-    answer: "Use the form below or email us directly with details about the opportunity you would like to share.",
-  },
-  {
-    question: "Is Her Kadam free to use?",
-    answer: "Yes, all our resources and opportunity listings are completely free for users.",
-  },
-]
 
 export default function ConnectPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -107,6 +89,7 @@ export default function ConnectPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <TopBar showSocialIcons={false} />
       <Header />
       <main className="flex-1 bg-background">
         <div className="bg-gradient-to-br from-primary/10 to-accent/10 py-12 md:py-16">
@@ -247,8 +230,8 @@ export default function ConnectPage() {
                 <CardHeader>
                   <CardTitle className="font-serif">Join Our Community</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-2">
+                <CardContent className="space-y-5">
+                  <div className="grid grid-cols-2 gap-2">
                     {COMMUNITY_SOCIAL_LINKS.map((social) => (
                       <a
                         key={social.label}
@@ -256,19 +239,19 @@ export default function ConnectPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Follow Her Kadam on ${social.label}`}
-                        className="flex items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 transition-colors hover:border-primary/15 hover:bg-primary/5"
+                        className="flex items-center gap-2 rounded-lg border border-transparent px-2 py-2 transition-colors hover:border-primary/15 hover:bg-primary/5"
                       >
-                        <span className="min-w-[5.5rem] text-sm font-medium text-foreground sm:min-w-[6.5rem]">
+                        <span className="min-w-0 flex-1 truncate text-xs font-medium text-foreground sm:text-sm">
                           {social.label}
                         </span>
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                          <social.icon className="h-4 w-4" />
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                          <social.icon className="h-3.5 w-3.5" />
                         </span>
                       </a>
                     ))}
                   </div>
 
-                  <div className="border-t pt-6 space-y-3">
+                  <div className="border-t pt-5 space-y-3">
                     <p className="text-sm font-medium text-foreground">
                       Get new opportunities delivered to your inbox.
                     </p>
@@ -307,20 +290,6 @@ export default function ConnectPage() {
                       <p className="text-sm text-destructive">{subscribeError}</p>
                     )}
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="font-serif">Frequently Asked</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {faqs.map((faq, index) => (
-                    <div key={index}>
-                      <p className="font-medium text-sm mb-1">{faq.question}</p>
-                      <p className="text-xs text-muted-foreground">{faq.answer}</p>
-                    </div>
-                  ))}
                 </CardContent>
               </Card>
             </div>

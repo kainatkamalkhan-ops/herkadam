@@ -1,148 +1,106 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
+import { ArrowRight, Loader2 } from "lucide-react"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  XIcon,
-  YoutubeIcon,
-} from "@/components/ui/social-icons"
-
-const footerLinks = {
-  opportunities: [
-    { label: "Scholarships", href: "/opportunities/type/scholarships" },
-    { label: "Fellowships", href: "/opportunities/type/fellowships" },
-    { label: "Jobs", href: "/opportunities/type/jobs" },
-    { label: "Internships", href: "/opportunities/type/internships" },
-    { label: "Grants", href: "/opportunities/type/grants" },
-    { label: "Others", href: "/opportunities/type/other" },
-  ],
-  regions: [
-    { label: "Africa", href: "/opportunities/region/africa" },
-    { label: "Asia", href: "/opportunities/region/asia" },
-    { label: "Europe", href: "/opportunities/region/europe" },
-    { label: "North America", href: "/opportunities/region/north-america" },
-    { label: "Global", href: "/opportunities/region/global" },
-  ],
-  resources: [
-    { label: "CV Writing Tips", href: "/resources/cv-tips" },
-    { label: "Statement of Purpose", href: "/resources/sop-guide" },
-    { label: "Interview Preparation", href: "/resources/interview-prep" },
-    { label: "Application Guide", href: "/resources/application-guide" },
-    { label: "Blog", href: "/blog" },
-  ],
-  company: [
-    { label: "About Us", href: "/about" },
-    { label: "Connect", href: "/connect" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-  ],
-}
-
-const socialLinks = [
-  { icon: InstagramIcon, href: "https://instagram.com", label: "Instagram" },
-  { icon: LinkedinIcon, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: YoutubeIcon, href: "https://youtube.com", label: "YouTube" },
-  { icon: XIcon, href: "https://x.com", label: "X" },
-  { icon: FacebookIcon, href: "https://facebook.com", label: "Facebook" },
-]
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export function Footer() {
+  const [email, setEmail] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [subscribed, setSubscribed] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email.trim()) return
+
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = (await res.json()) as { error?: string }
+      if (!res.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.")
+        return
+      }
+      setSubscribed(true)
+      setEmail("")
+    } catch {
+      setError("Network error. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        {/* Top Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="inline-flex mb-4" aria-label="Her Kadam — home">
-              <HerKadamLogo size="sm" variant="on-dark" />
-            </Link>
-            <p className="text-sm opacity-80 mb-6 max-w-xs">
-              Every opportunity empowers her. Connecting women with life-changing opportunities in education, career, and leadership.
-            </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-70 transition-opacity"
-                  aria-label={social.label}
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          <Link href="/" className="mb-6 inline-flex" aria-label="Her Kadam — home">
+            <HerKadamLogo size="xl" variant="on-dark" />
+          </Link>
+
+          <h2 className="font-serif text-2xl font-bold mb-4">Her Kadam</h2>
+
+          <p className="text-sm leading-relaxed opacity-90 md:text-base">
+            Her Kadam, meaning every step, is a global gateway connecting young women everywhere to
+            scholarships, fellowships, jobs, and leadership opportunities, because access, once visible,
+            becomes transformative.
+          </p>
+
+          <div className="mt-8 w-full max-w-md">
+            {subscribed ? (
+              <p className="text-sm font-medium opacity-95">
+                Thank you for subscribing to our newsletter.
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-2 sm:flex-row">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={loading}
+                  className="h-11 border-0 bg-primary-foreground/95 text-foreground placeholder:text-muted-foreground"
+                />
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  className="h-11 shrink-0 gap-2 px-6"
+                  disabled={loading}
                 >
-                  <social.icon className="h-5 w-5" />
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="font-serif font-semibold mb-4">Opportunities</h4>
-            <ul className="space-y-2">
-              {footerLinks.opportunities.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif font-semibold mb-4">Regions</h4>
-            <ul className="space-y-2">
-              {footerLinks.regions.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Subscribing…
+                    </>
+                  ) : (
+                    <>
+                      Subscribe to Newsletter
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            )}
+            {error && !subscribed && (
+              <p className="mt-2 text-sm text-primary-foreground/90">{error}</p>
+            )}
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-primary-foreground/20 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm opacity-70">
-              &copy; {new Date().getFullYear()} Her Kadam. All rights reserved.
-            </p>
-            <p className="text-sm opacity-70">
-              Every step forward empowers a young woman&apos;s journey.
-            </p>
-          </div>
+        <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center">
+          <p className="text-sm opacity-70">
+            &copy; {new Date().getFullYear()} Her Kadam. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
