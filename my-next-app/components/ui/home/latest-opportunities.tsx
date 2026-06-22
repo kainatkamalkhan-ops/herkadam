@@ -66,18 +66,10 @@ export function LatestOpportunities({
           ))}
         </div>
 
-        {/* Mobile: vertical list of 12 · Desktop: 3 cards per row */}
-        <div className="overflow-hidden rounded-xl border border-border md:hidden">
+        {/* Horizontal cards: 1 per row on phone, 3 per row on laptop */}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
           {filteredOpportunities.slice(0, 12).map((opportunity) => (
-            <div key={opportunity.id} className="border-b border-border last:border-b-0">
-              <OpportunityCard opportunity={opportunity} variant="list" />
-            </div>
-          ))}
-        </div>
-
-        <div className="hidden gap-4 md:grid md:grid-cols-3">
-          {filteredOpportunities.slice(0, 12).map((opportunity) => (
-            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="grid" />
+            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="horizontal" />
           ))}
         </div>
 

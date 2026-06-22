@@ -36,17 +36,9 @@ export function FeaturedOpportunities({
           </p>
         </div>
 
-        <div className="mb-8 overflow-hidden rounded-xl border border-border md:hidden md:mb-10">
+        <div className="mb-8 grid grid-cols-1 gap-3 md:mb-10 md:grid-cols-3 md:gap-4">
           {featured.map((opportunity) => (
-            <div key={opportunity.id} className="border-b border-border last:border-b-0">
-              <OpportunityCard opportunity={opportunity} variant="list" />
-            </div>
-          ))}
-        </div>
-
-        <div className="mb-8 hidden gap-4 md:mb-10 md:grid md:grid-cols-3">
-          {featured.map((opportunity) => (
-            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="grid" />
+            <OpportunityCard key={opportunity.id} opportunity={opportunity} variant="horizontal" />
           ))}
         </div>
 

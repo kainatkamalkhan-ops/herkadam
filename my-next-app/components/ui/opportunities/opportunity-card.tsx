@@ -2,10 +2,9 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Calendar, MapPin, Clock, ArrowRight } from "lucide-react"
+import { Calendar, MapPin, Clock } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 
 export interface Opportunity {
   id: string
@@ -33,7 +32,7 @@ export interface Opportunity {
 
 interface OpportunityCardProps {
   opportunity: Opportunity
-  variant?: "default" | "featured" | "compact" | "dense" | "grid" | "list" | "home" | "mini" | "micro"
+  variant?: "default" | "featured" | "compact" | "dense" | "horizontal" | "grid" | "list" | "home" | "mini" | "micro"
 }
 
 const fundingColors: Record<string, string> = {
@@ -112,50 +111,57 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
     )
   }
 
-  if (variant === "list") {
+  if (variant === "horizontal" || variant === "list" || variant === "grid" || variant === "home") {
     return (
-      <Link
-        href={`/opportunities/${opportunity.id}`}
-        className="group flex items-center gap-3 px-3 py-3 transition-colors hover:bg-muted/40"
-      >
-        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
-          <Image
-            src={getOpportunityImage(opportunity)}
-            alt={opportunity.title}
-            width={56}
-            height={56}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="mb-0.5 flex items-start gap-2">
-            <h3 className="line-clamp-2 flex-1 font-serif text-[15px] font-semibold leading-snug text-foreground group-hover:text-primary">
-              {opportunity.title}
-            </h3>
-            <Badge
-              className={`${typeColors[opportunity.type] || "bg-muted"} h-4 shrink-0 px-1.5 py-0 text-[9px]`}
-              variant="secondary"
-            >
-              {opportunity.type}
-            </Badge>
+      <Link href={`/opportunities/${opportunity.id}`} className="group block h-full">
+        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/25 hover:shadow-sm">
+          <div className="flex items-center gap-3 p-3">
+            <div className="h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-lg border border-border bg-muted sm:h-20 sm:w-20">
+              <Image
+                src={getOpportunityImage(opportunity)}
+                alt={opportunity.title}
+                width={80}
+                height={80}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="mb-1 flex flex-wrap gap-1">
+                <Badge
+                  className={`${typeColors[opportunity.type] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
+                  variant="secondary"
+                >
+                  {opportunity.type}
+                </Badge>
+                <Badge
+                  className={`${fundingColors[opportunity.fundingType] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
+                  variant="secondary"
+                >
+                  {opportunity.fundingType}
+                </Badge>
+              </div>
+              <h3 className="line-clamp-2 font-serif text-sm font-semibold leading-snug text-foreground group-hover:text-primary sm:text-[15px]">
+                {opportunity.title}
+              </h3>
+              <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{opportunity.organization}</p>
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">
+                <span className="flex min-w-0 items-center gap-1">
+                  <MapPin className="h-3 w-3 shrink-0" />
+                  <span className="truncate">{opportunity.location}</span>
+                </span>
+                <span
+                  className={`flex shrink-0 items-center gap-1 ${isUrgent ? "font-medium text-destructive" : ""}`}
+                >
+                  <Calendar className="h-3 w-3" />
+                  {new Date(opportunity.deadline).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+            </div>
           </div>
-          <p className="line-clamp-1 text-xs text-muted-foreground">{opportunity.organization}</p>
-          <div className="mt-1 flex items-center gap-3 text-[11px] text-muted-foreground">
-            <span className="flex min-w-0 items-center gap-1">
-              <MapPin className="h-3 w-3 shrink-0" />
-              <span className="truncate">{opportunity.location}</span>
-            </span>
-            <span
-              className={`ml-auto flex shrink-0 items-center gap-1 ${isUrgent ? "font-medium text-destructive" : ""}`}
-            >
-              <Calendar className="h-3 w-3" />
-              {new Date(opportunity.deadline).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
-          </div>
-        </div>
+        </Card>
       </Link>
     )
   }
@@ -194,127 +200,61 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
 
   if (variant === "mini") {
     return (
-      <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-md">
-        <div className="aspect-[5/3] max-h-24 w-full overflow-hidden">
-          <Image
-            src={getOpportunityImage(opportunity)}
-            alt={opportunity.title}
-            width={240}
-            height={144}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
+      <Link href={`/opportunities/${opportunity.id}`} className="group block h-full">
+        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/25 hover:shadow-md">
+          <div className="aspect-[5/3] max-h-24 w-full overflow-hidden">
+            <Image
+              src={getOpportunityImage(opportunity)}
+              alt={opportunity.title}
+              width={240}
+              height={144}
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
 
-        <CardContent className="space-y-1.5 p-2.5">
-          <div className="flex flex-wrap gap-1">
-            <Badge
-              className={`${typeColors[opportunity.type] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
-              variant="secondary"
+          <CardContent className="space-y-1.5 p-2.5">
+            <div className="flex flex-wrap gap-1">
+              <Badge
+                className={`${typeColors[opportunity.type] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
+                variant="secondary"
+              >
+                {opportunity.type}
+              </Badge>
+            </div>
+
+            <h3 className="line-clamp-2 font-serif text-xs font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+              {opportunity.title}
+            </h3>
+            <p className="line-clamp-1 text-[10px] text-muted-foreground">{opportunity.organization}</p>
+
+            <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+              <MapPin className="h-2.5 w-2.5 shrink-0" />
+              <span className="line-clamp-1">{opportunity.location}</span>
+            </div>
+          </CardContent>
+
+          <CardFooter className="bg-muted/30 px-2.5 py-1.5">
+            <span
+              className={`flex min-w-0 items-center gap-1 text-[10px] ${isUrgent ? "font-medium text-destructive" : "text-muted-foreground"}`}
             >
-              {opportunity.type}
-            </Badge>
-          </div>
-
-          <h3 className="line-clamp-2 font-serif text-xs font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
-            {opportunity.title}
-          </h3>
-          <p className="line-clamp-1 text-[10px] text-muted-foreground">{opportunity.organization}</p>
-
-          <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-            <MapPin className="h-2.5 w-2.5 shrink-0" />
-            <span className="line-clamp-1">{opportunity.location}</span>
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex items-center justify-between gap-1 bg-muted/30 px-2.5 py-1.5">
-          <span
-            className={`flex min-w-0 items-center gap-1 text-[10px] ${isUrgent ? "font-medium text-destructive" : "text-muted-foreground"}`}
-          >
-            <Calendar className="h-2.5 w-2.5 shrink-0" />
-            <span className="truncate">
-              {new Date(opportunity.deadline).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
+              <Calendar className="h-2.5 w-2.5 shrink-0" />
+              <span className="truncate">
+                {new Date(opportunity.deadline).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>
             </span>
-          </span>
-          <Button variant="ghost" size="sm" className="h-6 shrink-0 px-1.5 text-[10px]" asChild>
-            <Link href={`/opportunities/${opportunity.id}`}>
-              View
-              <ArrowRight className="h-2.5 w-2.5" />
-            </Link>
-          </Button>
-        </CardFooter>
-      </Card>
-    )
-  }
-
-  if (variant === "grid" || variant === "home") {
-    return (
-      <Card className="group flex h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-md">
-        <div className="relative aspect-square w-full overflow-hidden bg-muted">
-          <Image
-            src={getOpportunityImage(opportunity)}
-            alt={opportunity.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-
-        <CardContent className="flex flex-1 flex-col space-y-1.5 p-2.5">
-          <div className="flex flex-wrap gap-1">
-            <Badge
-              className={`${typeColors[opportunity.type] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
-              variant="secondary"
-            >
-              {opportunity.type}
-            </Badge>
-            <Badge
-              className={`${fundingColors[opportunity.fundingType] || "bg-muted"} h-4 px-1.5 py-0 text-[9px]`}
-              variant="secondary"
-            >
-              {opportunity.fundingType}
-            </Badge>
-          </div>
-
-          <h3 className="line-clamp-2 font-serif text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary md:text-[15px]">
-            {opportunity.title}
-          </h3>
-          <p className="line-clamp-1 text-[10px] text-muted-foreground">{opportunity.organization}</p>
-
-          <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-            <MapPin className="h-2.5 w-2.5 shrink-0" />
-            <span className="line-clamp-1">{opportunity.location}</span>
-          </div>
-        </CardContent>
-
-        <CardFooter className="mt-auto flex items-center justify-between gap-1 border-t border-border/60 bg-muted/30 px-2.5 py-1.5">
-          <span
-            className={`flex min-w-0 items-center gap-1 text-[10px] ${isUrgent ? "font-medium text-destructive" : "text-muted-foreground"}`}
-          >
-            <Calendar className="h-2.5 w-2.5 shrink-0" />
-            <span className="truncate">
-              {new Date(opportunity.deadline).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
-          </span>
-          <Button variant="ghost" size="sm" className="h-6 shrink-0 px-1.5 text-[10px]" asChild>
-            <Link href={`/opportunities/${opportunity.id}`}>
-              View
-              <ArrowRight className="h-2.5 w-2.5" />
-            </Link>
-          </Button>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </Link>
     )
   }
 
   if (variant === "dense") {
     return (
-      <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-md">
+      <Link href={`/opportunities/${opportunity.id}`} className="group block h-full">
+        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/25 hover:shadow-md">
         <div className="aspect-[5/4] w-full max-h-40 overflow-hidden sm:max-h-36">
           <Image
             src={getOpportunityImage(opportunity)}
@@ -352,7 +292,7 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
           </div>
         </CardContent>
 
-        <CardFooter className="flex items-center justify-between gap-2 bg-muted/30 px-3 py-2 sm:px-3.5">
+        <CardFooter className="bg-muted/30 px-3 py-2 sm:px-3.5">
           <div
             className={`flex min-w-0 items-center gap-1 text-xs ${
               isUrgent ? "font-medium text-destructive" : "text-muted-foreground"
@@ -372,24 +312,15 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
               </Badge>
             )}
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 shrink-0 gap-0.5 px-2 text-xs transition-all group-hover:gap-1"
-            asChild
-          >
-            <Link href={`/opportunities/${opportunity.id}`}>
-              View
-              <ArrowRight className="h-3 w-3" />
-            </Link>
-          </Button>
         </CardFooter>
-      </Card>
+        </Card>
+      </Link>
     )
   }
 
   return (
-    <Card className={`group hover:shadow-lg transition-all duration-300 overflow-hidden ${variant === "featured" ? "border-primary/30 bg-gradient-to-br from-card to-secondary/30" : ""}`}>
+    <Link href={`/opportunities/${opportunity.id}`} className="group block h-full">
+      <Card className={`h-full overflow-hidden transition-all duration-300 hover:border-primary/25 hover:shadow-lg ${variant === "featured" ? "border-primary/30 bg-gradient-to-br from-card to-secondary/30" : ""}`}>
       {/* Square Image */}
       <div className="aspect-square w-full overflow-hidden">
         <Image
@@ -425,19 +356,14 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
         </div>
       </CardContent>
 
-      <CardFooter className="px-5 py-4 bg-muted/30 flex items-center justify-between">
+      <CardFooter className="bg-muted/30 px-5 py-4">
         <div className={`flex items-center gap-1.5 text-sm ${isUrgent ? "text-destructive font-medium" : "text-muted-foreground"}`}>
           <Calendar className="h-4 w-4" />
           <span>{new Date(opportunity.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
           {isUrgent && <Badge variant="destructive" className="ml-2 text-xs">Urgent</Badge>}
         </div>
-        <Button variant="ghost" size="sm" className="gap-1 group-hover:gap-2 transition-all" asChild>
-          <Link href={`/opportunities/${opportunity.id}`}>
-            View
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Button>
       </CardFooter>
     </Card>
+    </Link>
   )
 }
