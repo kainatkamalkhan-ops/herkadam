@@ -34,7 +34,7 @@ export function HeroSection() {
           </div>
 
           <p className="relative z-10 text-lg md:text-xl text-primary-foreground/85 max-w-2xl mx-auto leading-relaxed text-pretty mt-1 md:mt-2">
-            From the first search to the final submission, you are never navigating alone.
+            From the first search to the final submission, you are never navigating the tiresome process alone.
           </p>
         </div>
       </div>

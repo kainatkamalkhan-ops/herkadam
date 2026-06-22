@@ -16,12 +16,7 @@ export function Footer() {
           <h2 className="font-serif text-2xl font-bold mb-4">Her Kadam</h2>
 
           <p className="max-w-xl text-xs leading-relaxed opacity-90 md:text-sm">
-            <span className="block">
-              Her Kadam is a global gateway connecting young women everywhere to scholarships, fellowships, jobs, and leadership opportunities,
-            </span>
-            <span className="block">
-              because access, once visible, becomes transformative.
-            </span>
+            A global gateway connecting young women to transformative opportunities.
           </p>
 
           <Button asChild variant="secondary" size="lg" className="mt-8 gap-2 px-8">

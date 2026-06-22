@@ -37,7 +37,7 @@ export function LatestOpportunities({
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-1.5">
               Latest Opportunities
             </h2>
-            <p className="text-sm text-muted-foreground max-w-xl">
+            <p className="text-sm text-muted-foreground max-w-xl md:max-w-none md:whitespace-nowrap">
               Discover the newest scholarships, fellowships, and career opportunities updated every day.
             </p>
           </div>

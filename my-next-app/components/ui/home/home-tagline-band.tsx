@@ -23,10 +23,10 @@ export function HomeTaglineBand() {
       <div className="home-hero-blend__content container mx-auto px-4">
         <div className="home-hero-blend__layout home-hero-blend__layout--solo">
           <div className="home-hero-blend__copy">
-            <p className="home-hero-blend__eyebrow">Your journey starts here</p>
+            <p className="home-hero-blend__eyebrow">Her journey starts with one step.</p>
             <h1 className="home-hero-blend__headline">Scholarships, Fellowships, Jobs and Grants for Women.</h1>
             <p className="home-hero-blend__tagline">
-              From the first search to the final submission, you are never navigating alone.
+              From the first search to the final submission, you are never navigating the tiresome process alone.
             </p>
           </div>
         </div>
