@@ -41,6 +41,7 @@ export const opportunityTypes = [
   { name: "Jobs", count: 156, description: "Career opportunities for women" },
   { name: "Internships", count: 94, description: "Hands-on learning experiences" },
   { name: "Grants", count: 67, description: "Funding for projects and research" },
+  { name: "Exchange Programs", count: 38, description: "Study abroad and cultural exchange opportunities" },
   { name: "Conferences", count: 43, description: "Networking and learning events" },
   { name: "Others", count: 28, description: "Programs that don’t fit other categories" },
 ]

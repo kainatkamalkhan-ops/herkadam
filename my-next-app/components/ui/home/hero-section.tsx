@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import { OPPORTUNITY_TYPES_HERO_HEADLINE } from "@/lib/opportunity-constants"
 import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
 import { HeroFootstepsTrail } from "@/components/ui/home/hero-footsteps-trail"
 import { HeroHiddenIcons } from "@/components/ui/home/hero-hidden-icons"
@@ -29,7 +30,7 @@ export function HeroSection() {
               <HerKadamLogo size="hero" priority variant="hero-circle" />
             </div>
             <h1 className="relative z-10 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground mt-16 md:mt-20 lg:mt-24 leading-tight text-balance max-w-2xl">
-              Scholarships, Fellowships, Jobs and Grants for Women.
+              {OPPORTUNITY_TYPES_HERO_HEADLINE}
             </h1>
           </div>
 

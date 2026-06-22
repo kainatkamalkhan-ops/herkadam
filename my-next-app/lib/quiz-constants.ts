@@ -1,14 +1,10 @@
-import { OPPORTUNITY_REGIONS } from "@/lib/opportunity-constants"
+import {
+  OPPORTUNITY_REGIONS,
+  OPPORTUNITY_TYPE_FILTER_PILLS,
+} from "@/lib/opportunity-constants"
 
 /** Quiz Q1 — same categories as homepage filter pills */
-export const QUIZ_OPPORTUNITY_TYPE_OPTIONS = [
-  "Scholarships",
-  "Fellowships",
-  "Jobs",
-  "Internships",
-  "Grants",
-  "Others",
-] as const
+export const QUIZ_OPPORTUNITY_TYPE_OPTIONS = [...OPPORTUNITY_TYPE_FILTER_PILLS] as const
 
 export const QUIZ_EDUCATION_LEVELS = [
   "Undergraduate",

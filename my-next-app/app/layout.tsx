@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { MailerLiteLoader } from '@/components/mailerlite-loader'
 import { MAILERLITE_BOOTSTRAP_SRC } from '@/lib/mailerlite'
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from '@/lib/opportunity-constants'
 import './globals.css'
 
 const inter = Inter({ 
@@ -30,8 +31,8 @@ const siteUrl = "https://www.herkadam.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Her Kadam",
-  description: 'Your central hub for discovering global opportunities including scholarships, fellowships, jobs, grants, and leadership programs for women worldwide.',
-  keywords: ['scholarships', 'fellowships', 'women opportunities', 'grants', 'leadership programs', 'global opportunities'],
+  description: `Your central hub for discovering global opportunities including ${OPPORTUNITY_TYPES_MARKETING_LIST} for women worldwide.`,
+  keywords: ['scholarships', 'fellowships', 'internships', 'grants', 'exchange programs', 'conferences', 'women opportunities', 'global opportunities'],
   authors: [{ name: "Her Kadam" }],
   icons: {
     icon: [
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Her Kadam",
-    description: 'Discover global opportunities for women - scholarships, fellowships, jobs, grants, and leadership programs.',
+    description: `Discover global opportunities for women — ${OPPORTUNITY_TYPES_MARKETING_LIST}.`,
     type: "website",
     url: siteUrl,
   },

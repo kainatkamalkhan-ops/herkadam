@@ -24,7 +24,7 @@ import {
   filtersFromSearchParams,
   opportunitiesQueryFromFilters,
 } from "@/lib/opportunity-search-params"
-import { OPPORTUNITY_TYPES } from "@/lib/opportunity-constants"
+import { OPPORTUNITY_TYPES, OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 import {
   OPPORTUNITIES_PAGE_SIZE,
   parsePageParam,
@@ -168,8 +168,7 @@ export function OpportunitiesClient({
               Explore Opportunities
             </h1>
             <p className="text-muted-foreground max-w-2xl text-lg">
-              Browse through hundreds of scholarships, fellowships, jobs, and grants
-              designed for women worldwide.
+              Browse through hundreds of {OPPORTUNITY_TYPES_MARKETING_LIST} designed for women worldwide.
             </p>
           </div>
         </div>

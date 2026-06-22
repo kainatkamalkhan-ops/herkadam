@@ -20,11 +20,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Her Kadam — closing the information gap so young women everywhere can find scholarships, fellowships, jobs, and leadership opportunities.",
+    `Learn about Her Kadam — closing the information gap so young women everywhere can find ${OPPORTUNITY_TYPES_MARKETING_LIST}.`,
 }
 
 const values = [
@@ -59,7 +60,7 @@ const whatWeDo = [
     icon: Search,
     title: "We Find What's Worth Finding",
     description:
-      "We research and verify hundreds of scholarships, fellowships, jobs, and leadership programs, so you're not the one digging through scattered listings and outdated links.",
+      `We research and verify hundreds of ${OPPORTUNITY_TYPES_MARKETING_LIST}, so you're not the one digging through scattered listings and outdated links.`,
   },
   {
     icon: FileCheck,
@@ -101,9 +102,8 @@ export default function AboutPage() {
               </h2>
               <div className="about-prose space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Every year, thousands of life-changing opportunities open up for young women: scholarships,
-                  fellowships, leadership programs, jobs that could shift the entire course of a life. But for most,
-                  these opportunities remain invisible. They are buried in newsletters they never receive, on websites
+                  Every year, thousands of life-changing opportunities open up for young women: {OPPORTUNITY_TYPES_MARKETING_LIST}
+                  that could shift the entire course of a life. But for most, these opportunities remain invisible. They are buried in newsletters they never receive, on websites
                   that assume a network they were never given, shared in circles they were never invited into. The
                   opportunity exists. The access does not.
                 </p>
@@ -133,8 +133,7 @@ export default function AboutPage() {
                   path to be navigable without unnecessary barriers in her way.
                 </p>
                 <p>
-                  At its heart, Her Kadam is a global gateway connecting young women to scholarships, fellowships, jobs,
-                  internships, and leadership opportunities, all in one place. It removes the burden of searching
+                  At its heart, Her Kadam is a global gateway connecting young women to {OPPORTUNITY_TYPES_MARKETING_LIST}, all in one place. It removes the burden of searching
                   scattered, hard-to-find listings and replaces it with clarity. But it is built on more than
                   convenience, it is built on dignity and informed choice. Every opportunity shared here reflects a
                   commitment to making access more equitable and more intentional, and every step a young woman takes

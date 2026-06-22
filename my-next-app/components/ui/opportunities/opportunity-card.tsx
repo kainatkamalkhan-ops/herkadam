@@ -48,6 +48,7 @@ const typeColors: Record<string, string> = {
   "Job": "bg-blue-100 text-blue-800 hover:bg-blue-100",
   "Internship": "bg-purple-100 text-purple-800 hover:bg-purple-100",
   "Grant": "bg-rose-100 text-rose-800 hover:bg-rose-100",
+  "Exchange Program": "bg-teal-100 text-teal-800 hover:bg-teal-100",
   "Conference": "bg-orange-100 text-orange-800 hover:bg-orange-100",
   "Other": "bg-slate-100 text-slate-700 hover:bg-slate-100",
 }
@@ -60,6 +61,7 @@ function getOpportunityImage(opportunity: Opportunity): string {
     Job: "herkadam-job",
     Internship: "herkadam-internship",
     Grant: "herkadam-grant",
+    "Exchange Program": "herkadam-exchange",
     Conference: "herkadam-conference",
     Other: "herkadam-other",
   }

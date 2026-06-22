@@ -9,6 +9,7 @@ import {
   OpportunityCard,
   type Opportunity,
 } from "@/components/opportunities/opportunity-card"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 import {
   HOMEPAGE_TYPE_FILTERS,
   matchesTypeFilter,
@@ -37,8 +38,8 @@ export function LatestOpportunities({
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-1.5">
               Latest Opportunities
             </h2>
-            <p className="text-sm text-muted-foreground max-w-xl md:max-w-none md:whitespace-nowrap">
-              Discover the newest scholarships, fellowships, and career opportunities updated every day.
+            <p className="text-sm text-muted-foreground max-w-3xl">
+              Discover the newest {OPPORTUNITY_TYPES_MARKETING_LIST} updated every day.
             </p>
           </div>
           <Button variant="outline" size="sm" className="gap-1.5 shrink-0" asChild>

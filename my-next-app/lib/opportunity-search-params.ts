@@ -1,13 +1,11 @@
 /** URL slugs used in nav links → filter values on /opportunities */
 
+import { OPPORTUNITY_TYPE_SINGULAR_TO_SLUG } from "@/lib/opportunity-constants"
+
 export const TYPE_FROM_SLUG: Record<string, string> = {
-  scholarships: "Scholarship",
-  fellowships: "Fellowship",
-  jobs: "Job",
-  internships: "Internship",
-  grants: "Grant",
-  conferences: "Conference",
-  other: "Other",
+  ...Object.fromEntries(
+    Object.entries(OPPORTUNITY_TYPE_SINGULAR_TO_SLUG).map(([label, slug]) => [slug, label]),
+  ),
   others: "Other",
 }
 

@@ -21,6 +21,7 @@ const opportunitiesDropdown = {
     { label: "Jobs", href: "/opportunities?type=jobs" },
     { label: "Internships", href: "/opportunities?type=internships" },
     { label: "Grants", href: "/opportunities?type=grants" },
+    { label: "Exchange Programs", href: "/opportunities?type=exchange-programs" },
     { label: "Conferences", href: "/opportunities?type=conferences" },
     { label: "Others", href: "/opportunities?type=other" },
   ],

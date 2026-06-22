@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { getResourceVideos } from "@/lib/resource-videos"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 
 export default async function ResourcesPage() {
   const videos = await getResourceVideos()
@@ -41,8 +42,7 @@ export default async function ResourcesPage() {
                 Need Personalized Guidance?
               </h2>
               <p className="text-primary-foreground/85 mb-8 max-w-xl mx-auto">
-                Join our community and get support as you apply for scholarships, fellowships, and leadership
-                opportunities.
+                Join our community and get support as you apply for {OPPORTUNITY_TYPES_MARKETING_LIST}.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" asChild>

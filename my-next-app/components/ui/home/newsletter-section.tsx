@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Mail, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SUBSCRIBE_PAGE_PATH } from "@/lib/mailerlite"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 
 export function NewsletterSection() {
   return (
@@ -25,7 +26,7 @@ export function NewsletterSection() {
               </h2>
 
               <p className="text-lg text-primary-foreground/85 mb-8 max-w-xl mx-auto">
-                Get the latest scholarships, fellowships, and career opportunities delivered straight to your inbox every week.
+                Get the latest {OPPORTUNITY_TYPES_MARKETING_LIST} delivered straight to your inbox every week.
               </p>
 
               <Button asChild size="lg" variant="secondary" className="h-12 px-8 gap-2 shrink-0">

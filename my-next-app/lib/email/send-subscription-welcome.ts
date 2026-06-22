@@ -1,5 +1,6 @@
 import { markWelcomeEmailSent } from "@/lib/newsletter-subscribers"
 import type { SubscriptionSource } from "@/lib/newsletter-subscribers"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 
 type WelcomeEmailOptions = {
   email: string
@@ -23,7 +24,7 @@ function buildWelcomeHtml(source: SubscriptionSource): string {
   <body style="font-family: Georgia, 'Times New Roman', serif; line-height: 1.6; color: #2d1b3d; max-width: 560px; margin: 0 auto; padding: 24px;">
     <h1 style="color: #6b2d7a; font-size: 24px; margin-bottom: 8px;">Welcome to Her Kadam</h1>
     <p>${intro}</p>
-    <p>Each week we share scholarships, fellowships, grants, and career opportunities for women across India and beyond.</p>
+    <p>Each week we share ${OPPORTUNITY_TYPES_MARKETING_LIST} for women across India and beyond.</p>
     <p style="margin-top: 24px;">
       <a href="https://www.herkadam.com/opportunities" style="background: #6b2d7a; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 999px; display: inline-block;">
         Browse opportunities

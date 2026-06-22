@@ -1,27 +1,19 @@
-import { OPPORTUNITY_TYPES } from "@/lib/opportunity-constants"
+import {
+  OPPORTUNITY_TYPES,
+  OPPORTUNITY_TYPE_FILTER_PILLS,
+  OPPORTUNITY_TYPE_PLURAL_TO_SINGULAR,
+} from "@/lib/opportunity-constants"
 
-/** Plural pill labels used on homepage filters and quiz Q1 (excludes Conference) */
+/** Plural pill labels used on homepage filters and quiz Q1 */
 export const HOMEPAGE_TYPE_FILTERS = [
   "All",
-  "Scholarships",
-  "Fellowships",
-  "Jobs",
-  "Internships",
-  "Grants",
+  ...OPPORTUNITY_TYPE_FILTER_PILLS,
   "Others",
 ] as const
 
 export type HomepageTypeFilter = (typeof HOMEPAGE_TYPE_FILTERS)[number]
 
-const PLURAL_TO_SINGULAR: Record<string, string> = {
-  Scholarships: "Scholarship",
-  Fellowships: "Fellowship",
-  Jobs: "Job",
-  Internships: "Internship",
-  Grants: "Grant",
-  Conferences: "Conference",
-  Others: "Other",
-}
+const PLURAL_TO_SINGULAR = OPPORTUNITY_TYPE_PLURAL_TO_SINGULAR
 
 const SINGULAR_TO_PLURAL = Object.fromEntries(
   Object.entries(PLURAL_TO_SINGULAR).map(([plural, singular]) => [singular, plural]),

@@ -9,6 +9,7 @@ import {
   Lightbulb,
   Calendar,
   DollarSign,
+  Plane,
   ArrowRight,
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -30,6 +31,7 @@ const typeIcons: Record<string, React.ElementType> = {
   Jobs: Briefcase,
   Internships: Lightbulb,
   Grants: DollarSign,
+  "Exchange Programs": Plane,
   Conferences: Calendar,
   Others: Lightbulb,
 }

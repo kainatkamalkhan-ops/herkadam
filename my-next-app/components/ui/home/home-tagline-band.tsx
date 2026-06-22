@@ -1,5 +1,7 @@
 "use client"
 
+import { OPPORTUNITY_TYPES_HERO_HEADLINE } from "@/lib/opportunity-constants"
+
 const STEP_TRAIL = "/brand/home-step-trail.png"
 
 export function HomeTaglineBand() {
@@ -24,7 +26,7 @@ export function HomeTaglineBand() {
         <div className="home-hero-blend__layout home-hero-blend__layout--solo">
           <div className="home-hero-blend__copy">
             <p className="home-hero-blend__eyebrow">Her journey starts with one step.</p>
-            <h1 className="home-hero-blend__headline">Scholarships, Fellowships, Jobs and Grants for Women.</h1>
+            <h1 className="home-hero-blend__headline">{OPPORTUNITY_TYPES_HERO_HEADLINE}</h1>
             <p className="home-hero-blend__tagline">
               From the first search to the final submission, you are never navigating the tiresome process alone.
             </p>

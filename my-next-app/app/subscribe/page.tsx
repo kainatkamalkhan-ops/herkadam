@@ -6,11 +6,12 @@ import { Footer } from "@/components/layout/footer"
 import { MailerLiteEmbeddedForm } from "@/components/mailerlite-embedded-form"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { OPPORTUNITY_TYPES_MARKETING_LIST } from "@/lib/opportunity-constants"
 
 export const metadata: Metadata = {
   title: "Subscribe",
   description:
-    "Subscribe to Her Kadam weekly updates — scholarships, fellowships, jobs, and leadership opportunities for women worldwide.",
+    `Subscribe to Her Kadam weekly updates — ${OPPORTUNITY_TYPES_MARKETING_LIST} for women worldwide.`,
 }
 
 export default function SubscribePage() {
@@ -28,7 +29,7 @@ export default function SubscribePage() {
               Subscribe to Her Kadam
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Get the latest scholarships, fellowships, and career opportunities delivered to your inbox every week.
+              Get the latest {OPPORTUNITY_TYPES_MARKETING_LIST} delivered to your inbox every week.
             </p>
           </div>
         </div>

@@ -1,16 +1,13 @@
 import type { Opportunity } from "@/components/opportunities/opportunity-card"
-import { OPPORTUNITY_REGIONS, OPPORTUNITY_TYPES } from "@/lib/opportunity-constants"
+import {
+  OPPORTUNITY_REGIONS,
+  OPPORTUNITY_TYPES,
+  OPPORTUNITY_TYPE_PLURAL_TO_SINGULAR,
+  OPPORTUNITY_TYPE_SINGULAR_TO_SLUG,
+} from "@/lib/opportunity-constants"
 
 /** Plural labels used in category cards → singular DB values */
-const TYPE_CARD_TO_VALUE: Record<string, string> = {
-  Scholarships: "Scholarship",
-  Fellowships: "Fellowship",
-  Jobs: "Job",
-  Internships: "Internship",
-  Grants: "Grant",
-  Conferences: "Conference",
-  Others: "Other",
-}
+const TYPE_CARD_TO_VALUE = OPPORTUNITY_TYPE_PLURAL_TO_SINGULAR
 
 export function countOpportunitiesByRegion(
   opportunities: Opportunity[],
@@ -42,16 +39,7 @@ export function typeSlugFromCardLabel(cardLabel: string): string {
   const value = TYPE_CARD_TO_VALUE[cardLabel] ?? cardLabel
   const entry = OPPORTUNITY_TYPES.find((t) => t === value)
   if (!entry) return cardLabel.toLowerCase()
-  const slugMap: Record<string, string> = {
-    Scholarship: "scholarships",
-    Fellowship: "fellowships",
-    Job: "jobs",
-    Internship: "internships",
-    Grant: "grants",
-    Conference: "conferences",
-    Other: "other",
-  }
-  return slugMap[entry] ?? entry.toLowerCase()
+  return OPPORTUNITY_TYPE_SINGULAR_TO_SLUG[entry] ?? entry.toLowerCase()
 }
 
 export function fundingSlug(name: string): string {

@@ -2,8 +2,8 @@
 export const HERO_WORD_LIST = [
   "Step", "Stride", "Forward", "Rising", "Climbing", "Momentum", "Progress", "Pathways",
   "Threshold", "Doorway", "Bridge", "Foothold", "Journey", "Wandering", "Voyage", "Borders",
-  "Departure", "Arrival", "Passport", "Fully Funded", "Scholarship", "Fellowship", "Grant",
-  "Opportunity", "Application", "Acceptance", "Access", "Navigation", "Compass", "Roadmap",
+  "Departure", "Arrival", "Passport", "Fully Funded", "Scholarship", "Fellowship", "Grant", "Internship", "Exchange", "Conference",
+  "Access", "Navigation", "Compass", "Roadmap",
   "Discovery", "Unfolding", "Bloom", "Legacy", "Ecosystem", "Leadership", "Power", "Agency",
   "Voice", "Authority", "Command", "Sovereignty", "Women", "Sisterhood", "Solidarity",
   "Resilience", "Ambition", "Courage", "Becoming", "Kadam",
