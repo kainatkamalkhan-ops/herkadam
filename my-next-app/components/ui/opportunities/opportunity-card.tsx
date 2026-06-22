@@ -33,7 +33,7 @@ export interface Opportunity {
 
 interface OpportunityCardProps {
   opportunity: Opportunity
-  variant?: "default" | "featured" | "compact" | "dense" | "mini" | "micro"
+  variant?: "default" | "featured" | "compact" | "dense" | "home" | "mini" | "micro"
 }
 
 const fundingColors: Record<string, string> = {
@@ -201,33 +201,53 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
     )
   }
 
-  if (variant === "dense") {
+  if (variant === "home" || variant === "dense") {
+    const isHome = variant === "home"
+
     return (
-      <Card className="group hover:shadow-md transition-all duration-300 overflow-hidden">
-        <div className="aspect-[5/4] w-full max-h-40 overflow-hidden sm:max-h-36">
+      <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-md">
+        <div
+          className={
+            isHome
+              ? "aspect-[16/10] max-h-36 w-full overflow-hidden sm:max-h-40"
+              : "aspect-[5/4] w-full max-h-40 overflow-hidden sm:max-h-36"
+          }
+        >
           <Image
             src={getOpportunityImage(opportunity)}
             alt={opportunity.title}
-            width={320}
-            height={256}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            width={isHome ? 480 : 320}
+            height={isHome ? 300 : 256}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
 
-        <CardContent className="p-3 sm:p-3.5">
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            <Badge className={`${typeColors[opportunity.type] || "bg-muted"} text-[10px] px-1.5 py-0 h-5`} variant="secondary">
+        <CardContent className={isHome ? "space-y-1.5 p-3" : "p-3 sm:p-3.5"}>
+          <div className={`flex flex-wrap gap-1 ${isHome ? "" : "mb-2"}`}>
+            <Badge
+              className={`${typeColors[opportunity.type] || "bg-muted"} text-[10px] px-1.5 py-0 h-5`}
+              variant="secondary"
+            >
               {opportunity.type}
             </Badge>
-            <Badge className={`${fundingColors[opportunity.fundingType] || "bg-muted"} text-[10px] px-1.5 py-0 h-5`} variant="secondary">
+            <Badge
+              className={`${fundingColors[opportunity.fundingType] || "bg-muted"} text-[10px] px-1.5 py-0 h-5`}
+              variant="secondary"
+            >
               {opportunity.fundingType}
             </Badge>
           </div>
 
-          <h3 className="font-serif text-sm sm:text-base font-semibold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+          <h3
+            className={`font-serif font-semibold text-foreground transition-colors group-hover:text-primary line-clamp-2 leading-snug ${
+              isHome ? "text-sm md:text-base" : "text-sm sm:text-base mb-1"
+            }`}
+          >
             {opportunity.title}
           </h3>
-          <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{opportunity.organization}</p>
+          <p className={`text-muted-foreground line-clamp-1 ${isHome ? "text-xs" : "text-xs mb-2"}`}>
+            {opportunity.organization}
+          </p>
 
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <MapPin className="h-3 w-3 shrink-0" />
@@ -235,15 +255,36 @@ export function OpportunityCard({ opportunity, variant = "default" }: Opportunit
           </div>
         </CardContent>
 
-        <CardFooter className="px-3 py-2 sm:px-3.5 bg-muted/30 flex items-center justify-between gap-2">
-          <div className={`flex items-center gap-1 text-xs min-w-0 ${isUrgent ? "text-destructive font-medium" : "text-muted-foreground"}`}>
+        <CardFooter
+          className={`flex items-center justify-between gap-2 bg-muted/30 ${
+            isHome ? "px-3 py-2" : "px-3 py-2 sm:px-3.5"
+          }`}
+        >
+          <div
+            className={`flex min-w-0 items-center gap-1 text-xs ${
+              isUrgent ? "font-medium text-destructive" : "text-muted-foreground"
+            }`}
+          >
             <Calendar className="h-3 w-3 shrink-0" />
             <span className="truncate">
-              {new Date(opportunity.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {new Date(opportunity.deadline).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
             </span>
-            {isUrgent && <Badge variant="destructive" className="text-[10px] px-1 py-0 h-4 shrink-0">Urgent</Badge>}
+            {isUrgent && (
+              <Badge variant="destructive" className="h-4 shrink-0 px-1 py-0 text-[10px]">
+                Urgent
+              </Badge>
+            )}
           </div>
-          <Button variant="ghost" size="sm" className="h-7 px-2 text-xs gap-0.5 shrink-0 group-hover:gap-1 transition-all" asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-7 shrink-0 gap-0.5 px-2 text-xs transition-all group-hover:gap-1"
+            asChild
+          >
             <Link href={`/opportunities/${opportunity.id}`}>
               View
               <ArrowRight className="h-3 w-3" />

@@ -49,7 +49,7 @@ export const OPPORTUNITY_TYPES_MARKETING_LIST =
   "scholarships, fellowships, jobs, internships, grants, exchange programs, and conferences"
 
 export const OPPORTUNITY_TYPES_HERO_HEADLINE =
-  "Scholarships, Fellowships, Jobs, Internships, Grants, Exchange Programs and Conferences for Women."
+  "Scholarships, Fellowships, Conferences and more — exclusively for Women."
 
 export const OPPORTUNITY_REGIONS = [
   "Africa",
