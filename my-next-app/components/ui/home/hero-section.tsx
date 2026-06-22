@@ -29,12 +29,12 @@ export function HeroSection() {
               <HerKadamLogo size="hero" priority variant="hero-circle" />
             </div>
             <h1 className="relative z-10 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground mt-16 md:mt-20 lg:mt-24 leading-tight text-balance max-w-2xl">
-              Every Step Builds &apos;Her&apos; Power
+              Scholarships, Fellowships, Jobs and Grants for Women.
             </h1>
           </div>
 
           <p className="relative z-10 text-lg md:text-xl text-primary-foreground/85 max-w-2xl mx-auto leading-relaxed text-pretty mt-1 md:mt-2">
-            Your central hub for scholarships, fellowships, jobs, grants, and leadership programs.
+            From the first search to the final submission, you are never navigating alone.
           </p>
         </div>
       </div>

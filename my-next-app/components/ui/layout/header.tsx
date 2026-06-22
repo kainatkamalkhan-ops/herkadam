@@ -43,7 +43,6 @@ const opportunitiesDropdown = {
 const navLinks = [
   { label: "About", href: "/about" },
   { label: "Resources", href: "/resources" },
-  { label: "Blog", href: "/blog" },
   { label: "Connect", href: "/connect" },
 ]
 
@@ -53,12 +52,7 @@ export function Header() {
   const headerBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!mobileMenuOpen) {
-      document.body.style.overflow = ""
-      return
-    }
-
-    document.body.style.overflow = "hidden"
+    if (!mobileMenuOpen) return
 
     const updateMenuTop = () => {
       if (headerBarRef.current) {
@@ -68,10 +62,11 @@ export function Header() {
 
     updateMenuTop()
     window.addEventListener("resize", updateMenuTop)
+    window.addEventListener("scroll", updateMenuTop, { passive: true })
 
     return () => {
-      document.body.style.overflow = ""
       window.removeEventListener("resize", updateMenuTop)
+      window.removeEventListener("scroll", updateMenuTop)
     }
   }, [mobileMenuOpen])
 
@@ -100,15 +95,19 @@ export function Header() {
               About
             </Link>
 
-            {/* Opportunities Dropdown */}
-            <DropdownMenu>
+            {/* Opportunities Dropdown — non-modal so the page can scroll while open */}
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="gap-1 font-medium">
                   Opportunities
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuContent
+                align="start"
+                className="w-56 max-h-[min(70vh,28rem)]"
+                onCloseAutoFocus={(e) => e.preventDefault()}
+              >
                 <DropdownMenuItem asChild>
                   <Link href="/opportunities" className="font-medium">All Opportunities</Link>
                 </DropdownMenuItem>
@@ -168,15 +167,13 @@ export function Header() {
         {/* Mobile Navigation — fixed panel so it stays with the header and scrolls inside */}
         {mobileMenuOpen && (
           <>
-            <button
-              type="button"
-              className="fixed inset-x-0 bottom-0 z-40 bg-black/30 lg:hidden"
+            <div
+              className="fixed inset-x-0 bottom-0 z-40 bg-black/30 pointer-events-none lg:hidden"
               style={{ top: menuTop }}
-              aria-label="Close menu"
-              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden
             />
             <div
-              className="fixed inset-x-0 bottom-0 z-50 overflow-y-auto overscroll-contain border-t border-border bg-white lg:hidden"
+              className="fixed inset-x-0 bottom-0 z-50 overflow-y-auto overscroll-contain border-t border-border bg-white shadow-lg lg:hidden"
               style={{ top: menuTop }}
             >
               <nav className="flex flex-col gap-2 py-4">

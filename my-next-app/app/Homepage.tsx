@@ -9,12 +9,15 @@ import { FeaturedOpportunities } from "@/components/home/featured-opportunities"
 import { CategoriesSection } from "@/components/home/categories-section"
 import { CalendarSection } from "@/components/home/calendar-section"
 import { ResourcesSection } from "@/components/home/resources-section"
-import { BlogSection } from "@/components/home/blog-section"
 import { NewsletterSection } from "@/components/home/newsletter-section"
 import { getOpportunities } from "@/lib/opportunities"
+import { getResourceVideos } from "@/lib/resource-videos"
 
 export default async function HomePage() {
-  const opportunities = await getOpportunities()
+  const [opportunities, resourceVideos] = await Promise.all([
+    getOpportunities(),
+    getResourceVideos({ limit: 4 }),
+  ])
   return (
     <div className="min-h-screen flex flex-col">
       <TopBar />
@@ -26,8 +29,7 @@ export default async function HomePage() {
         <FeaturedOpportunities opportunities={opportunities} />
         <CategoriesSection opportunities={opportunities} />
         <CalendarSection opportunities={opportunities} />
-        <ResourcesSection />
-        <BlogSection />
+        <ResourcesSection videos={resourceVideos} />
         <NewsletterSection />
       </HomepageMainShell>
       <Footer />

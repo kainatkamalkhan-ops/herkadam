@@ -15,7 +15,7 @@ import {
 import { TopBar } from "@/components/layout/top-bar"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { HerKadamLogo } from "@/components/ui/brand/her-kadam-logo"
+import { InstagramIcon } from "@/components/ui/social-icons"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -275,14 +275,25 @@ export default function AboutPage() {
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8 tracking-tight">
                 About Me
               </h2>
-              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start lg:gap-14">
-                <div className="about-prose space-y-4 text-muted-foreground leading-relaxed">
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-start lg:gap-8">
+                <div className="about-prose order-2 space-y-4 text-[15px] leading-snug text-muted-foreground md:text-base md:leading-relaxed lg:order-1 lg:pr-2">
                   <p>
-                    I&apos;m Kainat Kamal, the founder of Her Kadam. I&apos;m a researcher and PhD candidate whose work
-                    sits at the intersection of academia, peacebuilding, and advocacy, and over the years I&apos;ve seen
-                    firsthand how often talent and ambition are not the limiting factor for young women, access is. I
-                    built Her Kadam because I wanted that gap to close, one opportunity, one application, one step at a
-                    time.
+                    I&apos;m Kainat Kamal, the founder of Her Kadam. I&apos;m a tribal Pashtun woman from Pakistan, and
+                    that identity has shaped how I see the world, the value of community, the weight of representation,
+                    and the importance of standing firmly in who you are while still reaching toward more. I believe
+                    progress is never a single leap, it is built one deliberate step at a time, and that belief sits at
+                    the center of everything I do.
+                  </p>
+                  <p>
+                    I&apos;m a PhD candidate in Peace and Conflict Studies at the National University of Sciences and
+                    Technology, researching inclusive peacebuilding frameworks for conflict-affected regions, alongside a
+                    Visiting Research Fellowship at the Australian National University. I&apos;m trained in gender
+                    mainstreaming through Pakistan&apos;s Planning and Management Institute, completed the United Nations
+                    Gender Advisor Course, and was selected for UNITAR&apos;s Women&apos;s Leadership for Peace Emerging
+                    Leaders Course in Geneva. I&apos;ve spoken at multiple international conferences, represented
+                    Pakistan across two cohorts of the UN Women Gen-Forum, and served as Country Speaker at the UN Women
+                    Asia-Pacific consultation on CEDAW General Recommendation No. 40, the United Nations framework on
+                    women&apos;s equal and inclusive representation in decision-making.
                   </p>
                   <p>
                     My journey combines academia, art, and advocacy to advance gender equality. Along the way,
@@ -290,22 +301,27 @@ export default function AboutPage() {
                     taught me firsthand how much a strong application, and the right guidance behind it, can change.
                   </p>
                 </div>
-                <div className="relative mx-auto h-[360px] w-full max-w-[280px] shrink-0 lg:mx-0">
-                  <div className="absolute left-0 top-4 z-10 h-[240px] w-[180px] origin-center rotate-[-7deg]">
-                    <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35)] ring-2 ring-background">
-                      <Image
-                        src="/about-founder.png"
-                        alt="Kainat Kamal, founder of Her Kadam"
-                        fill
-                        className="object-cover object-[center_22%]"
-                        sizes="180px"
-                      />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-2 right-0 z-20 w-[210px] origin-center rotate-[9deg] rounded-2xl bg-white p-3 shadow-[0_24px_60px_-14px_rgba(0,0,0,0.3)] ring-2 ring-border/80 sm:bottom-4">
-                    <div className="flex items-center justify-center">
-                      <HerKadamLogo size="md" />
-                    </div>
+                <div className="order-1 mx-auto w-full max-w-[320px] shrink-0 sm:max-w-[340px] lg:order-2 lg:mx-0 lg:max-w-none">
+                  <div className="overflow-hidden rounded-2xl bg-muted/20 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] ring-2 ring-border/50">
+                    <Image
+                      src="/about-founder.png"
+                      alt="Kainat Kamal, founder of Her Kadam"
+                      width={768}
+                      height={1024}
+                      className="block h-auto w-full"
+                      sizes="(max-width: 1024px) 340px, 300px"
+                      priority
+                    />
+                    <Link
+                      href="https://www.instagram.com/dukhtarekamal/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow @dukhtarekamal on Instagram"
+                      className="flex items-center justify-center gap-2 border-t border-border/40 bg-muted/30 px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/50 hover:text-primary"
+                    >
+                      <InstagramIcon className="h-4 w-4 text-primary" aria-hidden />
+                      <span>@dukhtarekamal</span>
+                    </Link>
                   </div>
                 </div>
               </div>

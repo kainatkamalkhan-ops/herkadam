@@ -45,7 +45,9 @@ function AdminLoginForm() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="font-serif">Her Kadam Admin</CardTitle>
-          <CardDescription>Enter the admin password to manage opportunities.</CardDescription>
+          <CardDescription>
+            Enter the admin password to publish opportunities and resource videos.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
@@ -65,11 +67,22 @@ function AdminLoginForm() {
               {loading ? "Signing in…" : "Sign in"}
             </Button>
           </form>
-          <p className="text-xs text-muted-foreground mt-4">
-            <Link href="/" className="underline hover:text-foreground">
-              Back to site
-            </Link>
-          </p>
+          <div className="mt-6 space-y-3 border-t border-border pt-4">
+            <p className="text-xs text-muted-foreground">After signing in you can open:</p>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/admin/add-opportunity">Add opportunity</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/admin/add-resource-video">Add resource video</Link>
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              <Link href="/" className="underline hover:text-foreground">
+                Back to site
+              </Link>
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -117,6 +117,20 @@ export default function AddOpportunityPage() {
   return (
     <div className="min-h-screen bg-muted/30 py-10 px-4">
       <div className="container mx-auto max-w-3xl">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm text-muted-foreground">Her Kadam Admin</p>
+            <h1 className="font-serif text-2xl font-bold text-foreground">Add opportunity</h1>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/admin/add-resource-video">Resource videos</Link>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/opportunities">View opportunities</Link>
+            </Button>
+          </div>
+        </div>
         <Card>
           <CardHeader>
             <CardTitle className="font-serif">Add Opportunity</CardTitle>
