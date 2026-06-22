@@ -7,8 +7,6 @@ import {
   Building2,
   ArrowLeft,
   ExternalLink,
-  Share2,
-  Bookmark,
   Clock,
 } from "lucide-react"
 import { TopBar } from "@/components/layout/top-bar"
@@ -20,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { OpportunityCard } from "@/components/opportunities/opportunity-card"
 import { OpportunityDetailBody } from "@/components/opportunities/opportunity-detail-body"
+import { OpportunityShareButton } from "@/components/opportunities/opportunity-share-button"
 import { getOpportunities, getOpportunityById } from "@/lib/opportunities"
 import { formatOpportunityDate } from "@/lib/opportunity-text"
 
@@ -46,6 +45,8 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
   const relatedOpportunities = all
     .filter((opp) => opp.id !== id && (opp.type === opportunity.type || opp.region === opportunity.region))
     .slice(0, 3)
+
+  const sharePath = `/opportunities/${id}`
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -146,16 +147,11 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                       </Button>
                     )}
 
-                    <div className="flex gap-2">
-                      <Button variant="outline" className="flex-1 gap-2">
-                        <Bookmark className="h-4 w-4" />
-                        Save
-                      </Button>
-                      <Button variant="outline" className="flex-1 gap-2">
-                        <Share2 className="h-4 w-4" />
-                        Share
-                      </Button>
-                    </div>
+                    <OpportunityShareButton
+                      title={opportunity.title}
+                      path={sharePath}
+                      className="w-full gap-2"
+                    />
                   </CardContent>
                 </Card>
 
