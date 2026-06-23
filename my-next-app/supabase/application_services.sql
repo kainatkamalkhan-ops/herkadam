@@ -9,6 +9,7 @@ create table if not exists public.application_services (
   program_name text not null,
   program_link text,
   application_deadline date not null,
+  background_document_path text,
   document_path text,
   documentation_folder_url text,
   account_holder_name text not null,

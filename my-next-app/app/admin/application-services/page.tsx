@@ -97,7 +97,10 @@ export default function ApplicationServicesAdminPage() {
     )
   }
 
-  async function openFile(id: string, file: "document" | "payment_proof") {
+  async function openFile(
+    id: string,
+    file: "background_document" | "review_document" | "payment_proof",
+  ) {
     const key = `${id}-${file}`
     setOpeningFile(key)
     const res = await fetch(
@@ -235,19 +238,34 @@ export default function ApplicationServicesAdminPage() {
                   )}
 
                   <div className="flex flex-wrap gap-2">
-                    {row.document_path && (
+                    {row.background_document_path && (
                       <Button
                         variant="outline"
                         size="sm"
-                        disabled={openingFile === `${row.id}-document`}
-                        onClick={() => void openFile(row.id, "document")}
+                        disabled={openingFile === `${row.id}-background_document`}
+                        onClick={() => void openFile(row.id, "background_document")}
                       >
-                        {openingFile === `${row.id}-document` ? (
+                        {openingFile === `${row.id}-background_document` ? (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         ) : (
                           <ExternalLink className="mr-2 h-4 w-4" />
                         )}
-                        Open document
+                        Open background doc
+                      </Button>
+                    )}
+                    {row.document_path && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={openingFile === `${row.id}-review_document`}
+                        onClick={() => void openFile(row.id, "review_document")}
+                      >
+                        {openingFile === `${row.id}-review_document` ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <ExternalLink className="mr-2 h-4 w-4" />
+                        )}
+                        Open review doc
                       </Button>
                     )}
                     <Button

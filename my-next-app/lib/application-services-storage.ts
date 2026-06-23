@@ -24,7 +24,7 @@ function sanitizeFilename(name: string): string {
 
 export async function uploadApplicationFile(
   file: File,
-  kind: "document" | "payment_proof",
+  kind: "background_document" | "review_document" | "payment_proof",
 ): Promise<{ path: string } | { error: string }> {
   const supabase = getSupabaseAdmin()
   if (!supabase) {
@@ -39,18 +39,23 @@ export async function uploadApplicationFile(
   }
 
   const allowed =
-    kind === "document" ? DOCUMENT_MIME_TYPES : PAYMENT_PROOF_MIME_TYPES
+    kind === "payment_proof" ? PAYMENT_PROOF_MIME_TYPES : DOCUMENT_MIME_TYPES
   const mime = file.type || "application/octet-stream"
   if (!allowed.has(mime)) {
     return {
       error:
-        kind === "document"
-          ? "Upload a Word document (.doc, .docx) or PDF."
-          : "Upload payment proof as JPG, PNG, WebP, or PDF.",
+        kind === "payment_proof"
+          ? "Upload payment proof as JPG, PNG, WebP, or PDF."
+          : "Upload a Word document (.doc, .docx) or PDF.",
     }
   }
 
-  const prefix = kind === "document" ? "documents" : "payment-proofs"
+  const prefix =
+    kind === "background_document"
+      ? "background-documents"
+      : kind === "review_document"
+        ? "review-documents"
+        : "payment-proofs"
   const path = `${prefix}/${randomUUID()}-${sanitizeFilename(file.name)}`
 
   const buffer = Buffer.from(await file.arrayBuffer())

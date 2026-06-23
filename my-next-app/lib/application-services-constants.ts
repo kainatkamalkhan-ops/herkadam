@@ -1,4 +1,6 @@
 export const HER_KADAM_INSTAGRAM_URL = "https://www.instagram.com/her.kadam/"
+export const HER_KADAM_EMAIL =
+  process.env.NEXT_PUBLIC_HER_KADAM_EMAIL?.trim() || "herkadamofficial@gmail.com"
 export const HER_KADAM_YOUTUBE_URL =
   process.env.NEXT_PUBLIC_HER_KADAM_YOUTUBE_URL?.trim() || "https://www.youtube.com/@herkadam"
 
@@ -11,11 +13,11 @@ export const APPLICATION_SERVICE_OPTIONS = [
   "CV Review — Rs 1,500",
   "Bachelor's Scholarship SOP Review — Rs 2,000",
   "Master's / PhD Scholarship SOP Review — Rs 3,500",
-  "Research Proposal Feedback — Rs 5,000",
+  "Research Proposal Review — Rs 5,000",
   "Conference / Fellowship SOP / Motivation Letter Review — Rs 1,000",
-  "Recommendation Letter Guidance — Rs 1,200",
-  "Two SOP Reviews Bundle — Rs 6,000",
-  "CV + SOP Combo — Rs 4,500",
+  "Recommendation Letter Review — Rs 1,200",
+  "Two Master's/PhD SOP Reviews Bundle — Rs 6,000",
+  "CV Review + Master's/PhD SOP Review Combo — Rs 4,500",
   "Full PhD Application Package — Rs 9,000",
   "Full Master's Application Package — Rs 5,500",
   "CV Creation (from scratch) — Rs 5,000",
@@ -23,7 +25,7 @@ export const APPLICATION_SERVICE_OPTIONS = [
 
 export const CV_CREATION_SERVICE = "CV Creation (from scratch) — Rs 5,000"
 
-export const RESEARCH_PROPOSAL_SERVICE = "Research Proposal Feedback — Rs 5,000"
+export const RESEARCH_PROPOSAL_SERVICE = "Research Proposal Review — Rs 5,000"
 
 export const PAYMENT_MEDIUM_OPTIONS = [
   "Bank Transfer",

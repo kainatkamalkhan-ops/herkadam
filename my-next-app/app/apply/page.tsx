@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Download,
   ExternalLink,
+  Mail,
 } from "lucide-react"
 import { InstagramIcon, YoutubeIcon } from "@/components/ui/social-icons"
 import { TopBar } from "@/components/layout/top-bar"
@@ -14,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ApplyWithUsForm } from "@/components/apply/apply-with-us-form"
 import {
+  HER_KADAM_EMAIL,
   HER_KADAM_INSTAGRAM_URL,
   HER_KADAM_YOUTUBE_URL,
 } from "@/lib/application-services-constants"
@@ -29,30 +31,26 @@ const reviewServices = [
   { name: "CV Review", price: "Rs 1,500" },
   { name: "Bachelor's Scholarship SOP Review", price: "Rs 2,000" },
   { name: "Master's / PhD Scholarship SOP Review", price: "Rs 3,500" },
-  { name: "Research Proposal Feedback", price: "Rs 5,000" },
+  { name: "Research Proposal Review", price: "Rs 5,000" },
   {
     name: "Conference / Fellowship SOP / Motivation Letter Review",
     price: "Rs 1,000",
   },
-  {
-    name: "Recommendation Letter Guidance",
-    price: "Rs 1,200",
-    note: "Guidance on how to approach recommenders and what to send them — not writing the letter itself.",
-  },
+  { name: "Recommendation Letter Review", price: "Rs 1,200" },
 ]
 
 const packages = [
-  { name: "Two SOP Reviews Bundle", price: "Rs 6,000" },
-  { name: "CV + SOP Combo", price: "Rs 4,500" },
+  { name: "Two Master's/PhD SOP Reviews Bundle", price: "Rs 6,000" },
+  { name: "CV Review + Master's/PhD SOP Review Combo", price: "Rs 4,500" },
   {
     name: "Full PhD Application Package",
     price: "Rs 9,000",
-    note: "CV review + SOP review + research proposal feedback + guidance notes on recommendation letters and timeline.",
+    note: "CV review + Master's/PhD SOP review + research proposal review.",
   },
   {
     name: "Full Master's Application Package",
     price: "Rs 5,500",
-    note: "CV review + SOP review + shortlisting/deadline guidance.",
+    note: "CV review + Master's/PhD SOP review.",
   },
 ]
 
@@ -71,7 +69,7 @@ export default function ApplyPage() {
               Strengthen your application before you submit
             </h1>
             <p className="text-muted-foreground max-w-3xl text-lg">
-              Free guides and paid review services to help you apply with clarity — from checklists
+              Free guides and paid review services to help you apply with clarity — from downloadables
               and tips to honest feedback on your CV, SOP, and research proposal.
             </p>
           </div>
@@ -114,17 +112,16 @@ export default function ApplyPage() {
                 <CardHeader>
                   <CardTitle className="font-serif flex items-center gap-2 text-lg">
                     <Download className="h-5 w-5 text-primary" />
-                    Application checklist
+                    Downloadables
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-sm text-muted-foreground">
-                    Deadlines, required documents, and formatting rules by program type — free to
-                    download or print.
+                    A quick reference for deadlines, documents, and formatting by program type.
                   </p>
                   <Button asChild variant="outline" className="gap-2">
                     <Link href="/apply/checklist">
-                      View checklist
+                      View downloadables
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
@@ -152,7 +149,7 @@ export default function ApplyPage() {
                 <CardHeader>
                   <CardTitle className="font-serif flex items-center gap-2 text-lg">
                     <InstagramIcon className="h-5 w-5 text-primary" />
-                    Quick questions
+                    Questions
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -183,15 +180,11 @@ export default function ApplyPage() {
                 that gap. We read your documents the way an admissions committee would, and tell you
                 honestly what is working, what is not, and how to fix it.
               </p>
-              <p className="mt-4 max-w-3xl text-sm text-muted-foreground leading-relaxed">
-                This is not a guarantee of admission or selection. No one can promise that, and
-                anyone who does is not being honest with you. What we do guarantee is that your
-                application will go in stronger, clearer, and more convincing than it came to us.
-                The outcome still depends on the institution, the program, and factors outside
-                anyone&apos;s control. Her Kadam&apos;s job is to make sure you are applying in the
-                best possible way, not to promise a result we do not control. We do not write your
-                application for you. We give you honest feedback on what you have already written,
-                including whether you are telling your story the right way.
+              <p className="mt-4 max-w-3xl text-sm italic text-muted-foreground leading-relaxed">
+                We do not guarantee admission or selection, as that depends on the institution, not
+                us. What we offer is honest, expert feedback on what you&apos;ve already written, so
+                your application goes in clearer and stronger. We improve how your story is told. We
+                don&apos;t write it for you.
               </p>
             </div>
 
@@ -210,9 +203,6 @@ export default function ApplyPage() {
                             {item.price}
                           </span>
                         </div>
-                        {item.note && (
-                          <p className="mt-1 text-xs text-muted-foreground">{item.note}</p>
-                        )}
                       </li>
                     ))}
                   </ul>
@@ -254,10 +244,6 @@ export default function ApplyPage() {
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
                 CV creation (from scratch)
               </h2>
-              <p className="mt-2 text-muted-foreground max-w-2xl">
-                A separate service for building your CV from your full documentation — not a single
-                file review.
-              </p>
             </div>
             <Card className="border-primary/20 bg-primary/5">
               <CardContent className="pt-6 space-y-3">
@@ -267,11 +253,57 @@ export default function ApplyPage() {
                 </div>
                 <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                   <li>
-                    Requires a link to a folder (Google Drive or similar) with degrees,
-                    certificates, work history, and other relevant documents.
+                    Requires a link to a folder containing all relevant documents (degrees,
+                    certificates, work history, etc.).
                   </li>
                   <li>Must be requested at least 2 weeks before any application deadline.</li>
                 </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Section 4 — Customised Consultation */}
+          <section id="consultation" className="space-y-4">
+            <div>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+                Customised consultation
+              </h2>
+              <p className="mt-2 text-muted-foreground max-w-2xl">
+                Have a specific scholarship or a few in mind? Book a one-on-one consultation and get
+                tailored guidance on what to highlight.
+              </p>
+            </div>
+            <Card>
+              <CardContent className="pt-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-medium text-foreground">One-on-one consultation</span>
+                  <span className="font-semibold text-primary">Rs 5,000</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Two 30-minute sessions. In the first, you share your life story, experiences, and
+                  background. In the second, you receive detailed feedback on how to present your
+                  strengths, plus answers to any specific questions.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Full consultation sessions cannot be booked through this form. Contact Her Kadam via{" "}
+                  <Link
+                    href={HER_KADAM_INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary underline-offset-4 hover:underline"
+                  >
+                    Instagram
+                  </Link>{" "}
+                  or{" "}
+                  <Link
+                    href={`mailto:${HER_KADAM_EMAIL}`}
+                    className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
+                  >
+                    <Mail className="h-3.5 w-3.5" />
+                    email
+                  </Link>{" "}
+                  to arrange.
+                </p>
               </CardContent>
             </Card>
           </section>

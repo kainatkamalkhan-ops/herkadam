@@ -39,10 +39,19 @@ export async function POST(request: Request) {
   const accountHolderName = String(formData.get("accountHolderName") ?? "").trim()
   const paymentMedium = String(formData.get("paymentMedium") ?? "").trim()
   const additionalNotes = String(formData.get("additionalNotes") ?? "").trim()
-  const documentFile = formData.get("documentFile")
+  const backgroundDocumentFile = formData.get("backgroundDocumentFile")
+  const reviewDocumentFile = formData.get("reviewDocumentFile")
   const paymentProofFile = formData.get("paymentProofFile")
 
-  if (!fullName || !email || !whatsapp || !serviceSelected || !programName || !applicationDeadline) {
+  if (
+    !fullName ||
+    !email ||
+    !whatsapp ||
+    !serviceSelected ||
+    !programName ||
+    !programLink ||
+    !applicationDeadline
+  ) {
     return NextResponse.json({ error: "Please fill in all required fields." }, { status: 400 })
   }
 
@@ -50,12 +59,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 })
   }
 
-  if (programLink && !isValidUrl(programLink)) {
+  if (!isValidUrl(programLink)) {
     return NextResponse.json({ error: "Program link must be a valid URL." }, { status: 400 })
   }
 
   if (!PAYMENT_MEDIUM_OPTIONS.includes(paymentMedium as (typeof PAYMENT_MEDIUM_OPTIONS)[number])) {
     return NextResponse.json({ error: "Please select a valid payment medium." }, { status: 400 })
+  }
+
+  if (!(backgroundDocumentFile instanceof File) || backgroundDocumentFile.size === 0) {
+    return NextResponse.json(
+      { error: "Please upload your informal CV / background document." },
+      { status: 400 },
+    )
   }
 
   if (!(paymentProofFile instanceof File) || paymentProofFile.size === 0) {
@@ -67,24 +83,32 @@ export async function POST(request: Request) {
   if (cvCreation) {
     if (!documentationFolderUrl || !isValidUrl(documentationFolderUrl)) {
       return NextResponse.json(
-        { error: "CV Creation requires a link to your documentation folder (Google Drive or similar)." },
+        {
+          error:
+            "CV Creation requires a link to your documentation folder (Google Drive or similar).",
+        },
         { status: 400 },
       )
     }
-  } else if (!(documentFile instanceof File) || documentFile.size === 0) {
+  } else if (!(reviewDocumentFile instanceof File) || reviewDocumentFile.size === 0) {
     return NextResponse.json(
-      { error: "Please upload your CV, SOP, or proposal as a Word file or PDF." },
+      { error: "Please upload the SOP, proposal, or CV you want reviewed." },
       { status: 400 },
     )
   }
 
-  let documentPath: string | undefined
-  if (!cvCreation && documentFile instanceof File) {
-    const upload = await uploadApplicationFile(documentFile, "document")
-    if ("error" in upload) {
-      return NextResponse.json({ error: upload.error }, { status: 400 })
+  const backgroundUpload = await uploadApplicationFile(backgroundDocumentFile, "background_document")
+  if ("error" in backgroundUpload) {
+    return NextResponse.json({ error: backgroundUpload.error }, { status: 400 })
+  }
+
+  let reviewDocumentPath: string | undefined
+  if (!cvCreation && reviewDocumentFile instanceof File) {
+    const reviewUpload = await uploadApplicationFile(reviewDocumentFile, "review_document")
+    if ("error" in reviewUpload) {
+      return NextResponse.json({ error: reviewUpload.error }, { status: 400 })
     }
-    documentPath = upload.path
+    reviewDocumentPath = reviewUpload.path
   }
 
   const paymentUpload = await uploadApplicationFile(paymentProofFile, "payment_proof")
@@ -100,9 +124,10 @@ export async function POST(request: Request) {
     whatsapp,
     serviceSelected,
     programName,
-    programLink: programLink || undefined,
+    programLink,
     applicationDeadline,
-    documentPath,
+    backgroundDocumentPath: backgroundUpload.path,
+    documentPath: reviewDocumentPath,
     documentationFolderUrl: cvCreation ? documentationFolderUrl : undefined,
     accountHolderName,
     paymentMedium,

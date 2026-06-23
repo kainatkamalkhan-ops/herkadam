@@ -23,6 +23,10 @@ import {
   isCvCreationService,
 } from "@/lib/application-services-constants"
 
+const WORD_ACCEPT =
+  ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+const REVIEW_DOC_ACCEPT = `${WORD_ACCEPT},.pdf,application/pdf`
+
 export function ApplyWithUsForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -39,7 +43,8 @@ export function ApplyWithUsForm() {
   const [accountHolderName, setAccountHolderName] = useState("")
   const [paymentMedium, setPaymentMedium] = useState("")
   const [additionalNotes, setAdditionalNotes] = useState("")
-  const [documentFile, setDocumentFile] = useState<File | null>(null)
+  const [backgroundDocumentFile, setBackgroundDocumentFile] = useState<File | null>(null)
+  const [reviewDocumentFile, setReviewDocumentFile] = useState<File | null>(null)
   const [paymentProofFile, setPaymentProofFile] = useState<File | null>(null)
 
   const cvCreation = isCvCreationService(serviceSelected)
@@ -48,6 +53,24 @@ export function ApplyWithUsForm() {
     if (!serviceSelected || !applicationDeadline) return null
     return computeDeadlineFlags(serviceSelected, applicationDeadline)
   }, [serviceSelected, applicationDeadline])
+
+  function resetForm() {
+    setSubmitted(false)
+    setFullName("")
+    setEmail("")
+    setWhatsapp("")
+    setServiceSelected("")
+    setProgramName("")
+    setProgramLink("")
+    setApplicationDeadline("")
+    setDocumentationFolderUrl("")
+    setAccountHolderName("")
+    setPaymentMedium("")
+    setAdditionalNotes("")
+    setBackgroundDocumentFile(null)
+    setReviewDocumentFile(null)
+    setPaymentProofFile(null)
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -66,10 +89,14 @@ export function ApplyWithUsForm() {
     formData.set("paymentMedium", paymentMedium)
     formData.set("additionalNotes", additionalNotes)
 
+    if (backgroundDocumentFile) {
+      formData.set("backgroundDocumentFile", backgroundDocumentFile)
+    }
+
     if (cvCreation) {
       formData.set("documentationFolderUrl", documentationFolderUrl)
-    } else if (documentFile) {
-      formData.set("documentFile", documentFile)
+    } else if (reviewDocumentFile) {
+      formData.set("reviewDocumentFile", reviewDocumentFile)
     }
 
     if (paymentProofFile) {
@@ -101,26 +128,7 @@ export function ApplyWithUsForm() {
         <p className="mt-2 text-muted-foreground">
           Once your payment is reviewed, you will receive a confirmation message.
         </p>
-        <Button
-          variant="outline"
-          className="mt-6"
-          onClick={() => {
-            setSubmitted(false)
-            setFullName("")
-            setEmail("")
-            setWhatsapp("")
-            setServiceSelected("")
-            setProgramName("")
-            setProgramLink("")
-            setApplicationDeadline("")
-            setDocumentationFolderUrl("")
-            setAccountHolderName("")
-            setPaymentMedium("")
-            setAdditionalNotes("")
-            setDocumentFile(null)
-            setPaymentProofFile(null)
-          }}
-        >
+        <Button variant="outline" className="mt-6" onClick={resetForm}>
           Submit another application
         </Button>
       </div>
@@ -193,13 +201,14 @@ export function ApplyWithUsForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="programLink">Program / opportunity link</Label>
+        <Label htmlFor="programLink">Program / opportunity link *</Label>
         <Input
           id="programLink"
           type="url"
           value={programLink}
           onChange={(e) => setProgramLink(e.target.value)}
           placeholder="https://…"
+          required
           disabled={loading}
         />
       </div>
@@ -223,9 +232,27 @@ export function ApplyWithUsForm() {
         {deadlineFlags?.needsTwoWeekNotice && (
           <p className="flex items-start gap-2 text-sm text-amber-700">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
-            Research proposals and CV creation require at least 2 weeks before your deadline.
+            Research proposal review and CV creation require at least 2 weeks before your deadline.
           </p>
         )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="backgroundDocumentFile">
+          Upload 1 — Informal CV / background document *
+        </Label>
+        <Input
+          id="backgroundDocumentFile"
+          type="file"
+          accept={WORD_ACCEPT}
+          onChange={(e) => setBackgroundDocumentFile(e.target.files?.[0] ?? null)}
+          required
+          disabled={loading}
+        />
+        <p className="text-xs text-muted-foreground">
+          Word format preferred. Share your education, skills, and experiences in an informal Word
+          document — this helps us understand your background so our feedback fits your story.
+        </p>
       </div>
 
       {cvCreation ? (
@@ -241,21 +268,25 @@ export function ApplyWithUsForm() {
             disabled={loading}
           />
           <p className="text-xs text-muted-foreground">
-            Share a Google Drive or similar folder with degrees, certificates, and work history.
+            Link to a folder (Google Drive or similar) with degrees, certificates, work history,
+            and other documents needed for CV creation from scratch.
           </p>
         </div>
       ) : (
         <div className="space-y-2">
-          <Label htmlFor="documentFile">Upload CV / SOP / proposal *</Label>
+          <Label htmlFor="reviewDocumentFile">Upload 2 — SOP / proposal / CV for review *</Label>
           <Input
-            id="documentFile"
+            id="reviewDocumentFile"
             type="file"
-            accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
-            onChange={(e) => setDocumentFile(e.target.files?.[0] ?? null)}
-            required={!cvCreation}
+            accept={REVIEW_DOC_ACCEPT}
+            onChange={(e) => setReviewDocumentFile(e.target.files?.[0] ?? null)}
+            required
             disabled={loading}
           />
-          <p className="text-xs text-muted-foreground">Word (.doc, .docx) or PDF, up to 10 MB.</p>
+          <p className="text-xs text-muted-foreground">
+            Word format preferred; PDF preferred for CVs so formatting stays intact. This is the
+            document you will receive feedback on.
+          </p>
         </div>
       )}
 

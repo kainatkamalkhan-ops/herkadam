@@ -15,6 +15,7 @@ export type ApplicationServiceRow = {
   program_name: string
   program_link: string | null
   application_deadline: string
+  background_document_path: string | null
   document_path: string | null
   documentation_folder_url: string | null
   account_holder_name: string
@@ -33,8 +34,9 @@ export type CreateApplicationServiceInput = {
   whatsapp: string
   serviceSelected: string
   programName: string
-  programLink?: string
+  programLink: string
   applicationDeadline: string
+  backgroundDocumentPath: string
   documentPath?: string
   documentationFolderUrl?: string
   accountHolderName: string
@@ -57,7 +59,9 @@ export function validateApplicationServiceInput(
     return "Please select a valid service or package."
   }
   if (!input.programName.trim()) return "Please enter the program or opportunity name."
+  if (!input.programLink.trim()) return "Please enter the program or opportunity link."
   if (!input.applicationDeadline) return "Please enter your application deadline."
+  if (!input.backgroundDocumentPath) return "Please upload your informal CV / background document."
   if (!input.accountHolderName.trim()) return "Please enter the account holder name for payment."
   if (!input.paymentMedium.trim()) return "Please select a payment medium."
   if (!input.paymentProofPath) return "Please upload payment proof."
@@ -88,8 +92,9 @@ export async function createApplicationService(
       whatsapp: input.whatsapp.trim(),
       service_selected: input.serviceSelected,
       program_name: input.programName.trim(),
-      program_link: input.programLink?.trim() || null,
+      program_link: input.programLink.trim(),
       application_deadline: input.applicationDeadline,
+      background_document_path: input.backgroundDocumentPath,
       document_path: input.documentPath ?? null,
       documentation_folder_url: input.documentationFolderUrl?.trim() || null,
       account_holder_name: input.accountHolderName.trim(),
