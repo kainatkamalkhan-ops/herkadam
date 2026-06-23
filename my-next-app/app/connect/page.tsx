@@ -56,7 +56,7 @@ export default function ConnectPage() {
         <div className="bg-gradient-to-br from-primary/10 to-accent/10 py-12 md:py-16">
           <div className="container mx-auto px-4">
             <Badge variant="secondary" className="mb-4">
-              Connect
+              Connect With Us
             </Badge>
             <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Connect With Us

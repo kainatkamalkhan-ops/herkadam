@@ -46,7 +46,8 @@ function AdminLoginForm() {
         <CardHeader>
           <CardTitle className="font-serif">Her Kadam Admin</CardTitle>
           <CardDescription>
-            Enter the admin password to publish opportunities and resource videos.
+            Enter the admin password to publish opportunities, resource videos, and review
+            application submissions.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -75,6 +76,9 @@ function AdminLoginForm() {
               </Button>
               <Button variant="outline" size="sm" asChild>
                 <Link href="/admin/add-resource-video">Add resource video</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/admin/application-services">Application submissions</Link>
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">

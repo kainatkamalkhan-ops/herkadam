@@ -44,7 +44,8 @@ const opportunitiesDropdown = {
 const navLinks = [
   { label: "About", href: "/about" },
   { label: "Resources", href: "/resources" },
-  { label: "Connect", href: "/connect" },
+  { label: "Apply With Us", href: "/apply" },
+  { label: "Connect With Us", href: "/connect" },
 ]
 
 export function Header() {

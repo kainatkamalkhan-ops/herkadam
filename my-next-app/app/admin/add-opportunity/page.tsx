@@ -127,6 +127,9 @@ export default function AddOpportunityPage() {
               <Link href="/admin/add-resource-video">Resource videos</Link>
             </Button>
             <Button variant="outline" size="sm" asChild>
+              <Link href="/admin/application-services">Application submissions</Link>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
               <Link href="/opportunities">View opportunities</Link>
             </Button>
           </div>
