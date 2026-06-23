@@ -173,14 +173,14 @@ export default function ApplyPage() {
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
                 Paid services
               </h2>
-              <p className="mt-4 max-w-3xl text-foreground leading-relaxed">
+              <p className="mt-4 text-foreground leading-relaxed">
                 Getting into the right program is rarely about talent alone. It is about how clearly
                 you can show what you have to offer, and most applicants never get real feedback on
                 that until it is too late. Her Kadam&apos;s application review service exists to close
                 that gap. We read your documents the way an admissions committee would, and tell you
                 honestly what is working, what is not, and how to fix it.
               </p>
-              <p className="mt-4 max-w-3xl text-sm italic text-muted-foreground leading-relaxed">
+              <p className="mt-4 text-sm italic text-muted-foreground leading-relaxed">
                 We do not guarantee admission or selection, as that depends on the institution, not
                 us. What we offer is honest, expert feedback on what you&apos;ve already written, so
                 your application goes in clearer and stronger. We improve how your story is told. We
